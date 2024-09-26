@@ -103,7 +103,10 @@ const Navbar = () => {
           />
           <img src={cart} alt='cart icon' className='w-5' />
           {user ? (
-            <p className='w-6 h-full text-center rounded-full bg-black text-white cursor-pointer '>
+            <p
+              onClick={() => navigate("/profile")}
+              className='w-6 h-full text-center rounded-full bg-black text-white cursor-pointer '
+            >
               {user?.data?.user.name.slice(0, 1)}
             </p>
           ) : (

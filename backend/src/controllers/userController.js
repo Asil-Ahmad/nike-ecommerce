@@ -56,7 +56,7 @@ const loginUser = (req, res) => {
   userModel
     .find(userData)
     .then((data) => {
-      console.log(data);
+      // console.log(data);
       const user = data[0]._id; //!here we get _id of the user
 
       if (data[0].email === email && data[0].password === password) {

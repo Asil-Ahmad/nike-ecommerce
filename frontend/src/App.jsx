@@ -12,6 +12,7 @@ import WomenCollections from "./components/WomenCollections";
 import KidCollections from "./components/KidCollections";
 import Footer from "./components/Footer";
 import Collections from "./components/Collections";
+import Profile from "./components/Profile";
 
 const App = () => {
   const { pathname } = useLocation();
@@ -30,6 +31,7 @@ const App = () => {
         <Route path='/collections' element={<Collections />} />
         <Route path='/register' element={<Register />} />
         <Route path='/login' element={<Login />} />
+        <Route path='/profile' element={<Profile />} />
       </Routes>
       {!footerHidden && <Footer />}
     </div>
