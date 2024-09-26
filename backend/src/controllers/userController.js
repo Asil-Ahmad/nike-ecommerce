@@ -57,11 +57,15 @@ const loginUser = (req, res) => {
     .find(userData)
     .then((data) => {
       // console.log(data);
-      const user = data[0]._id; //!here we get _id of the user
+      const { _id, name, email } = data[0]; //!here we get _id of the user
+      console.log(_id, name, email);
 
       if (data[0].email === email && data[0].password === password) {
         //!-------------here we get token for specific user to login session---------------
-        const token = jwt.sign({ userId: user }, `${process.env.JWT_SECRET}`);
+        const token = jwt.sign(
+          { userId: _id, email: email, name: name },
+          `${process.env.JWT_SECRET}`
+        );
         res
           .status(200)
           .json({ message: "Success", user: data[0], token: token });
