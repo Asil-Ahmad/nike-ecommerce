@@ -1,4 +1,5 @@
 import userModel from "../models/userModel.js";
+import jwt from "jsonwebtoken";
 
 const listUser = async (req, res) => {
   try {
@@ -56,8 +57,14 @@ const loginUser = (req, res) => {
     .find(userData)
     .then((data) => {
       console.log(data);
+      const user = data[0]._id; //!here we get _id of the user
+
       if (data[0].email === email && data[0].password === password) {
-        res.status(200).json({ message: "Success", user: data[0] });
+        //!-------------here we get token for specific user to login session---------------
+        const token = jwt.sign({ userId: user }, `${process.env.JWT_SECRET}`);
+        res
+          .status(200)
+          .json({ message: "Success", user: data[0], token: token });
       }
     })
     .catch((err) => res.status(400).json({ message: "Failed" }));
