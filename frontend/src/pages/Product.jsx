@@ -3,6 +3,14 @@ import { useParams } from "react-router-dom";
 import { ShopContext } from "../context/ShopContext";
 import { outlineheart } from "../assets/icons";
 import Transitions from "../components/Transitions";
+import {
+  nikeit42,
+  nikeit43,
+  nikeit44,
+  nikeit45,
+  nikeit46,
+  nikeit47,
+} from "../assets/images";
 
 const Product = () => {
   const { productId } = useParams();
@@ -32,36 +40,51 @@ const Product = () => {
     <Transitions>
       <div className='container py-10'>
         <div className='flex sm:justify-center gap-10 flex-wrap '>
-          <div className="flex gap-5 justify-center sm:flex-row flex-col-reverse">
+          <div className='flex gap-5 justify-center sm:flex-row flex-col-reverse'>
+            {/* //!Small images */}
             <div className='flex sm:flex-col flex-row gap-2 overflow-x-auto '>
-              <img
-                src={currentProduct.image}
+            <img
+                src={nikeit43}
                 alt={currentProduct.name}
+                onMouseEnter={() => setImage(nikeit43)}
+                className='rounded-xl w-[100px] h-[100px] object-cover object-center'
+              />
+
+              <img
+                src={nikeit43}
+                alt={currentProduct.name}
+                onMouseEnter={() => setImage(nikeit43)}
                 className='rounded-xl w-[100px] h-[100px] object-cover object-center'
               />
               <img
-                src={currentProduct.image}
+                src={nikeit42}
                 alt={currentProduct.name}
+                onMouseEnter={() => setImage(nikeit42)}
                 className='rounded-xl w-[100px] h-[100px] object-cover object-center'
               />
               <img
-                src={currentProduct.image}
+                src={nikeit44}
                 alt={currentProduct.name}
+                onMouseEnter={() => setImage(nikeit44)}
                 className='rounded-xl w-[100px] h-[100px] object-cover object-center'
               />
               <img
-                src={currentProduct.image}
+                src={nikeit45}
                 alt={currentProduct.name}
+                onMouseEnter={() => setImage(nikeit45)}
                 className='rounded-xl w-[100px] h-[100px] object-cover object-center'
               />
               <img
-                src={currentProduct.image}
+                src={nikeit46}
                 alt={currentProduct.name}
+                onMouseEnter={() => setImage(nikeit46)}
                 className='rounded-xl w-[100px] h-[100px] object-cover object-center'
               />
             </div>
+
+            {/* //!Main Product image  */}
             <img
-              src={currentProduct.image}
+              src={image}
               alt={currentProduct.name}
               className='rounded-xl  shadow-xl sm:w-[495px] sm:h-[610px] object-cover object-center'
             />
@@ -99,7 +122,7 @@ const Product = () => {
               onClick={() => {
                 setCart(currentProduct.price);
               }}
-              className='bg-black hover:bg-black/50 mt-10 sticky bottom-2 text-white w-full text-center py-5 rounded-full'
+              className='bg-black hover:bg-black/50  active:bg-green-500 mt-10 sticky bottom-2 text-white w-full text-center py-5 rounded-full'
               popovertarget='box'
             >
               Add to Bag

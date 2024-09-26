@@ -2,7 +2,8 @@ import React, { useRef } from "react";
 import { gsap } from "gsap";
 import { useGSAP } from "@gsap/react";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { nikeit42 } from "../assets/images";
+import { nikeit42, nikeit49 } from "../assets/images";
+import { nike } from "../assets/icons";
 gsap.registerPlugin(ScrollTrigger);
 
 gsap.registerPlugin(useGSAP);
@@ -32,13 +33,14 @@ const Profile = () => {
   });
   return (
     <section id='home' className='container'>
-      <div
-        ref={scrollRef}
-        className='grid grid-cols-3 grid-rows-1 gap-4 pt-10 pb-5 '
-      >
+      <div ref={scrollRef} className=' flex gap-4 pt-10 pb-5 '>
         {/*//! Profile grid-------------------------------- */}
         <div className=' gridbox w-full h-full border-black border rounded-3xl p-10 flex items-start gap-4'>
-          <img src={nikeit42} alt='' className=' aspect-square size-24 rounded-lg' />
+          <img
+            src={nikeit42}
+            alt=''
+            className=' aspect-square size-24 rounded-lg'
+          />
           <div>
             <h1 className='text-2xl text-black'>User Name</h1>
             <p>Address</p>
@@ -46,19 +48,12 @@ const Profile = () => {
         </div>
 
         {/*//! Liked grid---------------------------------- */}
-        <div className='gridbox col-span-2 border border-black bg-white w-full h-full rounded-3xl'>
+        <div className='gridbox border border-black bg-white w-full h-full rounded-3xl'>
           <div className='bg-gray-400/20 text-black p-4 rounded-t-3xl flex items-center gap-2'>
-            <div>
-              <h1 className='text-black font-semibold'>Liked Products</h1>
-            </div>
+            <h1 className='text-black font-semibold'>Liked Products</h1>
           </div>
-
-          <div className='flex items-center justify-center '>
-            <div className='w-full grid grid-cols-4 grid-rows-1 gap-10 p-4 items-start '>
-              <div className=' py-2 flex gap-4 items-center justify-center '>
-                <h1 className='text-black max-sm:hidden '>Hello</h1>
-              </div>
-            </div>
+          <div className="p-2">
+            <img src={nikeit49} alt='' className='size-32 rounded-3xl' />
           </div>
         </div>
       </div>

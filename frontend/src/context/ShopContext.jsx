@@ -17,6 +17,7 @@ const ShopContextProvider = (props) => {
   const [search, setSearch] = useState("");
   const [showSearch, setShowSearch] = useState(false); //!toggle show search bar
   const [user, setUser] = useState("");
+  const [cart, setCart] = useState("");
   const value = {
     url,
     products,
@@ -30,9 +31,12 @@ const ShopContextProvider = (props) => {
     setSearch,
     showSearch,
     setShowSearch,
-    // !user Auth
+    // !user Auth we need to show user on all across the app
     user,
     setUser,
+    //! user add to cart the items
+    cart,
+    setCart,
   };
 
   return (
