@@ -50,7 +50,7 @@ const Collections = () => {
   return (
     <div className='sm:container container-none'>
       {/* -----------//!Main Sticky bar------------ */}
-      <div className=' py-5 sm:px-0 px-2  flex justify-between items-center sticky z-20 bg-white top-0'>
+      <div className=' py-5  px-2  flex justify-between items-center sticky z-20 bg-white top-0'>
         <h1 className='text-2xl font-medium'>
           All Collections ({products.length})
         </h1>
@@ -63,9 +63,12 @@ const Collections = () => {
         </div>
       </div>
       {/* //!Filter Section */}
-      <div className='flex '>
+      <div className='flex pl-2 '>
         <div className=' sm:flex hidden flex-col w-[30%] gap-2 sticky top-[5rem] h-screen accent-black '>
-          <label htmlFor='shoes' className='text-xl cursor-pointer '>
+          <label
+            htmlFor='shoes'
+            className='text-xl cursor-pointer hover:scale-105 duration-150  '
+          >
             Shoes
             <input
               type='checkbox'
@@ -75,7 +78,10 @@ const Collections = () => {
               onClick={toggleCategory}
             />
           </label>
-          <label htmlFor='T-shirt' className='text-xl cursor-pointer'>
+          <label
+            htmlFor='T-shirt'
+            className='text-xl cursor-pointer  hover:scale-105 duration-150'
+          >
             T-Shirts{" "}
             <input
               type='checkbox'
@@ -85,7 +91,10 @@ const Collections = () => {
               onClick={toggleCategory}
             />
           </label>
-          <label htmlFor='Lower' className='text-xl cursor-pointer'>
+          <label
+            htmlFor='Lower'
+            className='text-xl cursor-pointer hover:scale-105 duration-150'
+          >
             Lower{" "}
             <input
               type='checkbox'
