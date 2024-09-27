@@ -2,14 +2,18 @@ import React, { useState, useEffect, useContext } from "react";
 import { ShopContext } from "../context/ShopContext";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
+import { jwtDecode } from "jwt-decode";
 
 import Transitions from "../components/Transitions";
 import Loader from "../constants/Loader";
 
 const Login = () => {
-  const { url, user, setUser } = useContext(ShopContext);
+  const { url, user, setUser, setToken } = useContext(ShopContext);
   const navigate = useNavigate();
-  console.log("username", user?.data?.user.name);
+
+  useEffect(() => {
+    console.log(user);
+  });
 
   //   const [users, setUsers] = useState({ username: "", password: "" });
   //   const { username, password } = users; //!destructure the above usestate
@@ -26,23 +30,59 @@ const Login = () => {
   // };
   document.title = "Login";
 
-  //!not register form change this
+  //!not register form change this with promise
+  // const handleSubmit = async (e) => {
+  //   e.preventDefault();
+  //   // console.log(email, password);
+
+  //   const res = await axios
+  //     .post(`${url}/api/user/login`, {
+  //       email: email,
+  //       password: password,
+  //     })
+  //     .then((data) => {
+  //       // navigate("/profile");
+  //       console.log("this is token", data);
+  //       setUser(data);
+  //       setToken(data);
+  //       navigate("/");
+  //     })
+  //     .catch((err) => alert("User not exist or wrong input"));
+  // };
+
+  //!this is with try catch
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(email, password);
 
-    const res = await axios
-      .post(`${url}/api/user/login`, {
+    try {
+      const res = await axios.post(`${url}/api/user/login`, {
         email: email,
         password: password,
-      })
-      .then((data) => {
-        // navigate("/profile");
-        console.log(data);
-        setUser(data);
-        navigate("/");
-      })
-      .catch((err) => alert("User not exist or wrong input"));
+      });
+
+      const { data } = res;
+
+      if (data && data.token) {
+        console.log("Token retrieved:", data.token);
+        setToken(data.token);
+        const decodedToken = jwtDecode(data.token);
+        localStorage.setItem("token", data.token);
+        localStorage.setItem("username", (decodedToken.name)); //!this convert the token into string
+        // console.log("Decoded Token:", decodedToken);
+        const username = localStorage.getItem("username");
+        console.log(username);
+        
+        setUser(username);
+        
+
+        navigate("/profile");
+      } else {
+        throw new Error("Token not found in response");
+      }
+    } catch (err) {
+      console.error(err.message);
+      alert("User does not exist or wrong input");
+    }
   };
 
   // useEffect(() => {

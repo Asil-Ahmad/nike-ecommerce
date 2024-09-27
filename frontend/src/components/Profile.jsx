@@ -1,9 +1,9 @@
-import React, { useRef } from "react";
+import React, { useRef, useEffect } from "react";
+
 import { gsap } from "gsap";
 import { useGSAP } from "@gsap/react";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { nikeit42, nikeit49 } from "../assets/images";
-import { nike } from "../assets/icons";
 gsap.registerPlugin(ScrollTrigger);
 
 gsap.registerPlugin(useGSAP);
@@ -52,7 +52,7 @@ const Profile = () => {
           <div className='bg-gray-400/20 text-black p-4 rounded-t-3xl flex items-center gap-2'>
             <h1 className='text-black font-semibold'>Liked Products</h1>
           </div>
-          <div className="p-2">
+          <div className='p-2'>
             <img src={nikeit49} alt='' className='size-32 rounded-3xl' />
           </div>
         </div>

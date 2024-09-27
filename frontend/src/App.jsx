@@ -13,6 +13,8 @@ import KidCollections from "./components/KidCollections";
 import Footer from "./components/Footer";
 import Collections from "./components/Collections";
 import Profile from "./components/Profile";
+import Protected from "./protectedRoutes/ProtectedRoutes";
+
 
 const App = () => {
   const { pathname } = useLocation();
@@ -23,6 +25,7 @@ const App = () => {
       <SearchBar />
 
       <Routes>
+        {/* <Route element={<Protected />} /> */}
         <Route path='/' element={<Home />} />
         <Route path='/products/:productId' element={<Product />} />
         <Route path='/men' element={<MenCollections />} />
@@ -32,6 +35,7 @@ const App = () => {
         <Route path='/register' element={<Register />} />
         <Route path='/login' element={<Login />} />
         <Route path='/profile' element={<Profile />} />
+        <Route path='*' element={<h1>Page not found</h1>} />
       </Routes>
       {!footerHidden && <Footer />}
     </div>

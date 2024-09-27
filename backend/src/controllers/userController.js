@@ -57,8 +57,8 @@ const loginUser = (req, res) => {
     .find(userData)
     .then((data) => {
       // console.log(data);
-      const { _id, name, email } = data[0]; //!here we get _id of the user
-      console.log(_id, name, email);
+      const { _id, name, email } = data[0]; //!here we get _id name and email for jwt from data of the user
+      // console.log(_id, name, email);
 
       if (data[0].email === email && data[0].password === password) {
         //!-------------here we get token for specific user to login session---------------
@@ -68,8 +68,8 @@ const loginUser = (req, res) => {
         );
         res
           .status(200)
-          .json({ message: "Success", user: data[0], token: token });
-      }
+          .json({ message: "Success", token: token });
+      } else res.status(400).json({ message: "Authorization Failed" });
     })
     .catch((err) => res.status(400).json({ message: "Failed" }));
 };

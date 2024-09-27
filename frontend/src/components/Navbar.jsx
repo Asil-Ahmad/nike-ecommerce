@@ -18,6 +18,8 @@ const Navbar = () => {
   const [open, setOpen] = useState(false);
   const { showSearch, setShowSearch, user } = useContext(ShopContext);
   const test = useRef(null);
+  const username = localStorage.getItem("username");
+  const token = localStorage.getItem("token");
 
   //animation
   const variants = {
@@ -101,13 +103,18 @@ const Navbar = () => {
             className='w-5 hidden lg:flex'
             onClick={() => navigate("/register")}
           />
-          <img src={cart} alt='cart icon' className='w-5' />
-          {user ? (
+          <img
+            src={cart}
+            alt='cart icon'
+            className='w-5'
+            onClick={() => localStorage.clear()}
+          />
+          {token ? (
             <p
               onClick={() => navigate("/profile")}
               className='w-6 h-full text-center rounded-full bg-black text-white cursor-pointer '
             >
-              {user?.data?.user.name.slice(0, 1)}
+              {username.slice(0, 1)}
             </p>
           ) : (
             <img

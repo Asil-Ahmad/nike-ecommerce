@@ -17,7 +17,7 @@ const ShopContextProvider = (props) => {
   const [search, setSearch] = useState("");
   const [showSearch, setShowSearch] = useState(false); //!toggle show search bar
   const [user, setUser] = useState("");
-  const [cart, setCart] = useState("");
+  const [token, setToken] = useState("");
   const value = {
     url,
     products,
@@ -35,8 +35,8 @@ const ShopContextProvider = (props) => {
     user,
     setUser,
     //! user add to cart the items
-    cart,
-    setCart,
+    token,
+    setToken,
   };
 
   return (
