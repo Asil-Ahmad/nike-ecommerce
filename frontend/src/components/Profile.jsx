@@ -1,15 +1,17 @@
-import React, { useRef, useEffect } from "react";
+import React, { useContext } from "react";
 
 import { gsap } from "gsap";
 import { useGSAP } from "@gsap/react";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { nikeit42, nikeit49 } from "../assets/images";
+import { ShopContext } from "../context/ShopContext";
 gsap.registerPlugin(ScrollTrigger);
 
 gsap.registerPlugin(useGSAP);
 
 const Profile = () => {
-  const scrollRef = useRef();
+  const { username } = useContext(ShopContext);
+
   useGSAP(() => {
     gsap.fromTo(
       ".gridbox",
@@ -22,18 +24,13 @@ const Profile = () => {
         y: 0,
         delay: 1.2,
         stagger: 0.2,
-        // scrollTrigger: {
-        //   trigger: ".gridbox",
-        //   markers: true,
-        //   start: "top 40%",
-        //   scrub: 1,
-        // },
       }
     );
   });
+
   return (
     <section id='home' className='container max-w-[1024px]'>
-      <div ref={scrollRef} className=' flex max-sm:flex-col gap-4 pt-10 pb-5 '>
+      <div className=' flex max-sm:flex-col gap-4 pt-10 pb-5 '>
         {/*//! Profile grid-------------------------------- */}
         <div className=' gridbox w-full h-full border-black border rounded-xl p-4 flex  items-start gap-4'>
           <img
@@ -42,7 +39,7 @@ const Profile = () => {
             className=' aspect-square size-24 rounded-lg'
           />
           <div>
-            <h1 className='text-2xl text-black'>User Name</h1>
+            <h1 className='text-2xl text-black'>{username}</h1>
             <p>Address</p>
           </div>
         </div>

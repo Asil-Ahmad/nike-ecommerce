@@ -19,10 +19,11 @@ const Navbar = () => {
   const [visible, setVisible] = useState(true);
   const [openProfileMenu, setOpenProfileMenu] = useState(false);
   const [open, setOpen] = useState(false);
-  const { showSearch, setShowSearch, user } = useContext(ShopContext);
+  const { showSearch, setShowSearch, username } = useContext(ShopContext);
   const test = useRef(null);
-  const username = localStorage.getItem("username");
+
   const token = localStorage.getItem("token");
+  console.log("This is user:", username);
 
   //animation
   const variants = {

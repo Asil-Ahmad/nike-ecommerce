@@ -69,9 +69,6 @@ const Login = () => {
         localStorage.setItem("token", data.token); //!we set token inside local storage
         localStorage.setItem("username", decodedToken.name); //!we get token name
         // console.log("Decoded Token:", decodedToken);
-        const username = localStorage.getItem("username"); //!we get username from the localstorage
-        // console.log(username);
-        setUser(username); //!we set name for the user inside the navbar profile icon
         navigate("/profile");
       } else {
         throw new Error("Token not found in response");
@@ -120,18 +117,23 @@ const Login = () => {
           />
 
           <input
-            type='submit'
+          type="button"
             popovertarget='box'
             value='Sign in'
-            className='text-white  bg-black px-4 py-2 rounded-full'
+            className='text-white cursor-pointer  bg-black px-4 py-2 rounded-full'
           />
-          {/* <div
-          id='box'
-          popover='auto'
-          className='bg-black sm:w-[25%] sm:h-[25%] w-full/ transition-all duration-300 content-center '
-        >
-          <p className='text-white text-2xl'>You Have Subscribed!!</p>
-        </div> */}
+          <div
+            id='box'
+            popover='auto'
+            className='bg-black sm:w-[25%] sm:h-[25%] w-full h-full p-2 text-center  content-center '
+          >
+            <p className='text-white text-2xl'>Are you Human??</p>
+            <input
+              type='submit'
+              value='Yes'
+              className='text-white mt-5 cursor-pointer  bg-red-500 px-4 py-2 rounded-full'
+            />
+          </div>
         </form>
       </div>
     </Transitions>

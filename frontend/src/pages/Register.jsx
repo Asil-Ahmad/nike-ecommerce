@@ -9,7 +9,7 @@ import Loader from "../constants/Loader";
 
 const Register = () => {
   const { url } = useContext(ShopContext);
-  console.log(url);
+  // console.log(url);
 
   //   const [users, setUsers] = useState({ username: "", password: "" });
   //   const { username, password } = users; //!destructure the above usestate
@@ -46,9 +46,10 @@ const Register = () => {
         setPassword("");
         alert("User registered succesfully!");
       } else {
-        alert("User with this email already exists");
       }
-    } catch (error) {}
+    } catch (error) {
+      alert(error.response.data.message);
+    }
     // Add a 3-second timer for the loader
     //it takes 3 second for loader to get false
     setTimeout(() => {
@@ -56,9 +57,9 @@ const Register = () => {
     }, 1000);
   };
 
-  useEffect(() => {
-    fetchUsers();
-  }, []);
+  // useEffect(() => {
+  //   fetchUsers();
+  // }, []);
   return loading ? (
     <Loader />
   ) : (

@@ -16,9 +16,10 @@ const ShopContextProvider = (props) => {
   //!adding search feature on all web pages
   const [search, setSearch] = useState("");
   const [showSearch, setShowSearch] = useState(false); //!toggle show search bar
-  const [user, setUser] = useState("");
+  const username = localStorage.getItem("username");
   const [token, setToken] = useState("");
   const value = {
+    username, //logged username
     url,
     products,
     spotlights,
@@ -31,9 +32,6 @@ const ShopContextProvider = (props) => {
     setSearch,
     showSearch,
     setShowSearch,
-    // !user Auth we need to show user on all across the app
-    user,
-    setUser,
     //! user add to cart the items
     token,
     setToken,
