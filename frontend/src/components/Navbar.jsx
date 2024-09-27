@@ -129,7 +129,7 @@ const Navbar = () => {
                 {username.slice(0, 1)}
               </p>
               {openProfileMenu ? (
-                <div className=' profile-bg  absolute right-[50px] top-[40px] p-5 w-[13rem] h-[10rem] border border-black z-40 bg-white '>
+                <div className=' profile-bg  absolute right-0 top-[40px] p-5 w-[13rem] h-[10rem] border border-black z-40 bg-white '>
                   <div className='w-full flex flex-col gap-5 justify-center items-center cursor-pointer'>
                     <p
                       onClick={() => {

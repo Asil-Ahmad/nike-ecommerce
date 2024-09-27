@@ -32,10 +32,10 @@ const Profile = () => {
     );
   });
   return (
-    <section id='home' className='container'>
-      <div ref={scrollRef} className=' flex gap-4 pt-10 pb-5 '>
+    <section id='home' className='container max-w-[1024px]'>
+      <div ref={scrollRef} className=' flex max-sm:flex-col gap-4 pt-10 pb-5 '>
         {/*//! Profile grid-------------------------------- */}
-        <div className=' gridbox w-full h-full border-black border rounded-3xl p-10 flex items-start gap-4'>
+        <div className=' gridbox w-full h-full border-black border rounded-xl p-4 flex  items-start gap-4'>
           <img
             src={nikeit42}
             alt=''
@@ -48,8 +48,8 @@ const Profile = () => {
         </div>
 
         {/*//! Liked grid---------------------------------- */}
-        <div className='gridbox border border-black bg-white w-full h-full rounded-3xl'>
-          <div className='bg-gray-400/20 text-black p-4 rounded-t-3xl flex items-center gap-2'>
+        <div className='gridbox border border-black bg-white w-full h-full rounded-xl'>
+          <div className='bg-gray-400/20 text-black p-4 rounded-t-xl flex items-center gap-2'>
             <h1 className='text-black font-semibold'>Liked Products</h1>
           </div>
           <div className='p-2'>
