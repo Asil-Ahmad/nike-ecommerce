@@ -60,21 +60,18 @@ const Login = () => {
         password: password,
       });
 
-      const { data } = res;
+      const { data } = res; //!EXTRACT DATA FROM RES
 
       if (data && data.token) {
-        console.log("Token retrieved:", data.token);
+        console.log("Token:", data.token);
         setToken(data.token);
-        const decodedToken = jwtDecode(data.token);
-        localStorage.setItem("token", data.token);
-        localStorage.setItem("username", (decodedToken.name)); //!this convert the token into string
+        const decodedToken = jwtDecode(data.token); //!this convert the token into string using jwtDecode
+        localStorage.setItem("token", data.token); //!we set token inside local storage
+        localStorage.setItem("username", decodedToken.name); //!we get token name
         // console.log("Decoded Token:", decodedToken);
-        const username = localStorage.getItem("username");
-        console.log(username);
-        
-        setUser(username);
-        
-
+        const username = localStorage.getItem("username"); //!we get username from the localstorage
+        // console.log(username);
+        setUser(username); //!we set name for the user inside the navbar profile icon
         navigate("/profile");
       } else {
         throw new Error("Token not found in response");

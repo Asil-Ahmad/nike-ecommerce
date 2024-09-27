@@ -11,10 +11,13 @@ import {
 import { Link, useNavigate, NavLink } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import { ShopContext } from "../context/ShopContext";
+import { gsap } from "gsap";
+import { useGSAP } from "@gsap/react";
 
 const Navbar = () => {
   const navigate = useNavigate();
   const [visible, setVisible] = useState(true);
+  const [openProfileMenu, setOpenProfileMenu] = useState(false);
   const [open, setOpen] = useState(false);
   const { showSearch, setShowSearch, user } = useContext(ShopContext);
   const test = useRef(null);
@@ -26,6 +29,18 @@ const Navbar = () => {
     open: { opacity: 1, x: 0 },
     closed: { opacity: 0, x: 100 },
   };
+
+  useGSAP(() => {
+    gsap.from(".stage", {
+      opacity: 0,
+      y: 0,
+      delay: 0.5,
+      stagger: 0.1,
+    });
+    gsap.from(".profile-bg", {
+      height: 0,
+    });
+  }, [openProfileMenu, setOpenProfileMenu]);
   return (
     <header className='relative'>
       <div className='w-full bg-black py-3 '>
@@ -101,28 +116,54 @@ const Navbar = () => {
             src={outlineheart}
             alt='outline heart'
             className='w-5 hidden lg:flex'
-            onClick={() => navigate("/register")}
+            // onClick={() => navigate("/register")}
           />
-          <img
-            src={cart}
-            alt='cart icon'
-            className='w-5'
-            onClick={() => localStorage.clear()}
-          />
+          <img src={cart} alt='cart icon' className='w-5' />
+          {/* //!here we add profile user icon who have logged in also added logout and reload the page */}
           {token ? (
-            <p
-              onClick={() => navigate("/profile")}
-              className='w-6 h-full text-center rounded-full bg-black text-white cursor-pointer '
-            >
-              {username.slice(0, 1)}
-            </p>
+            <div className='relative'>
+              <p
+                onClick={() => setOpenProfileMenu(!openProfileMenu)}
+                className=' w-6 h-full text-center rounded-full bg-black text-white cursor-pointer '
+              >
+                {username.slice(0, 1)}
+              </p>
+              {openProfileMenu ? (
+                <div className=' profile-bg  absolute right-[50px] top-[40px] p-5 w-[13rem] h-[10rem] border border-black z-40 bg-white '>
+                  <div className='w-full flex flex-col gap-5 justify-center items-center cursor-pointer'>
+                    <p
+                      onClick={() => {
+                        navigate("/profile"),
+                          setOpenProfileMenu(!openProfileMenu);
+                      }}
+                      className='stage hover:bg-black hover:text-white w-full text-center'
+                    >
+                      Profile
+                    </p>
+                    <p className='stage hover:bg-black hover:text-white w-full text-center'>
+                      Orders
+                    </p>
+                    <p
+                      onClick={() => {
+                        localStorage.clear(), location.reload();
+                      }}
+                      className='stage hover:bg-black hover:text-white w-full text-center'
+                    >
+                      Logout
+                    </p>
+                  </div>
+                </div>
+              ) : (
+                ""
+              )}
+            </div>
           ) : (
             <img
               src={user_icon}
               alt='user icon'
               title='Login'
               className='w-6 cursor-pointer'
-              onClick={() => navigate("/login")}
+              onClick={() => navigate("/register")}
             />
           )}
           <img

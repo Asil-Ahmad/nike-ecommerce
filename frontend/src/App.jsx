@@ -14,7 +14,7 @@ import Footer from "./components/Footer";
 import Collections from "./components/Collections";
 import Profile from "./components/Profile";
 import Protected from "./protectedRoutes/ProtectedRoutes";
-
+import NotFound from "./constants/NotFound";
 
 const App = () => {
   const { pathname } = useLocation();
@@ -25,7 +25,10 @@ const App = () => {
       <SearchBar />
 
       <Routes>
-        {/* <Route element={<Protected />} /> */}
+        {/* //!This is protected routes only profile page visible when user is auth */}
+        <Route element={<Protected />}>
+          <Route path='/profile' element={<Profile />} />
+        </Route>
         <Route path='/' element={<Home />} />
         <Route path='/products/:productId' element={<Product />} />
         <Route path='/men' element={<MenCollections />} />
@@ -34,8 +37,7 @@ const App = () => {
         <Route path='/collections' element={<Collections />} />
         <Route path='/register' element={<Register />} />
         <Route path='/login' element={<Login />} />
-        <Route path='/profile' element={<Profile />} />
-        <Route path='*' element={<h1>Page not found</h1>} />
+        <Route path='*' element={<NotFound />} />
       </Routes>
       {!footerHidden && <Footer />}
     </div>
