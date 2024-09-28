@@ -14,12 +14,22 @@ const addUser = async (req, res) => {
   try {
     const { email, name, password } = req.body; //!we extract these from req.body
     const imageFile = req.file; //!need to add file
-    const imageUpload = await cloudinary.uploader.upload(imageFile.path, {
-      resource_type: "image",
-    });
+    let imageUrl = "";
+    if (imageFile) {
+      const imageUpload = await cloudinary.uploader.upload(imageFile.path, {
+        resource_type: "image",
+      });
+      imageUrl = imageUpload.secure_url; // If the image was uploaded, use this URL
+    }
+
     //  console.log(email, name, password,imageUpload);
     // //!here we send data to mongodb
-    const userData = { email, name, password, image: imageUpload.secure_url };
+    const userData = {
+      email,
+      name,
+      password,
+      image: imageUrl,
+    };
     const isEmailExist = await userModel.findOne({ email: email });
     // console.log(isEmailExist);
 

@@ -6,6 +6,7 @@ import "ldrs/ring";
 import "ldrs/square";
 import Transitions from "../components/Transitions";
 import Loader from "../constants/Loader";
+import { nikeit42 } from "../assets/images";
 
 const Register = () => {
   const { url } = useContext(ShopContext);
@@ -16,6 +17,7 @@ const Register = () => {
   const [email, setEmail] = useState("");
   const [name, setName] = useState("");
   const [password, setPassword] = useState("");
+  const [image, setImage] = useState(nikeit42);
   const [loading, setLoading] = useState(false);
 
   //!Fetch All user data
@@ -37,6 +39,7 @@ const Register = () => {
       formData.append("email", email);
       formData.append("name", name);
       formData.append("password", password);
+      formData.append("image", image ? image : ""); //!better uprroach
 
       const res = await axios.post(`${url}/api/user/add`, formData);
 
@@ -44,17 +47,19 @@ const Register = () => {
         setEmail("");
         setName("");
         setPassword("");
+        setImage(false); //!remember to set it to false
         alert("User registered succesfully!");
       } else {
+        console.log(error);
       }
     } catch (error) {
-      alert(error.response.data.message);
+      console.log(error);
     }
     // Add a 3-second timer for the loader
     //it takes 3 second for loader to get false
     setTimeout(() => {
       setLoading(false);
-    }, 1000);
+    }, 100);
   };
 
   // useEffect(() => {
@@ -110,6 +115,13 @@ const Register = () => {
             className='border border-black w-full lg:w-[40%] md:w-[50%] outline-none py-4 px-2 rounded-lg
             invalid:[&:not(:placeholder-shown):not(:focus)]:border-red-500'
             placeholder='Password...'
+          />
+          <input
+            type='file'
+            name='image'
+            id='image'
+            accept='image/*'
+            onChange={(e) => setImage(e.target.files[0])}
           />
           <p className='text-gray-400 text-center sm:max-w-[20rem] max-w-full'>
             By continuing, I agree to Nike's{" "}
