@@ -13,7 +13,7 @@ const userRouter = express.Router();
 
 //!Here we add METHODS
 userRouter.get("/list", listUser);
-userRouter.post("/add", upload.none(), addUser);
+userRouter.post("/add", upload.single("image"), addUser);
 userRouter.post("/login", upload.none(), loginUser);
 userRouter.delete("/remove", upload.none(), deleteUser);
 

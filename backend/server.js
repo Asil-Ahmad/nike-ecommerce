@@ -2,6 +2,7 @@ import express from "express";
 import cors from "cors";
 import userRouter from "./src/routes/userRoute.js";
 import connectDB from "./src/config/mongodb.js";
+import connectCloudinary from "./src/config/cloudinary.js";
 import "dotenv/config";
 
 const app = express();
@@ -13,7 +14,7 @@ app.use(cors());
 
 // Connect to MongoDB
 connectDB();
-
+connectCloudinary(); //for connect cloudinary from config
 // Use userRouter for all /api/user routes
 
 app.get("/", (req, res) => res.json({ message: "Connected to API " }));

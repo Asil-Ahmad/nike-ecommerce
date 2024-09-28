@@ -1,5 +1,7 @@
 import userModel from "../models/userModel.js";
 import jwt from "jsonwebtoken";
+import { v2 as cloudinary } from "cloudinary"; //add image
+import upload from "../middleware/multer.js"; //middleware
 
 const listUser = async (req, res) => {
   try {
@@ -10,10 +12,14 @@ const listUser = async (req, res) => {
 
 const addUser = async (req, res) => {
   try {
-    const { email, name, password } = req.body;
-    // console.log(email, name, password);
+    const { email, name, password } = req.body; //!we extract these from req.body
+    const imageFile = req.file; //!need to add file
+    const imageUpload = await cloudinary.uploader.upload(imageFile.path, {
+      resource_type: "image",
+    });
+    //  console.log(email, name, password,imageUpload);
     // //!here we send data to mongodb
-    const userData = { email, name, password };
+    const userData = { email, name, password, image: imageUpload.secure_url };
     const isEmailExist = await userModel.findOne({ email: email });
     // console.log(isEmailExist);
 
@@ -66,9 +72,7 @@ const loginUser = (req, res) => {
           { userId: _id, email: email, name: name },
           `${process.env.JWT_SECRET}`
         );
-        res
-          .status(200)
-          .json({ message: "Success", token: token });
+        res.status(200).json({ message: "Success", token: token });
       } else res.status(400).json({ message: "Authorization Failed" });
     })
     .catch((err) => res.status(400).json({ message: "Failed" }));
