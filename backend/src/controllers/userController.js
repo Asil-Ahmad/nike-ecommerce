@@ -14,12 +14,13 @@ const addUser = async (req, res) => {
   try {
     const { email, name, password } = req.body; //!we extract these from req.body
     const imageFile = req.file; //!need to add file
-    let imageUrl = "";
+
+    let imageUrl = "";//!if no file we get this url image else true we use user upload image
     if (imageFile) {
       const imageUpload = await cloudinary.uploader.upload(imageFile.path, {
         resource_type: "image",
       });
-      imageUrl = imageUpload.secure_url; // If the image was uploaded, use this URL
+      imageUrl = imageUpload.secure_url; 
     }
 
     //  console.log(email, name, password,imageUpload);

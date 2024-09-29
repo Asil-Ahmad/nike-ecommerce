@@ -116,13 +116,13 @@ const Register = () => {
             invalid:[&:not(:placeholder-shown):not(:focus)]:border-red-500'
             placeholder='Password...'
           />
-          <input
+          {/* <input
             type='file'
             name='image'
             id='image'
             accept='image/*'
             onChange={(e) => setImage(e.target.files[0])}
-          />
+          /> */}
           <p className='text-gray-400 text-center sm:max-w-[20rem] max-w-full'>
             By continuing, I agree to Nike's{" "}
             <a className='underline cursor-pointer'>Privacy Policy</a> and{" "}

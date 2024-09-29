@@ -25,6 +25,21 @@ import cargo from "../images/cargo.png";
 import shoes1 from "../images/shoes1.png";
 import shoes2 from "../images/shoes2.png";
 import topwear from "../images/topwear.png";
+//menlower
+import lowermen1 from "../images/lowermen1.png";
+import lowermen2 from "../images/lowermen2.png";
+import lowermen3 from "../images/lowermen3.png";
+//menshirts
+import shirtmen1 from "../images/shirtmen1.png";
+//womenshirt
+import shirtwomen1 from "../images/shirtwomen1.png";
+import shirtwomen2 from "../images/shirtwomen2.png";
+import shirtwomen3 from "../images/shirtwomen3.png";
+//womenlower
+import lowerwomen1 from "../images/lowerwomen1.png";
+import lowerwomen2 from "../images/lowerwomen2.png";
+import lowerwomen3 from "../images/lowerwomen3.png";
+import lowerwomen4 from "../images/lowerwomen4.png";
 
 export {
   image1,
@@ -121,7 +136,7 @@ export const products = [
     name: "Nike Sportswear Essential Tee",
     description: "Soft cotton T-shirt for all-day comfort.",
     price: 40,
-    image: [],
+    image: [shirtwomen1],
     category: "Women",
     subCategory: "T-shirt",
     sizes: ["S", "M", "L"],
@@ -157,7 +172,7 @@ export const products = [
     name: "Nike Pro Men's Tight",
     description: "Compression lower for maximum performance.",
     price: 60,
-    image: [],
+    image: [lowermen1],
     category: "Men",
     subCategory: "Lower",
     sizes: ["S", "M", "L", "XL"],
@@ -169,7 +184,7 @@ export const products = [
     name: "Nike Yoga Luxe Tights",
     description: "High-waisted yoga lower for women.",
     price: 80,
-    image: [],
+    image: [lowerwomen1],
     category: "Women",
     subCategory: "Lower",
     sizes: ["XS", "S", "M", "L"],
@@ -181,7 +196,7 @@ export const products = [
     name: "Nike Dri-FIT Academy Pants",
     description: "Slim-fit pants with sweat-wicking technology.",
     price: 50,
-    image: [],
+    image: [lowermen2],
     category: "Men",
     subCategory: "Lower",
     sizes: ["S", "M", "L"],
@@ -193,7 +208,7 @@ export const products = [
     name: "Nike Pro Women's Crop Tights",
     description: "Breathable cropped tights for workouts.",
     price: 65,
-    image: [],
+    image: [lowerwomen2],
     category: "Women",
     subCategory: "Lower",
     sizes: ["S", "M", "L", "XL"],
@@ -217,7 +232,7 @@ export const products = [
     name: "Nike Sportswear Club Fleece",
     description: "Classic fleece lower for everyday wear.",
     price: 55,
-    image: [],
+    image: [lowermen3],
     category: "Men",
     subCategory: "Lower",
     sizes: ["S", "M", "L", "XL"],
@@ -253,7 +268,7 @@ export const products = [
     name: "Nike Sportswear Tech Fleece Joggers",
     description: "Warm joggers with a sleek design.",
     price: 100,
-    image: [],
+    image: [lowerwomen3],
     category: "Women",
     subCategory: "Lower",
     sizes: ["S", "M", "L"],
@@ -302,7 +317,7 @@ export const products = [
     name: "Nike Women's Running Shorts",
     description: "Comfortable shorts for running and casual wear.",
     price: 45,
-    image: [cargo],
+    image: [lowerwomen4],
     category: "Women",
     subCategory: "Lower",
     sizes: ["XS", "S", "M", "L"],
@@ -350,7 +365,7 @@ export const products = [
     name: "Nike Sportswear Icon Clash T-shirt",
     description: "Stylish and comfortable graphic T-shirt.",
     price: 50,
-    image: [topwear],
+    image: [shirtwomen2],
     category: "Women",
     subCategory: "T-shirt",
     sizes: ["XS", "S", "M"],
@@ -362,7 +377,7 @@ export const products = [
     name: "Nike Therma-FIT Hoodie",
     description: "Warm hoodie with thermal fabric.",
     price: 80,
-    image: [topwear],
+    image: [shirtmen1],
     category: "Men",
     subCategory: "T-shirt",
     sizes: ["S", "M", "L", "XL"],
@@ -374,7 +389,7 @@ export const products = [
     name: "Nike Victory Compression Bra",
     description: "Supportive sports bra for high-impact activities.",
     price: 50,
-    image: [],
+    image: [shirtwomen3],
     category: "Women",
     subCategory: "Topwear",
     sizes: ["S", "M", "L"],
