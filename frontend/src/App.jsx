@@ -39,7 +39,14 @@ const App = () => {
         <Route path='/men' element={<MenCollections />} />
         <Route path='/women' element={<WomenCollections />} />
         <Route path='/kids' element={<KidCollections />} />
-        <Route path='/collections' element={<Collections />} />
+        <Route
+          path='/collections'
+          element={
+            <Suspense fallback={<Loader />}>
+              <Collections />
+            </Suspense>
+          }
+        />
         <Route path='/women/collections' element={<Collections />} />
         <Route path='/collections' element={<Collections />} />
         <Route path='/register' element={<Register />} />

@@ -1,12 +1,12 @@
 import React, { useContext, useEffect, useState } from "react";
 import { ShopContext } from "../context/ShopContext";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { gsap } from "gsap";
 import { useGSAP } from "@gsap/react";
 import { useMemo } from "react";
 
 const Collections = () => {
-  const { products } = useContext(ShopContext);
+  const { products,} = useContext(ShopContext);
   // const { pathname } = useLocation();
   // const mensCollections = pathname.slice(1, 4);
 
@@ -14,26 +14,26 @@ const Collections = () => {
   const [category, setCategory] = useState([]);
   const [subCategory, setSubCategory] = useState([]);
   const [sortType, setSortType] = useState("revelant");
+  window.scroll(0, 0);
 
   const noImageAvailable = "https://via.placeholder.com/300x300?text=No+Image";
 
-  // useGSAP(() => {
-  //   gsap.fromTo(
-  //     ".gridItems",
-  //     {
-  //       opacity: 0,
-  //     },
-  //     {
-  //       opacity: 1,
-  //       stagger: 0.3,
-  //     }
-  //   );
-  // }, [category, subCategory, sortType]);
+  useGSAP(() => {
+    gsap.fromTo(
+      ".gridItems",
+      {
+        opacity: 0,
+      },
+      {
+        opacity: 1,
+        stagger: 0.2,
+      }
+    );
+  }, [category, subCategory, sortType]);
 
   //!--------------ALL CATEGORIES TOGGLE---------------------
   const toggleCategory = (e) => {
     const { value } = e.target;
-
     if (category.includes(value)) {
       setCategory((prevstate) => prevstate.filter((item) => item !== value));
     } else {
@@ -41,33 +41,55 @@ const Collections = () => {
     }
   };
 
+  const toggleSubCategory = (e) => {
+    const { value } = e.target;
+    if (subCategory.includes(value)) {
+      setSubCategory((prevstate) => prevstate.filter((item) => item !== value));
+    } else {
+      setSubCategory((prevstate) => [...prevstate, value]);
+    }
+  };
+
   const applyFilter = () => {
     let filtered = products.slice();
+
     if (category.length > 0) {
-      filtered = filtered.filter((item) => category.includes(item.subCategory));
-      console.log(filtered);
+      filtered = filtered.filter((item) => category.includes(item.category));
+    }
+
+    if (subCategory.length > 0) {
+      filtered = filtered.filter((item) =>
+        subCategory.includes(item.subCategory)
+      );
+    }
+    if (sortType === "low-high") {
+      filtered.sort((a, b) => a.price - b.price); // Ascending order
+    } else if (sortType === "high-low") {
+      filtered.sort((a, b) => b.price - a.price); // Descending order
     }
     setFilteredProducts(filtered);
   };
 
   useEffect(() => {
-    window.scroll(0, 0); //!scroll to top
+    //!scroll to top
     applyFilter();
-    console.log(category, products);
-  }, [category]);
+  }, [category, subCategory, sortType]);
 
   return (
     <div className='sm:container container-none'>
       {/* -----------//!Main Sticky bar------------ */}
-      <div className=' py-5  px-2  flex justify-between items-center sticky z-20 bg-white top-0'>
+      <div className=' py-5  px-2  flex sm:justify-between max-sm:flex-col items-center sticky z-20 bg-white top-0'>
         <h1 className='text-2xl font-medium'>
-          All Collections ({products.length})
+          All Collections {filteredProducts.length}
         </h1>
         <div className='pr-5'>
-          <select name='' id=''>
-            <option value=''>Revelant</option>
-            <option value=''>High to Low</option>
-            <option value=''>Low to High</option>
+          <select
+            onChange={(e) => setSortType(e.target.value)}
+            className=' border border-black'
+          >
+            <option value='revelent'>Revelant</option>
+            <option value='low-high'>Low to High</option>
+            <option value='high-low'>High to Low</option>
           </select>
         </div>
       </div>
@@ -87,7 +109,8 @@ const Collections = () => {
             />
             <label
               htmlFor='men'
-              className='sm:text-xl text-lg cursor-pointer duration-150 peer-checked:font-bold   '
+              className='sm:text-xl text-lg font-extralight text-gray-500 peer-checked:text-black  
+              cursor-pointer duration-150 peer-checked:font-extrabold  '
             >
               Men
             </label>
@@ -104,7 +127,8 @@ const Collections = () => {
             />
             <label
               htmlFor='women'
-              className='sm:text-xl text-lg  cursor-pointer duration-150 peer-checked:font-bold   '
+              className='sm:text-xl text-lg font-extralight text-gray-500 peer-checked:text-black  
+              cursor-pointer duration-150 peer-checked:font-extrabold  '
             >
               Women
             </label>
@@ -115,12 +139,14 @@ const Collections = () => {
               type='checkbox'
               value='Shoes'
               id='shoes'
+              className='peer'
               hidden
-              onClick={toggleCategory}
+              onClick={toggleSubCategory}
             />
             <label
               htmlFor='shoes'
-              className='sm:text-xl text-lg  cursor-pointer duration-150 peer-checked:font-bold  '
+              className='sm:text-xl text-lg font-extralight text-gray-500 peer-checked:text-black  
+              cursor-pointer duration-150 peer-checked:font-extrabold '
             >
               Shoes
             </label>
@@ -131,12 +157,14 @@ const Collections = () => {
               type='checkbox'
               value='T-shirt'
               id='T-shirt'
+              className='peer'
               hidden
-              onClick={toggleCategory}
+              onClick={toggleSubCategory}
             />
             <label
               htmlFor='T-shirt'
-              className='sm:text-xl text-lg  cursor-pointer  duration-150 peer-checked:font-bold '
+              className='sm:text-xl text-lg font-extralight text-gray-500 peer-checked:text-black  
+              cursor-pointer duration-150 peer-checked:font-extrabold'
             >
               T-Shirts{" "}
             </label>
@@ -147,12 +175,14 @@ const Collections = () => {
               type='checkbox'
               value='Lower'
               id='Lower'
+              className='peer'
               hidden
-              onClick={toggleCategory}
+              onClick={toggleSubCategory}
             />
             <label
               htmlFor='Lower'
-              className='sm:text-xl text-lg  cursor-pointer duration-150 peer-checked:font-bold '
+              className='sm:text-xl text-lg font-extralight text-gray-500 peer-checked:text-black  
+              cursor-pointer duration-150 peer-checked:font-extrabold'
             >
               Lower{" "}
             </label>
