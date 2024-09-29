@@ -146,7 +146,7 @@ const Navbar = () => {
                     </p>
                     <p
                       onClick={() => {
-                        localStorage.clear(), location.reload();
+                        localStorage.clear(), navigate("/");
                       }}
                       className='stage hover:bg-black hover:text-white w-full text-center'
                     >

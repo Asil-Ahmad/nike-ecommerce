@@ -69,7 +69,7 @@ const Login = () => {
         localStorage.setItem("token", data.token); //!we set token inside local storage
         localStorage.setItem("username", decodedToken.name); //!we get token name
         // console.log("Decoded Token:", decodedToken);
-        navigate("/profile");
+        navigate("/");
       } else {
         throw new Error("Token not found in response");
       }
