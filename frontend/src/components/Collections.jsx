@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
 import { ShopContext } from "../context/ShopContext";
-import { Link, useLocation } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { gsap } from "gsap";
 import { useGSAP } from "@gsap/react";
 import { useMemo } from "react";
@@ -14,26 +14,26 @@ const Collections = () => {
   const [category, setCategory] = useState([]);
   const [subCategory, setSubCategory] = useState([]);
   const [sortType, setSortType] = useState("revelant");
-  window.scroll(0, 0);
 
   const noImageAvailable = "https://via.placeholder.com/300x300?text=No+Image";
 
-  useGSAP(() => {
-    gsap.fromTo(
-      ".gridItems",
-      {
-        opacity: 0,
-      },
-      {
-        opacity: 1,
-        stagger: 0.2,
-      }
-    );
-  }, [category, subCategory, sortType]);
+  // useGSAP(() => {
+  //   gsap.fromTo(
+  //     ".gridItems",
+  //     {
+  //       opacity: 0,
+  //     },
+  //     {
+  //       opacity: 1,
+  //       stagger: 0.3,
+  //     }
+  //   );
+  // }, [category, subCategory, sortType]);
 
   //!--------------ALL CATEGORIES TOGGLE---------------------
   const toggleCategory = (e) => {
     const { value } = e.target;
+
     if (category.includes(value)) {
       setCategory((prevstate) => prevstate.filter((item) => item !== value));
     } else {
@@ -41,61 +41,39 @@ const Collections = () => {
     }
   };
 
-  const toggleSubCategory = (e) => {
-    const { value } = e.target;
-    if (subCategory.includes(value)) {
-      setSubCategory((prevstate) => prevstate.filter((item) => item !== value));
-    } else {
-      setSubCategory((prevstate) => [...prevstate, value]);
-    }
-  };
-
   const applyFilter = () => {
     let filtered = products.slice();
-
     if (category.length > 0) {
-      filtered = filtered.filter((item) => category.includes(item.category));
-    }
-
-    if (subCategory.length > 0) {
-      filtered = filtered.filter((item) =>
-        subCategory.includes(item.subCategory)
-      );
-    }
-    if (sortType === "low-high") {
-      filtered.sort((a, b) => a.price - b.price); // Ascending order
-    } else if (sortType === "high-low") {
-      filtered.sort((a, b) => b.price - a.price); // Descending order
+      filtered = filtered.filter((item) => category.includes(item.subCategory));
+      console.log(filtered);
     }
     setFilteredProducts(filtered);
   };
 
   useEffect(() => {
-    //!scroll to top
+    window.scroll(0, 0); //!scroll to top
     applyFilter();
-  }, [category, subCategory, sortType]);
+    console.log(category, products);
+  }, [category]);
 
   return (
     <div className='sm:container container-none'>
       {/* -----------//!Main Sticky bar------------ */}
-      <div className=' py-5  px-2  flex sm:justify-between max-sm:flex-col items-center sticky z-20 bg-white top-0'>
+      <div className=' py-5  px-2  flex justify-between items-center sticky z-20 bg-white top-0'>
         <h1 className='text-2xl font-medium'>
-          All Collections {filteredProducts.length}
+          All Collections ({products.length})
         </h1>
         <div className='pr-5'>
-          <select
-            onChange={(e) => setSortType(e.target.value)}
-            className=' border border-black'
-          >
-            <option value='revelent'>Revelant</option>
-            <option value='low-high'>Low to High</option>
-            <option value='high-low'>High to Low</option>
+          <select name='' id=''>
+            <option value=''>Revelant</option>
+            <option value=''>High to Low</option>
+            <option value=''>Low to High</option>
           </select>
         </div>
       </div>
       {/* //!Filter Section */}
       <div className='flex sm:pl-2 sm:flex-row flex-col '>
-        <div className=' flex sm:flex-col sm:w-[30%] w-full overflow-x- justify-center pb-2 bg-white z-20  gap-2 sticky top-[6rem] h-full accent-black '>
+        <div className=' flex sm:flex-col sm:w-[30%] w-full overflow-x-scroll justify-center pb-2 bg-white z-20  gap-2 sticky top-[6rem] h-full accent-black '>
           {/* //!CATEGORY--------------------------------------- */}
           {/* //!we keeping both category in div becoz classname has peer so it will trigger both thats why */}
           <div>
@@ -109,8 +87,7 @@ const Collections = () => {
             />
             <label
               htmlFor='men'
-              className='sm:text-xl text-lg font-extralight text-gray-500 peer-checked:text-black  
-              cursor-pointer duration-150 peer-checked:font-extrabold  '
+              className='sm:text-xl text-lg cursor-pointer duration-150 peer-checked:font-bold   '
             >
               Men
             </label>
@@ -127,8 +104,7 @@ const Collections = () => {
             />
             <label
               htmlFor='women'
-              className='sm:text-xl text-lg font-extralight text-gray-500 peer-checked:text-black  
-              cursor-pointer duration-150 peer-checked:font-extrabold  '
+              className='sm:text-xl text-lg  cursor-pointer duration-150 peer-checked:font-bold   '
             >
               Women
             </label>
@@ -139,14 +115,12 @@ const Collections = () => {
               type='checkbox'
               value='Shoes'
               id='shoes'
-              className='peer'
               hidden
-              onClick={toggleSubCategory}
+              onClick={toggleCategory}
             />
             <label
               htmlFor='shoes'
-              className='sm:text-xl text-lg font-extralight text-gray-500 peer-checked:text-black  
-              cursor-pointer duration-150 peer-checked:font-extrabold '
+              className='sm:text-xl text-lg  cursor-pointer duration-150 peer-checked:font-bold  '
             >
               Shoes
             </label>
@@ -157,14 +131,12 @@ const Collections = () => {
               type='checkbox'
               value='T-shirt'
               id='T-shirt'
-              className='peer'
               hidden
-              onClick={toggleSubCategory}
+              onClick={toggleCategory}
             />
             <label
               htmlFor='T-shirt'
-              className='sm:text-xl text-lg font-extralight text-gray-500 peer-checked:text-black  
-              cursor-pointer duration-150 peer-checked:font-extrabold'
+              className='sm:text-xl text-lg  cursor-pointer  duration-150 peer-checked:font-bold '
             >
               T-Shirts{" "}
             </label>
@@ -175,14 +147,12 @@ const Collections = () => {
               type='checkbox'
               value='Lower'
               id='Lower'
-              className='peer'
               hidden
-              onClick={toggleSubCategory}
+              onClick={toggleCategory}
             />
             <label
               htmlFor='Lower'
-              className='sm:text-xl text-lg font-extralight text-gray-500 peer-checked:text-black  
-              cursor-pointer duration-150 peer-checked:font-extrabold'
+              className='sm:text-xl text-lg  cursor-pointer duration-150 peer-checked:font-bold '
             >
               Lower{" "}
             </label>
