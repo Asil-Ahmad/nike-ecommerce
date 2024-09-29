@@ -14,21 +14,22 @@ const Collections = () => {
   const [category, setCategory] = useState([]);
   const [subCategory, setSubCategory] = useState([]);
   const [sortType, setSortType] = useState("revelant");
+  window.scroll(0, 0);
 
   const noImageAvailable = "https://via.placeholder.com/300x300?text=No+Image";
 
-  // useGSAP(() => {
-  //   gsap.fromTo(
-  //     ".gridItems",
-  //     {
-  //       opacity: 0,
-  //     },
-  //     {
-  //       opacity: 1,
-  //       stagger: 0.3,
-  //     }
-  //   );
-  // }, [category, subCategory, sortType]);
+  useGSAP(() => {
+    gsap.fromTo(
+      ".gridItems",
+      {
+        opacity: 0,
+      },
+      {
+        opacity: 1,
+        stagger: 0.2,
+      }
+    );
+  }, [category, subCategory, sortType]);
 
   //!--------------ALL CATEGORIES TOGGLE---------------------
   const toggleCategory = (e) => {
@@ -70,7 +71,7 @@ const Collections = () => {
   };
 
   useEffect(() => {
-    window.scroll(0, 0); //!scroll to top
+    //!scroll to top
     applyFilter();
   }, [category, subCategory, sortType]);
 
@@ -94,7 +95,7 @@ const Collections = () => {
       </div>
       {/* //!Filter Section */}
       <div className='flex sm:pl-2 sm:flex-row flex-col '>
-        <div className=' flex sm:flex-col sm:w-[30%] w-full overflow-x-auto justify-center py-4 bg-white z-20  gap-2 sticky top-[5rem] h-full accent-black '>
+        <div className=' flex sm:flex-col sm:w-[30%] w-full overflow-x- justify-center pb-2 bg-white z-20  gap-2 sticky top-[6rem] h-full accent-black '>
           {/* //!CATEGORY--------------------------------------- */}
           {/* //!we keeping both category in div becoz classname has peer so it will trigger both thats why */}
           <div>
@@ -108,7 +109,8 @@ const Collections = () => {
             />
             <label
               htmlFor='men'
-              className='sm:text-xl text-lg cursor-pointer duration-150 peer-checked:font-bold   '
+              className='sm:text-xl text-lg font-extralight text-gray-500 peer-checked:text-black  
+              cursor-pointer duration-150 peer-checked:font-extrabold  '
             >
               Men
             </label>
@@ -125,7 +127,8 @@ const Collections = () => {
             />
             <label
               htmlFor='women'
-              className='sm:text-xl text-lg  cursor-pointer duration-150 peer-checked:font-bold   '
+              className='sm:text-xl text-lg font-extralight text-gray-500 peer-checked:text-black  
+              cursor-pointer duration-150 peer-checked:font-extrabold  '
             >
               Women
             </label>
@@ -142,7 +145,8 @@ const Collections = () => {
             />
             <label
               htmlFor='shoes'
-              className='sm:text-xl text-lg  cursor-pointer duration-150 peer-checked:font-bold  '
+              className='sm:text-xl text-lg font-extralight text-gray-500 peer-checked:text-black  
+              cursor-pointer duration-150 peer-checked:font-extrabold '
             >
               Shoes
             </label>
@@ -159,7 +163,8 @@ const Collections = () => {
             />
             <label
               htmlFor='T-shirt'
-              className='sm:text-xl text-lg  cursor-pointer  duration-150 peer-checked:font-bold '
+              className='sm:text-xl text-lg font-extralight text-gray-500 peer-checked:text-black  
+              cursor-pointer duration-150 peer-checked:font-extrabold'
             >
               T-Shirts{" "}
             </label>
@@ -176,7 +181,8 @@ const Collections = () => {
             />
             <label
               htmlFor='Lower'
-              className='sm:text-xl text-lg  cursor-pointer duration-150 peer-checked:font-bold '
+              className='sm:text-xl text-lg font-extralight text-gray-500 peer-checked:text-black  
+              cursor-pointer duration-150 peer-checked:font-extrabold'
             >
               Lower{" "}
             </label>
