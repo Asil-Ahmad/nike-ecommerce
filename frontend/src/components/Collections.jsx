@@ -1,29 +1,38 @@
 import React, { useContext, useEffect, useState } from "react";
 import { ShopContext } from "../context/ShopContext";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { gsap } from "gsap";
 import { useGSAP } from "@gsap/react";
 import { useMemo } from "react";
 
 const Collections = () => {
   const { products } = useContext(ShopContext);
-  const [filteredProducts, setFilteredProducts] = useState(false);
+  // const { pathname } = useLocation();
+  // const mensCollections = pathname.slice(1, 4);
+
+  const [filteredProducts, setFilteredProducts] = useState([]);
   const [category, setCategory] = useState([]);
-  // console.log(products);
+  const [subCategory, setSubCategory] = useState([]);
+  const [sortType, setSortType] = useState("revelant");
+
   const noImageAvailable = "https://via.placeholder.com/300x300?text=No+Image";
 
-  useGSAP(() => {
-    gsap.from(".gridItems", {
-      opacity: 0,
-      y: 0,
-      delay: 0.5,
-      stagger: 0.1,
-    });
-  }, [category]);
+  // useGSAP(() => {
+  //   gsap.fromTo(
+  //     ".gridItems",
+  //     {
+  //       opacity: 0,
+  //     },
+  //     {
+  //       opacity: 1,
+  //       stagger: 0.3,
+  //     }
+  //   );
+  // }, [category, subCategory, sortType]);
 
+  //!--------------ALL CATEGORIES TOGGLE---------------------
   const toggleCategory = (e) => {
     const { value } = e.target;
-
     if (category.includes(value)) {
       setCategory((prevstate) => prevstate.filter((item) => item !== value));
     } else {
@@ -31,79 +40,147 @@ const Collections = () => {
     }
   };
 
+  const toggleSubCategory = (e) => {
+    const { value } = e.target;
+    if (subCategory.includes(value)) {
+      setSubCategory((prevstate) => prevstate.filter((item) => item !== value));
+    } else {
+      setSubCategory((prevstate) => [...prevstate, value]);
+    }
+  };
+
   const applyFilter = () => {
     let filtered = products.slice();
+
     if (category.length > 0) {
-      filtered = filtered.filter((item) => category.includes(item.subCategory));
-      console.log(filtered);
+      filtered = filtered.filter((item) => category.includes(item.category));
+    }
+
+    if (subCategory.length > 0) {
+      filtered = filtered.filter((item) =>
+        subCategory.includes(item.subCategory)
+      );
+    }
+    if (sortType === "low-high") {
+      filtered.sort((a, b) => a.price - b.price); // Ascending order
+    } else if (sortType === "high-low") {
+      filtered.sort((a, b) => b.price - a.price); // Descending order
     }
     setFilteredProducts(filtered);
   };
 
   useEffect(() => {
     window.scroll(0, 0); //!scroll to top
-
     applyFilter();
-    console.log(category, products);
-  }, [category]);
+  }, [category, subCategory, sortType]);
 
   return (
     <div className='sm:container container-none'>
       {/* -----------//!Main Sticky bar------------ */}
-      <div className=' py-5  px-2  flex justify-between items-center sticky z-20 bg-white top-0'>
+      <div className=' py-5  px-2  flex sm:justify-between max-sm:flex-col items-center sticky z-20 bg-white top-0'>
         <h1 className='text-2xl font-medium'>
-          All Collections ({products.length})
+          All Collections {filteredProducts.length}
         </h1>
         <div className='pr-5'>
-          <select name='' id=''>
-            <option value=''>Revelant</option>
-            <option value=''>High to Low</option>
-            <option value=''>Low to High</option>
+          <select
+            onChange={(e) => setSortType(e.target.value)}
+            className=' border border-black'
+          >
+            <option value='revelent'>Revelant</option>
+            <option value='low-high'>Low to High</option>
+            <option value='high-low'>High to Low</option>
           </select>
         </div>
       </div>
       {/* //!Filter Section */}
-      <div className='flex pl-2 '>
-        <div className=' sm:flex hidden flex-col w-[30%] gap-2 sticky top-[5rem] h-screen accent-black '>
-          <label
-            htmlFor='shoes'
-            className='text-xl cursor-pointer hover:scale-105 duration-150  '
-          >
-            Shoes
+      <div className='flex sm:pl-2 sm:flex-row flex-col '>
+        <div className=' flex sm:flex-col sm:w-[30%] w-full overflow-x-auto justify-center py-4 bg-white z-20  gap-2 sticky top-[5rem] h-full accent-black '>
+          {/* //!CATEGORY--------------------------------------- */}
+          {/* //!we keeping both category in div becoz classname has peer so it will trigger both thats why */}
+          <div>
+            <input
+              type='checkbox'
+              className='peer'
+              value='Men'
+              id='men'
+              hidden
+              onClick={toggleCategory}
+            />
+            <label
+              htmlFor='men'
+              className='sm:text-xl text-lg cursor-pointer duration-150 peer-checked:font-bold   '
+            >
+              Men
+            </label>
+          </div>
+
+          <div>
+            <input
+              type='checkbox'
+              className='peer'
+              value='Women'
+              id='women'
+              hidden
+              onClick={toggleCategory}
+            />
+            <label
+              htmlFor='women'
+              className='sm:text-xl text-lg  cursor-pointer duration-150 peer-checked:font-bold   '
+            >
+              Women
+            </label>
+          </div>
+          {/* //!SUBCATERGORY------------------------------------- */}
+          <div>
             <input
               type='checkbox'
               value='Shoes'
               id='shoes'
+              className='peer'
               hidden
-              onClick={toggleCategory}
+              onClick={toggleSubCategory}
             />
-          </label>
-          <label
-            htmlFor='T-shirt'
-            className='text-xl cursor-pointer  hover:scale-105 duration-150'
-          >
-            T-Shirts{" "}
+            <label
+              htmlFor='shoes'
+              className='sm:text-xl text-lg  cursor-pointer duration-150 peer-checked:font-bold  '
+            >
+              Shoes
+            </label>
+          </div>
+
+          <div>
             <input
               type='checkbox'
               value='T-shirt'
               id='T-shirt'
+              className='peer'
               hidden
-              onClick={toggleCategory}
+              onClick={toggleSubCategory}
             />
-          </label>
-          <label
-            htmlFor='Lower'
-            className='text-xl cursor-pointer hover:scale-105 duration-150'
-          >
-            Lower{" "}
+            <label
+              htmlFor='T-shirt'
+              className='sm:text-xl text-lg  cursor-pointer  duration-150 peer-checked:font-bold '
+            >
+              T-Shirts{" "}
+            </label>
+          </div>
+
+          <div>
             <input
               type='checkbox'
               value='Lower'
               id='Lower'
+              className='peer'
               hidden
-              onClick={toggleCategory}
+              onClick={toggleSubCategory}
             />
-          </label>
+            <label
+              htmlFor='Lower'
+              className='sm:text-xl text-lg  cursor-pointer duration-150 peer-checked:font-bold '
+            >
+              Lower{" "}
+            </label>
+          </div>
         </div>
 
         <div className='grid sm:grid-cols-3 grid-cols-2 w-full grid-rows-1 sm:gap-4 gap-1 '>

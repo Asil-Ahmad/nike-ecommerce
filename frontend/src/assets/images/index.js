@@ -391,7 +391,7 @@ export const products = [
     price: 50,
     image: [shirtwomen3],
     category: "Women",
-    subCategory: "Topwear",
+    subCategory: "T-shirt",
     sizes: ["S", "M", "L"],
     date: 1716634345472,
     bestseller: false,
