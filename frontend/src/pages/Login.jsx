@@ -131,7 +131,7 @@ const Login = () => {
             <input
               type='submit'
               value='Yes'
-              className='text-white mt-5 cursor-pointer  bg-red-500 px-4 py-2 rounded-full'
+              className='text-black mt-5 cursor-pointer  bg-white px-4 py-2 rounded-full'
             />
           </div>
         </form>

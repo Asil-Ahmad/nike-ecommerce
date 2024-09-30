@@ -6,7 +6,7 @@ import { useGSAP } from "@gsap/react";
 import { useMemo } from "react";
 
 const Collections = () => {
-  const { products,} = useContext(ShopContext);
+  const { products } = useContext(ShopContext);
   // const { pathname } = useLocation();
   // const mensCollections = pathname.slice(1, 4);
 
@@ -14,21 +14,14 @@ const Collections = () => {
   const [category, setCategory] = useState([]);
   const [subCategory, setSubCategory] = useState([]);
   const [sortType, setSortType] = useState("revelant");
-  window.scroll(0, 0);
 
   const noImageAvailable = "https://via.placeholder.com/300x300?text=No+Image";
 
   useGSAP(() => {
-    gsap.fromTo(
-      ".gridItems",
-      {
-        opacity: 0,
-      },
-      {
-        opacity: 1,
-        stagger: 0.2,
-      }
-    );
+    gsap.to(".gridItems", {
+      opacity: 1,
+      stagger: 0.2,
+    });
   }, [category, subCategory, sortType]);
 
   //!--------------ALL CATEGORIES TOGGLE---------------------
@@ -95,7 +88,10 @@ const Collections = () => {
       </div>
       {/* //!Filter Section */}
       <div className='flex sm:pl-2 sm:flex-row flex-col '>
-        <div className=' flex sm:flex-col sm:w-[30%] w-full overflow-x-scroll justify-center pb-2 bg-white z-20  gap-2 sticky top-[6rem] h-full accent-black '>
+        <div
+          className=' flex sm:flex-col sm:w-[30%] w-full overflow-x-scroll justify-center pb-2 bg-white z-20 
+         gap-2 sticky top-[6rem] h-full accent-black '
+        >
           {/* //!CATEGORY--------------------------------------- */}
           {/* //!we keeping both category in div becoz classname has peer so it will trigger both thats why */}
           <div>
@@ -198,7 +194,8 @@ const Collections = () => {
                   to={`/products/${item._id}`}
                 >
                   <img
-                    src={item.image[0] ? item.image : noImageAvailable}
+                    // src={item.image[0] ? item.image : noImageAvailable}
+                    src={item.image[0]}
                     alt={item.name}
                     className='hover:scale-105 object-cover object-center  duration-300'
                   />

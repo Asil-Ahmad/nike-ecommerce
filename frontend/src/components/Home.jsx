@@ -44,16 +44,19 @@ const Home = () => {
         button='Shop Running'
       />
       {/* //!---------------------FEATURED PRODUCTS---------------------------------- */}
-      <div className='container  py-10'>
+      <div className='container py-5'>
         <h1 className='text-left text-3xl'>Featured</h1>
-        <div className=' lg:grid lg:grid-cols-3 lg:grid-rows-1 flex flex-row justify-start overflow-x-scroll  gap-4 py-5'>
-          {featuredProducts.map((product, index) => (
-            <Featured
-              image={product.imgURL}
-              title={product.title}
-              index={index}
-            />
-          ))}
+        <div className='grid grid-cols-3 py-5 overflow-x-scroll scrollbar-hide'>
+          <div className='flex gap-4'>
+            {featuredProducts.map((product, index) => (
+              <div
+                key={index}
+                className='sm:min-w-[415px] sm:max-w-[580px] min-w-[300px] max-w-[423px]'
+              >
+                <Featured image={product.imgURL} title={product.title} />
+              </div>
+            ))}
+          </div>
         </div>
       </div>
 

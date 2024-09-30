@@ -17,7 +17,7 @@ const Spotlights = () => {
 
   return (
     <>
-      <h1 className='container text-left text-3xl pt-10'>Classic Spotlight</h1>
+      <h1 className='container text-left text-3xl pt-5'>Classic Spotlight</h1>
       <Swiper
         onSwiper={setSwiperRef}
         slidesPerView={5}

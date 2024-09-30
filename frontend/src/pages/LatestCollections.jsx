@@ -29,7 +29,7 @@ const LatestCollections = () => {
         }}
         navigation={true}
         modules={[Pagination, Navigation]}
-        className='mySwiper py-10 overflow-x-scroll pl-5'
+        className='mySwiper py-10 overflow-x-scroll pl-5 container'
         breakpoints={{
           320: {
             slidesPerView: 1, // When viewport width is >= 320px, show 2 slides
@@ -50,7 +50,7 @@ const LatestCollections = () => {
           .map((item, index) => (
             <SwiperSlide key={index}>
               <Link to={`/products/${item._id}`}>
-                <img src={item.image} alt='' className='cursor-pointer' />
+                <img src={item.image} alt='' className='cursor-pointer object-cover object-center' />
                 <p className='pt-3'>{item.name}</p>
                 <p className='text-gray-400'>
                   {item.category}&nbsp;{item.subCategory}

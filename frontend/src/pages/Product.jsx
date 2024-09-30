@@ -11,6 +11,7 @@ import {
   nikeit46,
   nikeit47,
 } from "../assets/images";
+import RelatedProducts from "../components/RelatedProducts";
 
 const Product = () => {
   const { productId } = useParams();
@@ -34,6 +35,7 @@ const Product = () => {
   useEffect(() => {
     window.scroll(0, 0);
     fetchProduct();
+    console.log(currentProduct.category);
   }, [productId]); //!We have to add [productId] this otherwise it wont refresh the page as id changes
 
   return (
@@ -43,7 +45,7 @@ const Product = () => {
           <div className='flex gap-5 justify-center sm:flex-row flex-col-reverse'>
             {/* //!Small images */}
             <div className='flex sm:flex-col flex-row gap-2 overflow-x-auto '>
-            <img
+              <img
                 src={nikeit43}
                 alt={currentProduct.name}
                 onMouseEnter={() => setImage(nikeit43)}
@@ -113,7 +115,7 @@ const Product = () => {
                       item === size ? "border-black bg-gray-100" : ""
                     } `}
                   >
-                    UK {item}
+                    {item}
                   </button>
                 ))}
               </div>
@@ -131,6 +133,15 @@ const Product = () => {
               Favourite <img src={outlineheart} alt='' className='w-6' />
             </button>
           </div>
+        </div>
+
+        {/* //!related producst */}
+        <div className='my-10'>
+          <h1 className='text-left text-3xl py-5'>Related Products</h1>
+          <RelatedProducts
+            category={currentProduct.category}
+            subCategory={currentProduct.subCategory}
+          />
         </div>
       </div>
       <div

@@ -61,12 +61,12 @@ const Navbar = () => {
         />
         <div className=' gap-10 hidden lg:flex'>
           {navlinks.map((navlink, index) => (
-            <div key={index} className='group '>
+            <div key={index} className='group'>
               <Link
                 key={index}
                 to={navlink.href}
                 //!below fixed the ui shifts in navlinks
-                className='border-b-2 border-transparent   hover:border-black'
+                className='border-b-2 border-transparent hover:border-black'
               >
                 {navlink.label}
               </Link>
@@ -171,15 +171,15 @@ const Navbar = () => {
             src={hamburger}
             alt='menu icon'
             onClick={() => setOpen(!open)}
-            className='w-6 lg:hidden'
+            className='w-6  lg:hidden'
           />
           <div
-            className={`fixed z-10 top-0 right-0 bottom-0 overflow-hidden
+            className={`fixed z-40 top-0 right-0 bottom-0 overflow-hidden
               
             transition-all duration-500
            flex flex-col gap-5 justify-center 
             items-center ${
-              open ? "w-[75%] h-screen  bg-black dark:bg-white" : "w-0 h-screen"
+              open ? "w-[100%] h-screen  bg-black dark:bg-white" : "w-0 h-screen"
             }`}
           >
             {navlinks.map((navlink, index) => (
