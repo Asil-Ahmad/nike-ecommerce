@@ -10,10 +10,10 @@ const app = express();
 // Middleware for parsing JSON and form-encoded data
 app.use(express.json()); // Parse JSON bodies
 app.use(express.urlencoded({ extended: false })); // Parse form data (application/x-www-form-urlencoded)
-app.use(cors());
+app.use(cors());//to connect frontend with backend
 
-// Connect to MongoDB
-connectDB();
+
+connectDB();// Connect to MongoDB
 connectCloudinary(); //for connect cloudinary from config
 // Use userRouter for all /api/user routes
 

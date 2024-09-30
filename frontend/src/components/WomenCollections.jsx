@@ -9,6 +9,7 @@ import Loader from "../constants/Loader";
 const WomenCollections = () => {
   document.title = "Women's Collections";
   const [loading, setLoading] = useState(false);
+  const [open, setOpen] = useState(false);
 
   return loading ? (
     <Loader />
@@ -23,6 +24,27 @@ const WomenCollections = () => {
           button='Shop'
         />
       </div>
+      {/* <div className='container flex justify-between'>
+        <h1>LOGO</h1>
+        <div className='sm:flex hidden flex-1 justify-center gap-5'>
+          <p>Home</p>
+          <p>About</p>
+          <p>Contact</p>
+          <p>Service</p>
+        </div>
+        <h1 className="relative sm:hidden flex " onClick={() => setOpen(!open)}>[---]</h1>
+
+        {open ? (
+          <div className='flex flex-col'>
+            <p>Home</p>
+            <p>Home</p>
+            <p>Home</p>
+            <p>Home</p>
+          </div>
+        ) : (
+          ""
+        )}
+      </div> */}
     </Transitions>
   );
 };

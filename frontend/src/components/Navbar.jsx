@@ -23,7 +23,7 @@ const Navbar = () => {
   const test = useRef(null);
 
   const token = localStorage.getItem("token");
-  console.log("This is user:", username);
+  // console.log("This is user:", username);
 
   //animation
   const variants = {
@@ -59,7 +59,7 @@ const Navbar = () => {
           className='w-14 lg:mr-[9.5rem] cursor-pointer'
           onClick={() => navigate("/")}
         />
-        <div className=' gap-10 hidden lg:flex'>
+        <div className=' gap-10 hidden lg:flex '>
           {navlinks.map((navlink, index) => (
             <div key={index} className='group'>
               <Link
@@ -175,7 +175,6 @@ const Navbar = () => {
           />
           <div
             className={`fixed z-40 top-0 right-0 bottom-0 overflow-hidden
-              
             transition-all duration-500
            flex flex-col gap-5 justify-center 
             items-center ${

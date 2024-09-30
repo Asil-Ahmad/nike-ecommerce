@@ -1,5 +1,5 @@
 import { createContext } from "react";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   featuredProducts,
   latest,
@@ -18,6 +18,32 @@ const ShopContextProvider = (props) => {
   const [showSearch, setShowSearch] = useState(false); //!toggle show search bar
   const username = localStorage.getItem("username");
   const [token, setToken] = useState("");
+  const [cartItems, setCartItems] = useState({}); //!this will be object
+
+  const addToCart = (name,itemId, size) => {
+    if (!size) {
+      alert("Please Select the size!");
+      return;
+    }
+    let cartData = structuredClone(cartItems);
+    console.log(cartData);
+
+    if (cartData[itemId]) {
+      if (cartData[itemId][size]) {
+        cartData[itemId][size] += 1;
+      } else {
+        cartData[itemId][size] = 1;
+      }
+    } else {
+      cartData[itemId] = {};
+      cartData[itemId][size] = 1;
+    }
+    setCartItems(cartData);
+  };
+  useEffect(() => {
+    console.log("This is cartitems", cartItems);
+  }, [cartItems]);
+
   const value = {
     username, //logged username
     url,
@@ -35,6 +61,8 @@ const ShopContextProvider = (props) => {
     //! user add to cart the items
     token,
     setToken,
+    //!add to cart functionality
+    addToCart,
   };
 
   return (

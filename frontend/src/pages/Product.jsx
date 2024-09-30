@@ -14,12 +14,12 @@ import {
 import RelatedProducts from "../components/RelatedProducts";
 
 const Product = () => {
+  const { products, addToCart } = useContext(ShopContext);
   const { productId } = useParams();
-  const { products } = useContext(ShopContext);
   const [currentProduct, setCurrentProduct] = useState("");
   const [image, setImage] = useState("");
   const [size, setSize] = useState("");
-  const [cart, setCart] = useState("");
+
   document.title = currentProduct.name;
 
   const fetchProduct = () => {
@@ -35,7 +35,7 @@ const Product = () => {
   useEffect(() => {
     window.scroll(0, 0);
     fetchProduct();
-    console.log(currentProduct.category);
+    // console.log(currentProduct.category);
   }, [productId]); //!We have to add [productId] this otherwise it wont refresh the page as id changes
 
   return (
@@ -43,7 +43,7 @@ const Product = () => {
       <div className='container py-10'>
         <div className='flex sm:justify-center gap-10 flex-wrap '>
           <div className='flex gap-5 justify-center sm:flex-row flex-col-reverse'>
-            {/* //!Small images */}
+            {/* //!side Small images */}
             <div className='flex sm:flex-col flex-row gap-2 overflow-x-auto '>
               <img
                 src={nikeit43}
@@ -104,6 +104,7 @@ const Product = () => {
               (Also includes all applicable duties)
             </p>
 
+            {/* //!SELECT SIZE OF THE PRODUCTS------------------------------------- */}
             <div className='pt-5'>
               <p className='font-medium'>Select Size</p>
               <div className='grid grid-cols-4 grid-rows-1 gap-2 pt-5'>
@@ -120,15 +121,17 @@ const Product = () => {
                 ))}
               </div>
             </div>
+            {/* //! Add to cart button */}
             <button
               onClick={() => {
-                setCart(currentProduct.price);
+                addToCart(currentProduct.name,currentProduct._id, size);
               }}
-              className='bg-black hover:bg-black/50  active:bg-green-500 mt-10 sticky bottom-2 text-white w-full text-center py-5 rounded-full'
+              className='bg-black hover:bg-black/50   mt-10 sticky bottom-2 text-white w-full text-center py-5 rounded-full'
               popovertarget='box'
             >
               Add to Bag
             </button>
+            {/* //! Add to fav button */}
             <button className='border flex justify-center items-center gap-2 border-black mt-5  w-full text-center py-5 rounded-full'>
               Favourite <img src={outlineheart} alt='' className='w-6' />
             </button>
@@ -144,7 +147,9 @@ const Product = () => {
           />
         </div>
       </div>
-      <div
+      {/* //!Added to cart confirm--------------- */}
+
+      {/* <div
         id='box'
         popover='auto'
         className='bg-black  w-full transition-all duration-300 content-center '
@@ -152,7 +157,7 @@ const Product = () => {
         <p className='text-white text-2xl text-center font-anton'>
           Item Added to Your Cart
         </p>
-      </div>
+      </div> */}
     </Transitions>
   );
 };
