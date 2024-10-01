@@ -22,6 +22,8 @@ const Product = () => {
 
   document.title = currentProduct.name;
 
+
+  //!We get details of products
   const fetchProduct = () => {
     products.map((item) => {
       if (item._id === Number(productId)) {
@@ -97,7 +99,7 @@ const Product = () => {
               {currentProduct.category}&nbsp;
               {currentProduct.subCategory}
             </p>
-            <p className='py-5'>{currentProduct.description}</p>
+            <p className='py-5'>{currentProduct.description.slice(0,24)}...</p>
             <p className='  tracking-widest'>MRP:$ {currentProduct.price} </p>
             <p className='text-gray-400'>Inclusive of all taxes</p>
             <p className='text-gray-400'>

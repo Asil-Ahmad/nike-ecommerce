@@ -2,6 +2,7 @@ import { createContext } from "react";
 import React, { useState, useEffect } from "react";
 import {
   featuredProducts,
+  featuredWomenProducts,
   latest,
   products,
   shopbysports,
@@ -52,6 +53,7 @@ const ShopContextProvider = (props) => {
     shopbysports,
     featuredProducts,
     menFeaturedProducts,
+    featuredWomenProducts,
     latest,
     //!search bar
     search,

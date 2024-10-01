@@ -40,6 +40,13 @@ import lowerwomen1 from "../images/lowerwomen1.png";
 import lowerwomen2 from "../images/lowerwomen2.png";
 import lowerwomen3 from "../images/lowerwomen3.png";
 import lowerwomen4 from "../images/lowerwomen4.png";
+//womenNew&feature
+import image2w from "../images/image2w.png";
+import image3w from "../images/image3w.png";
+import image4w from "../images/image4w.png";
+import image5w from "../images/image5w.png";
+
+
 
 export {
   image1,
@@ -57,6 +64,16 @@ export {
   nikeit51,
   image7,
 };
+
+//!Women news and featured
+
+export const featuredWomenProducts = [
+  { imgURL: image2w, title: "Nike Pegasus Plus" },
+  { imgURL: image3w, title: "Nike Pro" },
+  { imgURL: image4w, title: "Nike Free Metcon 6" },
+  { imgURL: image5w, title: "Nike Air Max Dn" },
+];
+
 
 export const featuredProducts = [
   { imgURL: image1, title: "Nike Jam" },

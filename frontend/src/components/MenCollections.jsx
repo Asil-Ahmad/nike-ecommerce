@@ -9,12 +9,22 @@ import Featured from "../pages/Featured";
 import LatestCollections from "../pages/LatestCollections";
 import ShopBySports from "../pages/ShopBySports";
 import { useNavigate } from "react-router-dom";
+import { useEffect } from "react";
 
 const MenCollections = () => {
   document.title = "Men's Collections";
   const navigate = useNavigate();
-  const { menFeaturedProducts } = useContext(ShopContext);
+  const { menFeaturedProducts, products } = useContext(ShopContext);
   const [loading, setLoading] = useState(false);
+  const [menProduct, setMenProduct] = useState([]);
+
+  const menLatestCollections = () => {
+    let filterCopy = products.slice();
+    filterCopy = filterCopy.filter((item) => item.category === "Men");
+    setMenProduct(filterCopy);
+  };
+
+ 
 
   return loading ? (
     <Loader />
@@ -23,7 +33,7 @@ const MenCollections = () => {
       {/* //!------------------MEN NAVBAR-------------------- */}
       <div className='bg-white sticky top-0 z-20  '>
         <div className='container flex sm:justify-between sm:flex-row flex-col   py-6  '>
-          <h1 className='text-xl '>Men</h1>
+          <h1 className='text-xl max-w-[60px] '>Men</h1>
           <div className='flex-1 flex sm:justify-center justify-start gap-5 pt-5 sm:pt-0 '>
             <h1 className=' hover:text-gray-400 cursor-pointer'>Shoes</h1>
             <h1

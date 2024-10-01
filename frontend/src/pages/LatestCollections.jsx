@@ -46,7 +46,7 @@ const LatestCollections = () => {
         }}
       >
         {products
-          .filter((item) => item.bestsellerinmen === true)
+          .filter((item) => item.bestsellerinmen === true )
           .map((item, index) => (
             <SwiperSlide key={index}>
               <Link to={`/products/${item._id}`}>
