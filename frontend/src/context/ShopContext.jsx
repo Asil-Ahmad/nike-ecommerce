@@ -21,7 +21,8 @@ const ShopContextProvider = (props) => {
   const [token, setToken] = useState("");
   const [cartItems, setCartItems] = useState({}); //!this will be object
 
-  const addToCart = (name,itemId, size) => {
+  //!Adding Add to cart,product count and cart total
+  const addToCart = (name, itemId, size) => {
     if (!size) {
       alert("Please Select the size!");
       return;
@@ -41,9 +42,45 @@ const ShopContextProvider = (props) => {
     }
     setCartItems(cartData);
   };
-  useEffect(() => {
-    console.log("This is cartitems", cartItems);
-  }, [cartItems]);
+
+  //!total counts in cart
+  const getCartCount = () => {
+    let totalCount = 0;
+    for (const items in cartItems) {
+      for (const item in cartItems[items]) {
+        try {
+          if (cartItems[items][item] > 0) {
+            totalCount += cartItems[items][item];
+          }
+        } catch (error) {}
+      }
+    }
+    return totalCount;
+  };
+
+  //!update cart items TO DELETE ITEMS
+
+  const updateQuantity = async (itemId, size, quantity) => {
+    let cartData = structuredClone(cartItems);
+    cartData[itemId][size] = quantity;
+    setCartItems(cartData);
+  };
+
+  const getCartAmount = () => {
+    let totalAmount = 0;
+    for (const items in cartItems) {
+      let itemInfo = products.find((product) => product._id === items);
+      for (const item in cartItems[items]) {
+        try {
+          if (cartItems[items][item] > 0) {
+            totalAmount += itemInfo.price * cartItems[items][item];
+          }
+        } catch (error) {}
+      }
+    }
+    return totalAmount;
+  };
+  //!------------------------------------------------
 
   const value = {
     username, //logged username
@@ -65,6 +102,9 @@ const ShopContextProvider = (props) => {
     setToken,
     //!add to cart functionality
     addToCart,
+    getCartCount,
+    updateQuantity,
+    getCartAmount,
   };
 
   return (

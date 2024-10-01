@@ -19,7 +19,7 @@ const Navbar = () => {
   const [visible, setVisible] = useState(true);
   const [openProfileMenu, setOpenProfileMenu] = useState(false);
   const [open, setOpen] = useState(false);
-  const { showSearch, setShowSearch, username } = useContext(ShopContext);
+  const { showSearch, setShowSearch, username,getCartCount } = useContext(ShopContext);
   const test = useRef(null);
 
   const token = localStorage.getItem("token");
@@ -119,7 +119,12 @@ const Navbar = () => {
             className='w-5 hidden lg:flex'
             // onClick={() => navigate("/register")}
           />
+          <Link to="/cart" className="relative">
           <img src={cart} alt='cart icon' className='w-5' />
+          <p className='absolute bg-black rounded-full w-5 h-5 right-[-5px] top-[13px] aspect-square content-center text-center text-gray-200 text-[12px] font-bold'>
+            {getCartCount()}
+          </p>
+          </Link>
           {/* //!here we add profile user icon who have logged in also added logout and reload the page */}
           {token ? (
             <div className='relative'>
