@@ -16,20 +16,21 @@ import { useGSAP } from "@gsap/react";
 
 const Navbar = () => {
   const navigate = useNavigate();
-  const [visible, setVisible] = useState(true);
+  // const [visible, setVisible] = useState(true);
   const [openProfileMenu, setOpenProfileMenu] = useState(false);
   const [open, setOpen] = useState(false);
-  const { showSearch, setShowSearch, username,getCartCount } = useContext(ShopContext);
-  const test = useRef(null);
+  const { showSearch, setShowSearch, username, getCartCount } =
+    useContext(ShopContext);
+  // const test = useRef(null);
 
   const token = localStorage.getItem("token");
   // console.log("This is user:", username);
 
   //animation
-  const variants = {
-    open: { opacity: 1, x: 0 },
-    closed: { opacity: 0, x: 100 },
-  };
+  // const variants = {
+  //   open: { opacity: 1, x: 0 },
+  //   closed: { opacity: 0, x: 100 },
+  // };
 
   useGSAP(() => {
     gsap.from(".stage", {
@@ -119,11 +120,11 @@ const Navbar = () => {
             className='w-5 hidden lg:flex'
             // onClick={() => navigate("/register")}
           />
-          <Link to="/cart" className="relative">
-          <img src={cart} alt='cart icon' className='w-5' />
-          <p className='absolute bg-black rounded-full w-5 h-5 right-[-5px] top-[13px] aspect-square content-center text-center text-gray-200 text-[12px] font-bold'>
-            {getCartCount()}
-          </p>
+          <Link to='/cart' className='relative'>
+            <img src={cart} alt='cart icon' className='w-5' />
+            <p className='absolute bg-black rounded-full w-5 h-5 right-[-5px] top-[13px] aspect-square content-center text-center text-gray-200 text-[12px] font-bold'>
+              {getCartCount()}
+            </p>
           </Link>
           {/* //!here we add profile user icon who have logged in also added logout and reload the page */}
           {token ? (
@@ -183,7 +184,9 @@ const Navbar = () => {
             transition-all duration-500
            flex flex-col gap-5 justify-center 
             items-center ${
-              open ? "w-[100%] h-screen  bg-black dark:bg-white" : "w-0 h-screen"
+              open
+                ? "w-[100%] h-screen  bg-black dark:bg-white"
+                : "w-0 h-screen"
             }`}
           >
             {navlinks.map((navlink, index) => (

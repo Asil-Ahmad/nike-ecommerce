@@ -1,4 +1,6 @@
 import nike from "../icons/nike.png";
+import Razorpay_logo from "../icons/Razorpay_logo.png";
+import stripe_logo from "../icons/stripe_logo.png";
 import search_icon from "./searchicon.svg";
 import outlineheart from "./outlineheart.svg";
 import cart from "./cart.svg";
@@ -27,4 +29,6 @@ export {
   tick,
   delete_icon,
   delete_icon_solid,
+  Razorpay_logo,
+  stripe_logo,
 };

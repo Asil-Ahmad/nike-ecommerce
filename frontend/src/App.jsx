@@ -19,6 +19,8 @@ import NotFound from "./constants/NotFound";
 import Loader from "./constants/Loader";
 import Cart from "./components/Cart";
 import Checkout from "./pages/Checkout";
+import { useContext } from "react";
+import { ShopContext } from "./context/ShopContext";
 
 //React lazy
 const Collections = React.lazy(() => import("./components/Collections"));
@@ -35,6 +37,7 @@ const App = () => {
         {/* //!This is protected routes only profile page visible when user is auth */}
         <Route element={<Protected />}>
           <Route path='/profile' element={<Profile />} />
+          <Route path='/checkout' element={<Checkout />} />
         </Route>
         <Route path='/' element={<Home />} />
         <Route path='/products/:productId' element={<Product />} />
@@ -54,7 +57,6 @@ const App = () => {
         <Route path='/register' element={<Register />} />
         <Route path='/login' element={<Login />} />
         <Route path='/cart' element={<Cart />} />
-        <Route path='/checkout' element={<Checkout />} />
 
         <Route path='*' element={<NotFound />} />
       </Routes>

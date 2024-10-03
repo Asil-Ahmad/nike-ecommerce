@@ -17,8 +17,8 @@ const Login = () => {
 
   //   const [users, setUsers] = useState({ username: "", password: "" });
   //   const { username, password } = users; //!destructure the above usestate
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [email, setEmail] = useState("ask@ask.com");
+  const [password, setPassword] = useState("123456");
   const [loading, setLoading] = useState(false);
 
   //!Fetch All user data
