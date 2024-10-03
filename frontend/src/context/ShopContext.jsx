@@ -9,11 +9,14 @@ import {
   spotlights,
 } from "../assets/images";
 import { menFeaturedProducts } from "../assets/menImages";
+import { useNavigate } from "react-router-dom";
 
 export const ShopContext = createContext();
 
 const ShopContextProvider = (props) => {
   const url = "http://localhost:4000";
+  const navigate = useNavigate();
+  const delivery_fee = 10;
   //!adding search feature on all web pages
   const [search, setSearch] = useState("");
   const [showSearch, setShowSearch] = useState(false); //!toggle show search bar
@@ -22,7 +25,7 @@ const ShopContextProvider = (props) => {
   const [cartItems, setCartItems] = useState({}); //!this will be object
 
   //!Adding Add to cart,product count and cart total
-  const addToCart = (name, itemId, size) => {
+  const addToCart = (itemId, size) => {
     if (!size) {
       alert("Please Select the size!");
       return;
@@ -69,7 +72,9 @@ const ShopContextProvider = (props) => {
   const getCartAmount = () => {
     let totalAmount = 0;
     for (const items in cartItems) {
-      let itemInfo = products.find((product) => product._id === items);
+      let itemInfo = products.find(
+        (product) => product._id.toString() === items
+      );
       for (const item in cartItems[items]) {
         try {
           if (cartItems[items][item] > 0) {
@@ -80,11 +85,16 @@ const ShopContextProvider = (props) => {
     }
     return totalAmount;
   };
+
+  // useEffect(() => {
+  //   console.log("This is cartitems", cartItems);
+  // }, [cartItems]);
   //!------------------------------------------------
 
   const value = {
     username, //logged username
     url,
+    navigate,
     products,
     spotlights,
     shopbysports,
@@ -102,9 +112,11 @@ const ShopContextProvider = (props) => {
     setToken,
     //!add to cart functionality
     addToCart,
+    cartItems,
     getCartCount,
     updateQuantity,
     getCartAmount,
+    delivery_fee,
   };
 
   return (

@@ -18,6 +18,7 @@ import Protected from "./protectedRoutes/ProtectedRoutes";
 import NotFound from "./constants/NotFound";
 import Loader from "./constants/Loader";
 import Cart from "./components/Cart";
+import Checkout from "./pages/Checkout";
 
 //React lazy
 const Collections = React.lazy(() => import("./components/Collections"));
@@ -53,6 +54,8 @@ const App = () => {
         <Route path='/register' element={<Register />} />
         <Route path='/login' element={<Login />} />
         <Route path='/cart' element={<Cart />} />
+        <Route path='/checkout' element={<Checkout />} />
+
         <Route path='*' element={<NotFound />} />
       </Routes>
       {!footerHidden && <Footer />}

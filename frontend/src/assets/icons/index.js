@@ -6,6 +6,8 @@ import hamburger from "./hamburger.svg";
 import user_icon from "./user.svg";
 import cross from "./cross.svg";
 import tick from "./tick.svg";
+import delete_icon from "./delete_icon.svg";
+import delete_icon_solid from "./delete_icon_solid.svg";
 
 export const navlinks = [
   { href: "/", label: "New & Featured" },
@@ -14,4 +16,15 @@ export const navlinks = [
   { href: "/kids", label: "Kids" },
 ];
 
-export { nike, search_icon, outlineheart, cart, hamburger, cross, user_icon,tick };
+export {
+  nike,
+  search_icon,
+  outlineheart,
+  cart,
+  hamburger,
+  cross,
+  user_icon,
+  tick,
+  delete_icon,
+  delete_icon_solid,
+};

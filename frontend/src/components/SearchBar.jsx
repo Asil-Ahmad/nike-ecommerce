@@ -77,7 +77,7 @@ const SearchBar = () => {
         </div>
         <div className='flex gap-5 overflow-x-scroll sm:w-[80%] z-20 '>
           {filterProducts?.length > 0
-            ? filterProducts.map((item, index) => (
+            ? filterProducts.slice(0, 5).map((item, index) => (
                 <div
                   key={index}
                   className='flex flex-col border border-transparent min-w-[200px] hover:border-black transition duration-200 p-1'

@@ -12,6 +12,8 @@ import {
   nikeit47,
 } from "../assets/images";
 import RelatedProducts from "../components/RelatedProducts";
+import { gsap } from "gsap";
+import { useGSAP } from "@gsap/react";
 
 const Product = () => {
   const { products, addToCart, getCartCount } = useContext(ShopContext);
@@ -19,7 +21,7 @@ const Product = () => {
   const [currentProduct, setCurrentProduct] = useState("");
   const [image, setImage] = useState("");
   const [size, setSize] = useState("");
-  const [open, setOpen] = useState(true);
+  const [open, setOpen] = useState(false);
 
   document.title = currentProduct.name;
 
@@ -37,12 +39,23 @@ const Product = () => {
   useEffect(() => {
     window.scroll(0, 0);
     fetchProduct();
+
     // console.log(currentProduct.category);
   }, [productId]); //!We have to add [productId] this otherwise it wont refresh the page as id changes
 
+  useGSAP(() => {
+    gsap.from("#box", {
+      opacity: 0,
+      y: 0,
+      delay: 0.2,
+      width: 0,
+      height: 0,
+    });
+  }, [open]);
+
   return (
     <Transitions>
-      <div className='container py-10 relative'>
+      <div className='container py-10 relative  '>
         <div className='flex sm:justify-center gap-10 flex-wrap '>
           <div className='flex gap-5 justify-center sm:flex-row flex-col-reverse'>
             {/* //!side Small images */}
@@ -53,8 +66,6 @@ const Product = () => {
                 onMouseEnter={() => setImage(image)}
                 className='rounded-xl w-[100px] h-[100px] object-cover object-center'
               />
-
-             
             </div>
 
             {/* //!Main Product image  */}
@@ -87,9 +98,8 @@ const Product = () => {
                   <button
                     onClick={() => setSize(item)}
                     key={index}
-                    className={`border p-2 text-center hover:border-black cursor-pointer ${
-                      item === size ? "border-black bg-gray-100" : ""
-                    } `}
+                    className={`border p-2 text-center hover:border-black cursor-pointer 
+                      ${item === size ? "border-black bg-gray-100" : ""} `}
                   >
                     {item}
                   </button>
@@ -99,8 +109,7 @@ const Product = () => {
             {/* //! Add to cart button */}
             <button
               onClick={() => {
-                addToCart(currentProduct.name, currentProduct._id, size),
-                  setOpen(true);
+                addToCart(currentProduct._id, size), setOpen(true);
               }}
               className='bg-black hover:bg-black/50   mt-10 sticky bottom-2 text-white w-full text-center py-5 rounded-full'
               popovertarget='box'
@@ -123,54 +132,64 @@ const Product = () => {
           />
         </div>
       </div>
-      {/* //!Added to cart confirm--------------- */}
 
+      {/* //!Added to cart popup confirm the item has been added--------------- */}
+      {/* open only when size is selected only */}
       {open && size ? (
         <div
-          id='box'
-          popover='auto'
-          className='bg-white overflow-hidden shadow-[rgba(0,_0,_0,_0.24)_0px_3px_8px] w-[300px] h-[300px] rounded-3xl p-4 sm:absolute sm:-top-[22%] sm:-right-[60%]'
+          onClick={() => setOpen(false)}
+          className='bg-black/50 w-full h-[100vh] flex justify-center top-0 fixed m-auto'
         >
-          <div className='flex justify-between items-center'>
-            <p className='flex gap-2'>
-              <img src={tick} alt='' className='w-5' />
-              Added to Bag
-            </p>
-            <img
-              onClick={() => setOpen(!open)}
-              src={cross}
-              alt=''
-              className='w-5 bg-gray-300 rounded-full'
-            />
-          </div>
-          <div className='py-4 flex gap-4'>
-            <img src={image} alt='' className='w-20 h-20' />
-            <div className='flex flex-col'>
-              <p className='font-medium truncate'>{currentProduct.name}</p>
-              <p className='text-gray-400  text-sm'>
-                {" "}
-                {currentProduct.category}
+          <div
+            id='box'
+            //  popover='auto'
+            className='bg-white overflow-hidden shadow-[rgba(0,_0,_0,_0.24)_0px_3px_8px] z-20 w-[300px] h-[300px] 
+            rounded-3xl p-4 absolute top-[10%] right-[6%] max-sm:right-0 '
+          >
+            <div className='flex justify-between items-center'>
+              <p className='flex gap-2'>
+                <img src={tick} alt='' className='w-5' />
+                Added to Bag
               </p>
-              <p className='text-gray-400  text-sm'>
-                {currentProduct.subCategory}
-              </p>
-              <p className='text-gray-400  text-sm'>Size: {size}</p>
-              <p className='text-gray-400  text-sm'>
-                MRP: $ {currentProduct.price}.00
-              </p>
-              <p className='text-gray-400 text-sm'>
-                Inclusive of all taxes <br /> (Also includes all applicable
-                duties)
-              </p>
+              <img
+                onClick={() => setOpen(!open)}
+                src={cross}
+                alt=''
+                className='w-5 bg-gray-300 rounded-full'
+              />
             </div>
-          </div>
-          <div className='flex justify-between items-center'>
-            <Link to='/cart' className=' p-2 border rounded-full'>
-              View Bag ({getCartCount()})
-            </Link>
-            <button className='p-2 bg-black text-white rounded-full'>
-              Checkout
-            </button>
+            <div className='py-4 flex gap-4'>
+              <img src={image} alt='' className='w-20 h-20' />
+              <div className='flex flex-col'>
+                <p className='font-medium truncate'>{currentProduct.name}</p>
+                <p className='text-gray-400  text-sm'>
+                  {" "}
+                  {currentProduct.category}
+                </p>
+                <p className='text-gray-400  text-sm'>
+                  {currentProduct.subCategory}
+                </p>
+                <p className='text-gray-400  text-sm'>Size: {size}</p>
+                <p className='text-gray-400  text-sm'>
+                  MRP: $ {currentProduct.price}.00
+                </p>
+                <p className='text-gray-400 text-sm'>
+                  Inclusive of all taxes <br /> (Also includes all applicable
+                  duties)
+                </p>
+              </div>
+            </div>
+            <div className='flex justify-between items-center'>
+              <Link
+                to='/cart'
+                className=' text-sm py-2 px-3 border rounded-full'
+              >
+                View Bag ({getCartCount()})
+              </Link>
+              <button className='text-sm py-2 px-3 bg-black text-white rounded-full'>
+                Checkout
+              </button>
+            </div>
           </div>
         </div>
       ) : (
