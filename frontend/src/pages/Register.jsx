@@ -29,6 +29,7 @@ const Register = () => {
   };
 
   document.title = "Welcome to Nike-Sign In";
+  
 
   const handleSubmit = async (e) => {
     e.preventDefault();

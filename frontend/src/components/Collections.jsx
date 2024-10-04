@@ -15,14 +15,22 @@ const Collections = () => {
   const [subCategory, setSubCategory] = useState([]);
   const [sortType, setSortType] = useState("revelant");
 
-  const noImageAvailable = "https://via.placeholder.com/300x300?text=No+Image";
+  // const noImageAvailable = "https://via.placeholder.com/300x300?text=No+Image";
 
   useGSAP(() => {
-    gsap.to(".gridItems", {
-      opacity: 1,
-      stagger: 0.2,
-    });
-  }, [category, subCategory, sortType]);
+    gsap.fromTo(
+      ".gridItems",
+      {
+        opacity: 0,
+        x: -20,
+      },
+      {
+        opacity: 1,
+        stagger: 0.2,
+        x: 0,
+      }
+    );
+  }, [category,filteredProducts, subCategory, sortType]);
 
   //!--------------ALL CATEGORIES TOGGLE---------------------
   const toggleCategory = (e) => {
@@ -184,7 +192,7 @@ const Collections = () => {
             </label>
           </div>
         </div>
-
+        {/* //!RIGHT SIDE PRODUCTS LIST */}
         <div className='grid sm:grid-cols-3 grid-cols-2 w-full grid-rows-1 sm:gap-4 gap-1 '>
           {filteredProducts.length > 0
             ? filteredProducts?.map((item, index) => (

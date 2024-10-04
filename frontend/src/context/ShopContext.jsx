@@ -15,6 +15,7 @@ export const ShopContext = createContext();
 
 const ShopContextProvider = (props) => {
   const url = "http://localhost:4000";
+
   const navigate = useNavigate();
   const delivery_fee = 10;
   //!adding search feature on all web pages

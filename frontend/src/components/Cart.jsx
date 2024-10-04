@@ -21,13 +21,14 @@ const Cart = () => {
   const [cartData, setCartData] = useState([]); //!empty array
   const [removeItem, setRemoveItem] = useState(delete_icon);
   //   const [quantityValue, setQuantityValue] = useState("");
+
   const submitRef = useRef();
 
   //   let { disabled } = submitRef.current;
 
-  const test = () => {
-    console.log("test");
-  };
+  //   const test = () => {
+  //     console.log("test");
+  //   };
 
   useEffect(() => {
     const tempData = [];
@@ -43,7 +44,6 @@ const Cart = () => {
       }
     }
     setCartData(tempData);
-    window.scroll(0, 0);
   }, [cartItems]);
   //   console.log("getCartAmount:-", getCartAmount());
 
@@ -108,6 +108,7 @@ const Cart = () => {
                             type='number'
                             id='quantity'
                             min={1}
+                            max={5}
                             defaultValue={item.quantity}
                             className='border text-center max-w-10 '
                           />
@@ -122,8 +123,8 @@ const Cart = () => {
                         />
                       </div>
                     </div>
-                    <p className='text-right text-gray-600'>
-                      MRP: $ {productData.price}.00
+                    <p className='priceUpdate tabular-nums text-right h-6 text-gray-600'>
+                      MRP: $ {item.quantity * productData.price}.00
                     </p>
                   </div>
                   <hr className='my-5' />
