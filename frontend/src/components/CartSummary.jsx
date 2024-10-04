@@ -14,7 +14,7 @@ const CartSummary = () => {
         <p>$10.00</p>
       </div>
       <hr />
-      <div className='flex justify-between text-[16px] font-bold text-black py-4'>
+      <div className='flex justify-between text-[16px] font-bold text-black py-3'>
         <p>Total</p>
         <p className='priceUpdate'>
           ${getCartAmount() === 0 ? 0 : getCartAmount() + delivery_fee}.00

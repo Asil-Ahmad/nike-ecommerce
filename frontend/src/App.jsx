@@ -21,6 +21,7 @@ import Cart from "./components/Cart";
 import Checkout from "./pages/Checkout";
 import { useContext } from "react";
 import { ShopContext } from "./context/ShopContext";
+import Orders from "./pages/Orders";
 
 //React lazy
 const Collections = React.lazy(() => import("./components/Collections"));
@@ -38,6 +39,7 @@ const App = () => {
         <Route element={<Protected />}>
           <Route path='/profile' element={<Profile />} />
           <Route path='/checkout' element={<Checkout />} />
+          <Route path='/orders' element={<Orders />} />
         </Route>
         <Route path='/' element={<Home />} />
         <Route path='/products/:productId' element={<Product />} />

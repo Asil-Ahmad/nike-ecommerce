@@ -1,9 +1,13 @@
-import React from "react";
+import React, { useContext, useState } from "react";
 import { Razorpay_logo, stripe_logo } from "../assets/icons";
 import CartSummary from "../components/CartSummary";
 import Transitions from "../components/Transitions";
+import { ShopContext } from "../context/ShopContext";
 
 const Checkout = () => {
+  const { navigate } = useContext(ShopContext);
+  const [paymentOption, setPaymentOption] = useState("cod");
+
   return (
     <Transitions>
       <div className='container py-10 sm:max-w-[900px] w-full'>
@@ -54,8 +58,8 @@ const Checkout = () => {
                   placeholder='City'
                 />
                 <input
-                  className='px-4 py-3 border border-gray-300  hover:border-black outline-none rounded-md '
-                  type='text'
+                  className='num px-4 py-3 border border-gray-300 hover:border-black outline-none rounded-md '
+                  type='number'
                   placeholder='Pincode'
                 />
               </div>
@@ -76,29 +80,6 @@ const Checkout = () => {
                 placeholder='Phone Number'
               />
             </form>
-            <hr className='my-10' />
-            <h2 className='text-[1.75rem] pb-10 font-medium'>Payment</h2>
-            <h3 className='text-[1.25rem] font-medium pb-5'>
-              How would you like to pay?
-            </h3>
-            {/* //!Payment methods */}
-            <div className='flex flex-col gap-5'>
-              <button className='px-4  py-3 border border-gray-300  hover:border-black outline-none rounded-md '>
-                <img src={Razorpay_logo} alt='' className='w-24 h-full  ' />
-              </button>
-
-              <button className='px-4  py-3 border border-gray-300  hover:border-black outline-none rounded-md '>
-                <img
-                  src={stripe_logo}
-                  alt=''
-                  className='w-24 h-[20px] object-left object-contain '
-                />
-              </button>
-
-              <button className='px-4  py-3 border border-gray-300  hover:border-black outline-none rounded-md '>
-                Cash on Delivery
-              </button>
-            </div>
           </div>
 
           {/* //!Right grid */}
@@ -114,6 +95,65 @@ const Checkout = () => {
                 (The total reflects the price of your order, including all
                 duties and taxes)
               </small>
+              <div className='sm:px-10 pt-5'>
+                <hr className='my-5' />
+                <h2 className='text-[1.75rem] pb-10 font-medium'>Payment</h2>
+                <h3 className='text-[1.25rem] font-medium pb-5'>
+                  How would you like to pay?
+                </h3>
+                {/* //!Payment methods */}
+                <div className='flex flex-col gap-5 pb-5'>
+                  <button
+                    onClick={() => setPaymentOption("razorpay")}
+                    className=' flex items-center gap-4 px-4 py-3 border border-gray-300 hover:border-black outline-none rounded-md '
+                  >
+                    <p
+                      className={`border border-gray-300 rounded-full h-[1rem] w-[1rem] ${
+                        paymentOption === "razorpay" ? "bg-green-500" : ""
+                      }`}
+                    ></p>
+                    <img src={Razorpay_logo} alt='' className='w-24 h-full  ' />
+                  </button>
+
+                  <button
+                    onClick={() => setPaymentOption("stripe")}
+                    className='flex items-center gap-4 px-4 py-3 border border-gray-300  hover:border-black outline-none rounded-md '
+                  >
+                    <p
+                      className={`border border-gray-300  rounded-full h-[1rem] w-[1rem] ${
+                        paymentOption === "stripe" ? "bg-green-500" : ""
+                      }`}
+                    ></p>
+                    <img
+                      src={stripe_logo}
+                      alt=''
+                      className='w-24 h-[20px] object-left object-contain '
+                    />
+                  </button>
+
+                  <button
+                    onClick={() => setPaymentOption("cod")}
+                    className='flex items-center gap-4 px-4 py-3 border border-gray-300 hover:border-black outline-none rounded-md '
+                  >
+                    <p
+                      className={`border border-gray-300  rounded-full h-[1rem] w-[1rem] ${
+                        paymentOption === "cod" ? "bg-green-500" : ""
+                      }`}
+                    ></p>
+                    Cash on Delivery
+                  </button>
+                </div>
+                <button
+                  onClick={() => navigate("/orders")}
+                  className={`rounded-full w-full text-white bg-black cursor-pointer py-4 ${
+                    paymentOption
+                      ? "bg-green-500 delay-120 transition-transform hover:translate-y-2 hover:shadow-xl"
+                      : "bg-red-500"
+                  }`}
+                >
+                  Proceed To Checkout
+                </button>
+              </div>
             </div>
           </div>
         </div>

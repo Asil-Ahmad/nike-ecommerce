@@ -3,14 +3,7 @@ import { Link, useParams } from "react-router-dom";
 import { ShopContext } from "../context/ShopContext";
 import { cross, outlineheart, tick } from "../assets/icons";
 import Transitions from "../components/Transitions";
-import {
-  nikeit42,
-  nikeit43,
-  nikeit44,
-  nikeit45,
-  nikeit46,
-  nikeit47,
-} from "../assets/images";
+import { nikeit42, nikeit43, nikeit44, nikeit45, nikeit46, nikeit47 } from "../assets/images";
 import RelatedProducts from "../components/RelatedProducts";
 import { gsap } from "gsap";
 import { useGSAP } from "@gsap/react";
@@ -39,6 +32,9 @@ const Product = () => {
   useEffect(() => {
     window.scroll(0, 0);
     fetchProduct();
+    setTimeout(() => {
+      setOpen(false);
+    }, 2000);
 
     // console.log(currentProduct.category);
   }, [productId]); //!We have to add [productId] this otherwise it wont refresh the page as id changes
@@ -81,14 +77,10 @@ const Product = () => {
               {currentProduct.category}&nbsp;
               {currentProduct.subCategory}
             </p>
-            <p className='py-5 max-w-[14.75rem] '>
-              {currentProduct.description}
-            </p>
+            <p className='py-5 max-w-[14.75rem] '>{currentProduct.description}</p>
             <p className='  tracking-widest'>MRP:$ {currentProduct.price} </p>
             <p className='text-gray-400'>Inclusive of all taxes</p>
-            <p className='text-gray-400'>
-              (Also includes all applicable duties)
-            </p>
+            <p className='text-gray-400'>(Also includes all applicable duties)</p>
 
             {/* //!SELECT SIZE OF THE PRODUCTS------------------------------------- */}
             <div className='pt-5'>
@@ -117,7 +109,7 @@ const Product = () => {
               Add to Bag
             </button>
             {/* //! Add to fav button */}
-            <button className='border flex justify-center items-center gap-2 border-black mt-5  w-full text-center py-5 rounded-full'>
+            <button className='border flex justify-center items-center gap-2 border-black mt-5 w-full text-center py-5 rounded-full'>
               Favourite <img src={outlineheart} alt='' className='w-6' />
             </button>
           </div>
@@ -162,28 +154,17 @@ const Product = () => {
               <img src={image} alt='' className='w-20 h-20' />
               <div className='flex flex-col'>
                 <p className='font-medium truncate'>{currentProduct.name}</p>
-                <p className='text-gray-400  text-sm'>
-                  {" "}
-                  {currentProduct.category}
-                </p>
-                <p className='text-gray-400  text-sm'>
-                  {currentProduct.subCategory}
-                </p>
+                <p className='text-gray-400  text-sm'> {currentProduct.category}</p>
+                <p className='text-gray-400  text-sm'>{currentProduct.subCategory}</p>
                 <p className='text-gray-400  text-sm'>Size: {size}</p>
-                <p className='text-gray-400  text-sm'>
-                  MRP: $ {currentProduct.price}.00
-                </p>
+                <p className='text-gray-400  text-sm'>MRP: $ {currentProduct.price}.00</p>
                 <p className='text-gray-400 text-sm'>
-                  Inclusive of all taxes <br /> (Also includes all applicable
-                  duties)
+                  Inclusive of all taxes <br /> (Also includes all applicable duties)
                 </p>
               </div>
             </div>
             <div className='flex justify-between items-center'>
-              <Link
-                to='/cart'
-                className=' text-sm py-2 px-3 border rounded-full'
-              >
+              <Link to='/cart' className=' text-sm py-2 px-3 border rounded-full'>
                 View Bag ({getCartCount()})
               </Link>
               <button className='text-sm py-2 px-3 bg-black text-white rounded-full'>

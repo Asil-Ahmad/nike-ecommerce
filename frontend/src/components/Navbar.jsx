@@ -8,22 +8,24 @@ import {
   search_icon,
   user_icon,
 } from "../assets/icons";
-import { Link, useNavigate, NavLink } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import { ShopContext } from "../context/ShopContext";
 import { gsap } from "gsap";
 import { useGSAP } from "@gsap/react";
 
 const Navbar = () => {
-  const navigate = useNavigate();
-  // const [visible, setVisible] = useState(true);
+  const [visible, setVisible] = useState(true);
   const [openProfileMenu, setOpenProfileMenu] = useState(false);
   const [open, setOpen] = useState(false);
-  const { showSearch, setShowSearch, username, getCartCount } =
+  const { showSearch, setShowSearch, username, getCartCount, navigate } =
     useContext(ShopContext);
   // const test = useRef(null);
 
   const token = localStorage.getItem("token");
+
+  // console.log(location.pathname);
+
   // console.log("This is user:", username);
 
   //animation
@@ -42,7 +44,7 @@ const Navbar = () => {
     gsap.from(".profile-bg", {
       height: 0,
     });
-  }, [openProfileMenu, setOpenProfileMenu]);
+  }, [openProfileMenu]);
   return (
     <header className='relative'>
       <div className='w-full bg-black py-3 '>
@@ -130,8 +132,10 @@ const Navbar = () => {
           {token ? (
             <div className='relative'>
               <p
-                onClick={() => setOpenProfileMenu(!openProfileMenu)}
                 className=' w-6 h-full text-center rounded-full bg-black text-white cursor-pointer '
+                onClick={() => {
+                  setOpenProfileMenu(!openProfileMenu);
+                }}
               >
                 {username.slice(0, 1)}
               </p>
@@ -152,7 +156,7 @@ const Navbar = () => {
                     </p>
                     <p
                       onClick={() => {
-                        localStorage.clear(), navigate("/");
+                        localStorage.clear(), navigate("/"), location.reload();
                       }}
                       className='stage hover:bg-black hover:text-white w-full text-center'
                     >

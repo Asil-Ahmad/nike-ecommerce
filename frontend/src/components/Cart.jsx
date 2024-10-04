@@ -61,7 +61,7 @@ const Cart = () => {
 
   return (
     <Transitions>
-      <div className='lg:px-[100px] px-2 flex sm:flex-row flex-col justify-between items-start py-10 gap-4'>
+      <div className='lg:px-[100px] px-2 flex sm:flex-row flex-col justify-evenly items-start py-10 gap-4'>
         <div className='flex flex-col bag sm:w-[60%] w-full'>
           {/*  //todo check if there is length then only show (1) else Bag if empty */}
           <h1 className='text-[1.75rem]'>
@@ -137,7 +137,7 @@ const Cart = () => {
           )}
         </div>
 
-        <div className='cart sm:w-[35%] sticky h-full top-20 w-full flex flex-col gap-5'>
+        <div className='cart sm:w-[30%] sticky h-full top-20 w-full flex flex-col gap-5'>
           <h1 className='text-[1.75rem]'>Summary</h1>
           <CartSummary cartData={cartData} />
           <input
@@ -145,7 +145,7 @@ const Cart = () => {
             value='Checkout'
             disabled={cartData.length === 0}
             onClick={() => navigate("/checkout")}
-            className='rounded-full  disabled:bg-black/50 disabled:cursor-not-allowed text-white bg-black cursor-pointer py-4'
+            className='rounded-full  disabled:bg-black/50 disabled:cursor-not-allowed text-white bg-black cursor-pointer py-4 '
           />
         </div>
       </div>
