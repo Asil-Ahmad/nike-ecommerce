@@ -27,10 +27,10 @@ const ShopContextProvider = (props) => {
 
   //!Adding Add to cart,product count and cart total
   const addToCart = (itemId, size) => {
-    if (!size) {
-      alert("Please Select the size!");
-      return;
-    }
+    // if (!size) {
+    //   alert("Please Select the size!");
+    //   return;
+    // }
     let cartData = structuredClone(cartItems);
     console.log(cartData);
 

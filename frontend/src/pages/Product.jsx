@@ -39,7 +39,6 @@ const Product = () => {
   useEffect(() => {
     window.scroll(0, 0);
     fetchProduct();
-   
 
     // console.log(currentProduct.category);
   }, [productId]); //!We have to add [productId] this otherwise it wont refresh the page as id changes
@@ -108,7 +107,11 @@ const Product = () => {
             {/* //! Add to cart button */}
             <button
               onClick={() => {
-                addToCart(currentProduct._id, size), setOpen(true);
+                if (size) {
+                  addToCart(currentProduct._id, size), setOpen(true);
+                } else {
+                  alert("Select the size");
+                }
               }}
               className='bg-black hover:bg-black/50   mt-10 sticky bottom-2 text-white w-full text-center py-5 rounded-full'
               popovertarget='box'
@@ -132,9 +135,10 @@ const Product = () => {
         </div>
       </div>
 
-      {/* //!Added to cart popup confirm the item has been added--------------- */}
+      {/* //!--------------------------------Added to cart popup confirm the item has been added--------------- */}
       {/* open only when size is selected only */}
-      {open && size ? (
+
+      {open && size.length > 0 ? (
         <div
           onClick={() => setOpen(false)}
           className='bg-black/50 w-full h-[100vh] flex justify-center top-0 fixed m-auto'

@@ -47,14 +47,31 @@ const Cart = () => {
   }, [cartItems]);
   //   console.log("getCartAmount:-", getCartAmount());
 
+  useEffect(() => {
+    window.scroll(0, 0); //!Rememmber to not using any dependancy like cartitems otherwise it will trigger always if we change quantity
+  }, []);
+
   useGSAP(() => {
     gsap.fromTo(
       ".priceUpdate",
       {
-        backgroundColor: "gray",
+        // backgroundColor: "gray",
+        fontWeight: 900,
       },
       {
-        backgroundColor: "white",
+        // backgroundColor: "white",
+        fontWeight: 700,
+      }
+    );
+    gsap.fromTo(
+      ".subtotal",
+      {
+        // backgroundColor: "gray",
+        fontWeight: 700,
+      },
+      {
+        // backgroundColor: "white",
+        fontWeight: 400,
       }
     );
   }, [getCartAmount()]);
@@ -95,6 +112,7 @@ const Cart = () => {
                           <label className='text-gray-400' htmlFor='quantity'>
                             Quantity &nbsp;
                           </label>
+                          {/* //todo two ways to input quantity */}
                           <input
                             onChange={(e) =>
                               e.target.value === "" || e.target.value === "0"
@@ -108,10 +126,31 @@ const Cart = () => {
                             type='number'
                             id='quantity'
                             min={1}
-                            max={5}
+                            max={10}
                             defaultValue={item.quantity}
                             className='border text-center max-w-10 '
                           />
+                          {/* //todo second way */}
+                          {/* <select
+                            onChange={(e) =>
+                              e.target.value === "" || e.target.value === "0"
+                                ? null
+                                : updateQuantity(
+                                    item._id,
+                                    item.size,
+                                    Number(e.target.value)
+                                  )
+                            }
+                            type='number'
+                            id='quantity'
+                            defaultValue={item.quantity}
+                            className='border text-center max-w-10 '
+                          >
+                            <option value='1'>1</option>
+                            <option value='2'>2</option>
+                            <option value='3'>3</option>
+                            <option value='4'>4</option>
+                          </select> */}
                         </div>
                         <img
                           src={removeItem}
@@ -123,7 +162,7 @@ const Cart = () => {
                         />
                       </div>
                     </div>
-                    <p className='priceUpdate tabular-nums text-right h-6 text-gray-600'>
+                    <p className='tabular-nums text-right h-6 text-gray-600'>
                       MRP: $ {item.quantity * productData.price}.00
                     </p>
                   </div>

@@ -17,20 +17,21 @@ const Collections = () => {
 
   // const noImageAvailable = "https://via.placeholder.com/300x300?text=No+Image";
 
-  useGSAP(() => {
-    gsap.fromTo(
-      ".gridItems",
-      {
-        opacity: 0,
-        x: -20,
-      },
-      {
-        opacity: 1,
-        stagger: 0.2,
-        x: 0,
-      }
-    );
-  }, [category,filteredProducts, subCategory, sortType]);
+  //!Turned off grid animation causing issue in mobile view select categories
+  // useGSAP(() => {
+  //   gsap.fromTo(
+  //     ".gridItems",
+  //     {
+  //       opacity: 0,
+  //       x: -20,
+  //     },
+  //     {
+  //       opacity: 1,
+  //       stagger: 0.2,
+  //       x: 0,
+  //     }
+  //   );
+  // }, [category,filteredProducts, subCategory, sortType]);
 
   //!--------------ALL CATEGORIES TOGGLE---------------------
   const toggleCategory = (e) => {

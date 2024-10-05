@@ -7,7 +7,7 @@ const CartSummary = () => {
     <>
       <div className='flex justify-between'>
         <p className="text-[16px] text-gray-400">Subtotal</p>
-        <p className='priceUpdate text-[16px] text-gray-500'>${getCartAmount()}.00</p>
+        <p className='subtotal text-[16px] text-gray-500'>${getCartAmount()}.00</p>
       </div>
       <div className='flex justify-between text-[16px] text-gray-500 py-2'>
         <p>Delivery</p>
