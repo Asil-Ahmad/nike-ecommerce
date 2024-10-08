@@ -42,7 +42,7 @@ const Register = () => {
       formData.append("password", password);
       formData.append("image", image ? image : ""); //!better uprroach
 
-      const res = await axios.post(`${url}/api/user/add`, formData);
+      const res = await axios.post(`${url}/api/user/register`, formData);
 
       if (res.data.message) {
         setEmail("");
