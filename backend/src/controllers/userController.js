@@ -3,6 +3,10 @@ import jwt from "jsonwebtoken";
 import { v2 as cloudinary } from "cloudinary"; //add image
 import upload from "../middleware/multer.js"; //middleware
 
+//!Admin Login
+const adminLogin = async (req, res) => {};
+
+//!List all users in database
 const listUser = async (req, res) => {
   try {
     const allUser = await userModel.find({});
@@ -10,17 +14,24 @@ const listUser = async (req, res) => {
   } catch (error) {}
 };
 
-const addUser = async (req, res) => {
+//!Register user with new emial
+const registerUser = async (req, res) => {
   try {
     const { email, name, password } = req.body; //!we extract these from req.body
     const imageFile = req.file; //!need to add file
 
-    let imageUrl = "";//!if no file we get this url image else true we use user upload image
+    let imageUrl = ""; //!if no file we get this url image else true we use user upload image
     if (imageFile) {
       const imageUpload = await cloudinary.uploader.upload(imageFile.path, {
         resource_type: "image",
       });
-      imageUrl = imageUpload.secure_url; 
+      imageUrl = imageUpload.secure_url;
+    }
+    const isEmailExist = await userModel.findOne({ email: email });
+    if (isEmailExist) {
+      return res
+        .status(400)
+        .json({ success: false, message: "Email already exist" });
     }
 
     //  console.log(email, name, password,imageUpload);
@@ -31,62 +42,64 @@ const addUser = async (req, res) => {
       password,
       image: imageUrl,
     };
-    const isEmailExist = await userModel.findOne({ email: email });
-    // console.log(isEmailExist);
 
-    if (isEmailExist) {
-      res.status(400).json({ message: "Failed to add user" });
-      // console.log("email already exist");
-    } else {
-      // console.log("User added");
-      const user = userModel(userData);
-      await user.save();
-      res.status(200).json({ message: "User Added Succesfully" });
-    }
+    const user = userModel(userData);
+    await user.save();
+
+    res.status(200).json({ message: "User Added Succesfully" });
   } catch (error) {
     console.log(error);
   }
 };
 
-//!Using Promise
-const loginUser = (req, res) => {
-  // try {
-  //   const id = req.body.id;
-  //   const name = req.body.name;
-  //   console.log("");
-  //   const userData = { name };
-  //   // console.log(userData);
+//!Using Promise to Login User
+const loginUser = async (req, res) => {
+  try {
+    const { email, password } = req.body;
+    const user = await userModel.findOne({ email });
+    // console.log(email,password,user);
 
-  //   // const userID = await userModel.find(userData);
-  //   // console.log(userID[0].name);
+    if (!user) {
+      return res
+        .status(400)
+        .json({ success: false, message: "User doesnt exist" });
+    }
 
-  //   res.status(200).json({ message: "User Already Exist" });
-  // } catch (error) {
-  //   console.log(error);
+    // console.log(user.password === password);
 
-  //   res.status(400).json({ message: "Not exist" });
-  // }
-  const { email, password } = req.body;
+    if (user.password === password) {
+      const { _id, email, name } = user;
+      const token = jwt.sign(
+        { userId: _id, email: email, name: name },
+        process.env.JWT_SECRET
+      );
+      res.status(200).json({ message: "User is login", token: token });
+    } else {
+      res.status(400).json({ message: "Incorrect password" });
+    }
+  } catch (error) {
+    res.status(400).json({ message: "An Error occured" });
+  }
 
-  // console.log(name);
-  const userData = { email, password };
-  userModel
-    .find(userData)
-    .then((data) => {
-      // console.log(data);
-      const { _id, name, email } = data[0]; //!here we get _id name and email for jwt from data of the user
-      // console.log(_id, name, email);
+  // const { email, password } = req.body;
+  // const userData = { email, password };
+  // userModel
+  //   .find(userData)
+  //   .then((data) => {
+  //     // console.log(data);
+  //     const { _id, name, email } = data[0]; //!here we get _id name and email for jwt from data of the user
+  //     // console.log(_id, name, email);
 
-      if (data[0].email === email && data[0].password === password) {
-        //!-------------here we get token for specific user to login session---------------
-        const token = jwt.sign(
-          { userId: _id, email: email, name: name },
-          `${process.env.JWT_SECRET}`
-        );
-        res.status(200).json({ message: "Success", token: token });
-      } else res.status(400).json({ message: "Authorization Failed" });
-    })
-    .catch((err) => res.status(400).json({ message: "Failed" }));
+  //     if (data[0].email === email && data[0].password === password) {
+  //       //!-------------here we get token for specific user to login session---------------
+  //       const token = jwt.sign(
+  //         { userId: _id, email: email, name: name },
+  //         `${process.env.JWT_SECRET}`
+  //       );
+  //       res.status(200).json({ message: "Success", token: token });
+  //     } else res.status(400).json({ message: "Authorization Failed" });
+  //   })
+  //   .catch((err) => res.status(400).json({ message: "Failed" }));
 };
 
 const deleteUser = async (req, res) => {
@@ -102,4 +115,4 @@ const deleteUser = async (req, res) => {
   //   }
 };
 
-export { addUser, loginUser, listUser, deleteUser };
+export { registerUser, loginUser, listUser, deleteUser, adminLogin };

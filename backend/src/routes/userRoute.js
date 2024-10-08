@@ -1,8 +1,9 @@
 import {
-  addUser,
+  registerUser,
   loginUser,
   listUser,
   deleteUser,
+  adminLogin,
 } from "../controllers/userController.js";
 import express from "express";
 import upload from "../middleware/multer.js";
@@ -13,7 +14,7 @@ const userRouter = express.Router();
 
 //!Here we add METHODS
 userRouter.get("/list", listUser);
-userRouter.post("/add", upload.single("image"), addUser);
+userRouter.post("/register", upload.single("image"), registerUser);
 userRouter.post("/login", upload.none(), loginUser);
 userRouter.delete("/remove", upload.none(), deleteUser);
 
