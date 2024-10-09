@@ -86,11 +86,12 @@ const loginUser = async (req, res) => {
       return res.status(400).json({ success: false, message: "User doesnt exist" });
     }
 
-    // console.log(user.password === password);
-
     if (user.password === password) {
-      const { _id, email, name } = user;
-      const token = jwt.sign({ userId: _id, email: email, name: name }, process.env.JWT_SECRET);
+      const { _id, email, name, isAdmin } = user; //!here we also checking if isAdmin is there or not
+      const token = jwt.sign(
+        { userId: _id, email: email, name: name, isAdmin: isAdmin },
+        process.env.JWT_SECRET
+      );
       res.status(200).json({ message: "User is login", token: token });
     } else {
       res.status(400).json({ message: "Incorrect password" });

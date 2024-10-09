@@ -14,7 +14,6 @@ import KidCollections from "./components/KidCollections";
 import Footer from "./components/Footer";
 // import Collections from "./components/Collections";
 import Profile from "./components/Profile";
-import Protected from "./protectedRoutes/ProtectedRoutes";
 import NotFound from "./constants/NotFound";
 import Loader from "./constants/Loader";
 import Cart from "./components/Cart";
@@ -22,6 +21,9 @@ import Checkout from "./pages/Checkout";
 import { useContext } from "react";
 import { ShopContext } from "./context/ShopContext";
 import Orders from "./pages/Orders";
+import Protected from "./protectedRoutes/ProtectedRoutes";
+import ProtectedAdmin from "./protectedRoutes/ProtectedRoutesAdmin";
+import AdminPanel from "./pages/AdminPanel";
 
 //React lazy
 const Collections = React.lazy(() => import("./components/Collections"));
@@ -41,6 +43,11 @@ const App = () => {
           <Route path='/checkout' element={<Checkout />} />
           <Route path='/orders' element={<Orders />} />
         </Route>
+
+        <Route element={<ProtectedAdmin />}>
+          <Route path='/admin' element={<AdminPanel />} />
+        </Route>
+
         <Route path='/' element={<Home />} />
         <Route path='/products/:productId' element={<Product />} />
         <Route path='/men' element={<MenCollections />} />

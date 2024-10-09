@@ -68,7 +68,9 @@ const Login = () => {
         const decodedToken = jwtDecode(data.token); //!this convert the token into string using jwtDecode
         localStorage.setItem("token", data.token); //!we set token inside local storage
         localStorage.setItem("username", decodedToken.name); //!we get token name
-        // console.log("Decoded Token:", decodedToken);
+        decodedToken.isAdmin ? localStorage.setItem("isAdmin", decodedToken.isAdmin) : null;
+
+        console.log("isAdmin:", decodedToken.isAdmin);
         navigate("/");
       } else {
         throw new Error("Token not found in response");
@@ -87,14 +89,9 @@ const Login = () => {
   ) : (
     <Transitions>
       <div className='container m-auto py-10 content-center xl:w-[30%] lg:w-[35%] md:w-[50%] sm:w-full'>
-        <h1 className='  text-3xl tracking-wide'>
-          Enter your name to join us or sign in.
-        </h1>
+        <h1 className='  text-3xl tracking-wide'>Enter your name to join us or sign in.</h1>
 
-        <form
-          onSubmit={handleSubmit}
-          className='flex flex-col m-auto  items-end py-10 gap-5'
-        >
+        <form onSubmit={handleSubmit} className='flex flex-col m-auto  items-end py-10 gap-5'>
           <input
             type='email'
             id='email'
@@ -117,7 +114,7 @@ const Login = () => {
           />
 
           <input
-          type="button"
+            type='button'
             popovertarget='box'
             value='Sign in'
             className='text-white cursor-pointer  bg-black px-4 py-2 rounded-full'
