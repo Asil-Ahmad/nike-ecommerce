@@ -3,9 +3,6 @@ import jwt from "jsonwebtoken";
 import { v2 as cloudinary } from "cloudinary"; //add image
 import upload from "../middleware/multer.js"; //middleware
 
-//!Admin Login
-const adminLogin = async (req, res) => {};
-
 //!List all users in database
 const listUser = async (req, res) => {
   try {
@@ -29,9 +26,10 @@ const registerUser = async (req, res) => {
     }
     const isEmailExist = await userModel.findOne({ email: email });
     if (isEmailExist) {
-      return res
-        .status(400)
-        .json({ success: false, message: "Email already exist" });
+      return res.status(400).json({ success: false, message: "Email already exist" });
+    }
+    if (password.length < 8) {
+      return res.status(400).json({ success: false, message: "Use a strong password" });
     }
 
     //  console.log(email, name, password,imageUpload);
@@ -52,6 +50,31 @@ const registerUser = async (req, res) => {
   }
 };
 
+//!Admin Login
+const adminLogin = async (req, res) => {
+  try {
+    const { email, password } = req.body;
+    const admin = await userModel.findOne({ email });
+    // console.log(admin.password === password);
+
+    if (!admin || admin.password != password) {
+      return res.status(400).json({ message: "Invalid User" });
+    }
+
+    if (admin.password === password) {
+      const { _id, email, name, isAdmin } = admin;
+      // console.log(_id, email, name, isAdmin);
+      const token = jwt.sign(
+        { adminId: _id, email: email, name: name, isAdmin: isAdmin },
+        process.env.JWT_SECRET
+      );
+      res.status(200).json({ message: "Your admin", token });
+    }
+  } catch (error) {
+    res.status(400).json({ message: error });
+  }
+};
+
 //!Using Promise to Login User
 const loginUser = async (req, res) => {
   try {
@@ -60,19 +83,14 @@ const loginUser = async (req, res) => {
     // console.log(email,password,user);
 
     if (!user) {
-      return res
-        .status(400)
-        .json({ success: false, message: "User doesnt exist" });
+      return res.status(400).json({ success: false, message: "User doesnt exist" });
     }
 
     // console.log(user.password === password);
 
     if (user.password === password) {
       const { _id, email, name } = user;
-      const token = jwt.sign(
-        { userId: _id, email: email, name: name },
-        process.env.JWT_SECRET
-      );
+      const token = jwt.sign({ userId: _id, email: email, name: name }, process.env.JWT_SECRET);
       res.status(200).json({ message: "User is login", token: token });
     } else {
       res.status(400).json({ message: "Incorrect password" });

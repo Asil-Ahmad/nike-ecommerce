@@ -29,7 +29,6 @@ const Register = () => {
   };
 
   document.title = "Welcome to Nike-Sign In";
-  
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -49,12 +48,13 @@ const Register = () => {
         setName("");
         setPassword("");
         setImage(false); //!remember to set it to false
-        alert("User registered succesfully!");
+        alert(res.data.message);
       } else {
-        console.log(error);
+        console.log("hello");
       }
     } catch (error) {
-      console.log(error);
+      //console.log(error);
+      alert(error.response.data.message);
     }
     // Add a 3-second timer for the loader
     //it takes 3 second for loader to get false

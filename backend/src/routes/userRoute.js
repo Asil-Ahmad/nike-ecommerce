@@ -16,6 +16,7 @@ const userRouter = express.Router();
 userRouter.get("/list", listUser);
 userRouter.post("/register", upload.single("image"), registerUser);
 userRouter.post("/login", upload.none(), loginUser);
+userRouter.post("/admin", upload.none(), adminLogin);
 userRouter.delete("/remove", upload.none(), deleteUser);
 
 export default userRouter;
