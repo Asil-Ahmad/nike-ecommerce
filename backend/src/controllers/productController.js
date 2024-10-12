@@ -8,7 +8,7 @@ const addProducts = async (req, res) => {
     const { name, description, price, category, subCategory, sizes, bestseller } = req.body;
     const images = req.files; //!to add multiple images
 
-    console.log(name, description, price, category, subCategory, sizes, bestseller);
+    // console.log(name, description, price, category, subCategory, sizes, bestseller);
     // console.log("images", images);
     // console.log("Files", req.files);
 
@@ -21,7 +21,7 @@ const addProducts = async (req, res) => {
       });
       imageUrls.push(imageUpload.secure_url);
     }
-    console.log("Uploaded image URLs", imageUrls);
+    // console.log("Uploaded image URLs", imageUrls);
 
     const productData = {
       name,
@@ -29,12 +29,12 @@ const addProducts = async (req, res) => {
       price: Number(price),
       category,
       subCategory,
-      sizes: Array.isArray(sizes) ? sizes : [sizes],//!This convert them to array
+      sizes: Array.isArray(sizes) ? sizes : [sizes], //!This convert them to array
       bestseller: bestseller === "true" ? true : false,
       images: imageUrls,
       date: Date.now(),
     };
-    console.log(productData);
+    // console.log(productData);
 
     const products = new productModel(productData);
     await products.save();
@@ -46,12 +46,33 @@ const addProducts = async (req, res) => {
 };
 
 //list of products
-const listProducts = async (req, res) => {};
+const listProducts = async (req, res) => {
+  try {
+    const listAllProducts = await productModel.find({});
+    res.status(200).json({ success: true, data: listAllProducts });
+  } catch (error) {
+    res.status(400).json({ success: false });
+  }
+};
 
 //remove products
-const removeProducts = async (req, res) => {};
+const removeProducts = async (req, res) => {
+  const { id } = req.body;
+  try {
+    await productModel.findByIdAndDelete(id);
+    res.status(200).json({ message: "successfully deleted the product" });
+  } catch (error) {
+    res.status(400).json({ message: "Product not found" });
+  }
+};
 
 //info of single product
-const singleProducts = async (req, res) => {};
+const singleProducts = async (req, res) => {
+  const { id } = req.body;
+  try {
+    const itemInfo = await productModel.findOne({ id });
+    res.status(200).json({ message: "success", data: itemInfo });
+  } catch (error) {}
+};
 
 export { addProducts, listProducts, removeProducts, singleProducts };
