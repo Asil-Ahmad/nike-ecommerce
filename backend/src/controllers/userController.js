@@ -51,31 +51,45 @@ const registerUser = async (req, res) => {
 };
 
 //!Admin Login
+// const adminLogin = async (req, res) => {
+//   try {
+//     const { email, password } = req.body;
+//     const admin = await userModel.findOne({ email });
+//     console.log("This is admin", admin);
+
+//     if (!admin || admin.password != password) {
+//       return res.status(400).json({ message: "Invalid User" });
+//     }
+
+//     if (admin.password === password) {
+//       const { _id, email, name, isAdmin } = admin;
+//       // console.log(_id, email, name, isAdmin);
+//       const token = jwt.sign(
+//         { adminId: _id, email: email, name: name, isAdmin: isAdmin },
+//         process.env.JWT_SECRET
+//       );
+//       res.status(200).json({ message: "Your admin", token });
+//     }
+//   } catch (error) {
+//     res.status(400).json({ message: error });
+//   }
+// };
+
+//!Using Promise to Login User
 const adminLogin = async (req, res) => {
   try {
     const { email, password } = req.body;
-    const admin = await userModel.findOne({ email });
-    // console.log(admin.password === password);
-
-    if (!admin || admin.password != password) {
-      return res.status(400).json({ message: "Invalid User" });
-    }
-
-    if (admin.password === password) {
-      const { _id, email, name, isAdmin } = admin;
-      // console.log(_id, email, name, isAdmin);
-      const token = jwt.sign(
-        { adminId: _id, email: email, name: name, isAdmin: isAdmin },
-        process.env.JWT_SECRET
-      );
-      res.status(200).json({ message: "Your admin", token });
+    if (email === process.env.ADMIN_EMAIL && password === process.env.ADMIN_PASSWORD) {
+      const token = jwt.sign(email + password, process.env.JWT_SECRET);
+      res.status(200).json({ message: "success", token });
+    } else {
+      res.status(400).json({ message: "Wrong Admin Input" });
     }
   } catch (error) {
-    res.status(400).json({ message: error });
+    res.status(400).json({ message: "error" });
   }
 };
 
-//!Using Promise to Login User
 const loginUser = async (req, res) => {
   try {
     const { email, password } = req.body;
@@ -99,26 +113,6 @@ const loginUser = async (req, res) => {
   } catch (error) {
     res.status(400).json({ message: "An Error occured" });
   }
-
-  // const { email, password } = req.body;
-  // const userData = { email, password };
-  // userModel
-  //   .find(userData)
-  //   .then((data) => {
-  //     // console.log(data);
-  //     const { _id, name, email } = data[0]; //!here we get _id name and email for jwt from data of the user
-  //     // console.log(_id, name, email);
-
-  //     if (data[0].email === email && data[0].password === password) {
-  //       //!-------------here we get token for specific user to login session---------------
-  //       const token = jwt.sign(
-  //         { userId: _id, email: email, name: name },
-  //         `${process.env.JWT_SECRET}`
-  //       );
-  //       res.status(200).json({ message: "Success", token: token });
-  //     } else res.status(400).json({ message: "Authorization Failed" });
-  //   })
-  //   .catch((err) => res.status(400).json({ message: "Failed" }));
 };
 
 const deleteUser = async (req, res) => {
@@ -131,7 +125,6 @@ const deleteUser = async (req, res) => {
   } catch (error) {
     res.status(400).json({ message: "Cannot find user" });
   }
-  //   }
 };
 
 export { registerUser, loginUser, listUser, deleteUser, adminLogin };

@@ -6,13 +6,14 @@ import {
   removeProducts,
   singleProducts,
 } from "../controllers/productController.js";
+import adminAuth from "../middleware/adminAuth.js";
 
 const productRouter = express.Router();
 
 // productRouter.post("/products", upload.array("images", 5), addProducts);
-productRouter.post("/add-products", upload.array("images", 4), addProducts);
+productRouter.post("/add-products", adminAuth, upload.array("images", 4), addProducts);
+productRouter.delete("/remove-products", adminAuth, upload.none(), removeProducts);
 productRouter.get("/list-products", listProducts);
-productRouter.delete("/remove-products", upload.none(), removeProducts);
-productRouter.post("/info-product", singleProducts);
+productRouter.get("/info-product", singleProducts);
 
 export default productRouter;
