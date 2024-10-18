@@ -7,8 +7,9 @@ import { jwtDecode } from "jwt-decode";
 import Transitions from "../components/Transitions";
 import Loader from "../constants/Loader";
 
-const Login = () => {
-  const { url, user, setUser, setToken, navigate } = useContext(ShopContext);
+const AdminLogin = () => {
+  const { url, user, setUser, setToken } = useContext(ShopContext);
+  const navigate = useNavigate();
 
   useEffect(() => {
     console.log(user);
@@ -17,7 +18,7 @@ const Login = () => {
   //   const [users, setUsers] = useState({ username: "", password: "" });
   //   const { username, password } = users; //!destructure the above usestate
   const [email, setEmail] = useState("ask@ask.com");
-  const [password, setPassword] = useState("123456");
+  const [password, setPassword] = useState("12345678");
   const [loading, setLoading] = useState(false);
 
   //!Fetch All user data
@@ -67,9 +68,9 @@ const Login = () => {
         const decodedToken = jwtDecode(data.token); //!this convert the token into string using jwtDecode
         localStorage.setItem("token", data.token); //!we set token inside local storage
         localStorage.setItem("username", decodedToken.name); //!we get token name
-        decodedToken.isAdmin ? localStorage.setItem("isAdmin", decodedToken.isAdmin) : null;
+        // decodedToken.isAdmin ? localStorage.setItem("isAdmin", decodedToken.isAdmin) : null;
 
-        console.log("isAdmin:", decodedToken.isAdmin);
+        // console.log("isAdmin:", decodedToken.isAdmin);
         navigate("/");
       } else {
         throw new Error("Token not found in response");
@@ -88,7 +89,7 @@ const Login = () => {
   ) : (
     <Transitions>
       <div className='container m-auto py-10 content-center xl:w-[30%] lg:w-[35%] md:w-[50%] sm:w-full'>
-        <h1 className='  text-3xl tracking-wide'>Enter your name to join us or sign in.</h1>
+        <h1 className='  text-3xl tracking-wide text-center'>Admin Login</h1>
 
         <form onSubmit={handleSubmit} className='flex flex-col m-auto  items-end py-10 gap-5'>
           <input
@@ -112,20 +113,12 @@ const Login = () => {
             placeholder='Password...'
           />
 
-          <div className='flex justify-between w-full'>
-            <input
-              type='button'
-              onClick={() => navigate("/admin")}
-              value='Admin Login'
-              className='text-white cursor-pointer  bg-black px-4 py-2 rounded-full'
-            />
-            <input
-              type='button'
-              popovertarget='box'
-              value='Sign in'
-              className='text-white cursor-pointer  bg-black px-4 py-2 rounded-full'
-            />
-          </div>
+          <input
+            type='button'
+            popovertarget='box'
+            value='Sign in'
+            className='text-white cursor-pointer  bg-black px-4 py-2 rounded-full'
+          />
           <div
             id='box'
             popover='auto'
@@ -144,4 +137,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default AdminLogin;

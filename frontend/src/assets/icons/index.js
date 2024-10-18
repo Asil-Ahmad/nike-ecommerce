@@ -8,6 +8,7 @@ import hamburger from "./hamburger.svg";
 import user_icon from "./user.svg";
 import cross from "./cross.svg";
 import tick from "./tick.svg";
+import add from "./add.png";
 import delete_icon from "./delete_icon.svg";
 import delete_icon_solid from "./delete_icon_solid.svg";
 
@@ -16,6 +17,13 @@ export const navlinks = [
   { href: "/men", label: "Men" },
   { href: "/women", label: "Women" },
   { href: "/kids", label: "Kids" },
+];
+
+export const adminLinks = [
+  { href: "/add-products", label: "Add" },
+  { href: "/remove-products", label: "Remove" },
+  { href: "/list-products", label: "List" },
+  { href: "/info-product", label: "Information" },
 ];
 
 export {
@@ -31,4 +39,5 @@ export {
   delete_icon_solid,
   Razorpay_logo,
   stripe_logo,
+  add,
 };

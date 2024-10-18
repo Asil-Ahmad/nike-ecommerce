@@ -12,25 +12,23 @@ import MenCollections from "./components/MenCollections";
 import WomenCollections from "./components/WomenCollections";
 import KidCollections from "./components/KidCollections";
 import Footer from "./components/Footer";
-// import Collections from "./components/Collections";
 import Profile from "./components/Profile";
 import NotFound from "./constants/NotFound";
 import Loader from "./constants/Loader";
 import Cart from "./components/Cart";
 import Checkout from "./pages/Checkout";
-import { useContext } from "react";
-import { ShopContext } from "./context/ShopContext";
+
 import Orders from "./pages/Orders";
 import Protected from "./protectedRoutes/ProtectedRoutes";
-import ProtectedAdmin from "./protectedRoutes/ProtectedRoutesAdmin";
-import AdminPanel from "./pages/AdminPanel";
+import AdminLogin from "./pages/AdminLogin";
 
 //React lazy
 const Collections = React.lazy(() => import("./components/Collections"));
 
 const App = () => {
   const { pathname } = useLocation();
-  const footerHidden = ["/login", "/register"].includes(pathname);
+  const footerHidden = ["/login", "/register", "/admin"].includes(pathname);
+
   return (
     <div>
       <Navbar />
@@ -42,10 +40,6 @@ const App = () => {
           <Route path='/profile' element={<Profile />} />
           <Route path='/checkout' element={<Checkout />} />
           <Route path='/orders' element={<Orders />} />
-        </Route>
-
-        <Route element={<ProtectedAdmin />}>
-          <Route path='/admin' element={<AdminPanel />} />
         </Route>
 
         <Route path='/' element={<Home />} />
@@ -65,6 +59,7 @@ const App = () => {
         <Route path='/collections' element={<Collections />} />
         <Route path='/register' element={<Register />} />
         <Route path='/login' element={<Login />} />
+        <Route path='/admin' element={<AdminLogin />} />
         <Route path='/cart' element={<Cart />} />
 
         <Route path='*' element={<NotFound />} />
