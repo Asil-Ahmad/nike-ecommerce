@@ -11,7 +11,6 @@ const Home = () => {
       <Sidebar />
       <div className='w-full bg-gray-300  '>
         <div className=' sm:pl-0 pl-10 pr-3'>
-          <h1>Home</h1>
           <Routes>
             <Route path='/add' element={<Add />} />
             <Route path='/remove' element={<Remove />} />

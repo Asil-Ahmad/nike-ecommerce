@@ -3,6 +3,7 @@ import remove from './remove.svg'
 import list from './list.svg'
 import info from "./info.svg"
 import hamburger from "./hamburger.svg"
+import back from "./back.svg"
 
 export const navlinks = [
   { href: "/add", label: "Add", imgURL: add },
@@ -11,4 +12,4 @@ export const navlinks = [
   { href: "/info", label: "Information", imgURL: info },
 ];
 
-export { add,list,hamburger };
+export { add,list,hamburger,back };

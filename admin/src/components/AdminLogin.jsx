@@ -3,6 +3,7 @@ import React, { useState, useEffect, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { backendURL } from "../App";
+import { toast } from "react-toastify";
 
 const AdminLogin = ({ setToken }) => {
   const navigate = useNavigate();
@@ -19,12 +20,17 @@ const AdminLogin = ({ setToken }) => {
 
     try {
       const response = await axios.post(backendURL + "/api/user/admin", { email, password });
-       console.log(response.data);
+      console.log(response.data);
       if (response.data.message) {
         const { token } = response.data;
         setToken(token);
+      } else {
+        toast.error(response.data.message);
       }
-    } catch (error) {}
+    } catch (error) {
+      console.log(error);
+      toast.error(error.message);
+    }
   };
 
   return (

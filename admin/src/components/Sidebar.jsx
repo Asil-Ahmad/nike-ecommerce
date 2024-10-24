@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { hamburger, list, navlinks } from "../assets/icons";
+import { back, hamburger, list, navlinks } from "../assets/icons";
 import { NavLink } from "react-router-dom";
 import { nike } from "../assets/images";
 
@@ -14,10 +14,11 @@ const Sidebar = () => {
             <img src={nike} alt='' className='w-20' />
           </div>
           <div className='flex text-white flex-col container gap-5 py-10 '>
-            {navlinks.map(({ href, label, imgURL }) => (
+            {navlinks.map(({ href, label, imgURL }, index) => (
               <NavLink
                 className='text-[1em] hover:font-semibold transition-all duration-150 flex gap-2'
                 to={href}
+                key={index}
               >
                 <img src={imgURL} alt='' className='w-5 invert' />
                 {label}
@@ -25,7 +26,14 @@ const Sidebar = () => {
             ))}
           </div>
         </div>
-        <button className='bg-red-500 text-black '>Logout</button>
+        <button
+          onClick={() => {
+            localStorage.removeItem("token"), location.reload();
+          }}
+          className='bg-red-500 text-black '
+        >
+          Logout
+        </button>
       </div>
       <img
         onClick={() => setOpen(!open)}
@@ -37,15 +45,21 @@ const Sidebar = () => {
       <div
         className={`fixed z-40 top-0 left-0 bottom-0 overflow-hidden
             transition-all duration-200 bg-black h-screen ease-in-out
-           flex flex-col gap-5 
+           flex flex-col 
             items-center ${open ? "w-[100%]  " : "w-0"}`}
       >
         <img src={nike} alt='' className='w-20 invert ' />
-        <div className='flex flex-col w-full h-full gap-4 justify-center items-center '>
+        <div className='flex flex-col w-full h-full gap-4 justify-center items-start px-2 '>
+          <button
+            className=' bg-gray-100 rounded-full p-1'
+            onClick={() => setOpen(!open)}
+          >
+            <img src={back} alt='back button' className='w-5  ' />
+          </button>
           {navlinks.map((navlink, index) => (
             <NavLink
               key={index}
-              className='text-center text-white w-full px-2 text-[1.25em] flex gap-2 justify-start items-center'
+              className='text-center text-white w-full text-[1.25em] flex gap-2 justify-start items-center'
               onClick={() => setOpen(false)}
               to={navlink.href}
             >
@@ -54,12 +68,14 @@ const Sidebar = () => {
             </NavLink>
           ))}
 
-          <NavLink
-            className='bg-black w-full text-[1.25em] text-white text-center p-1'
-            onClick={() => setOpen(!open)}
+          <button
+            onClick={() => {
+              localStorage.removeItem("token"), location.reload();
+            }}
+            className='bg-red-500 w-full text-black p-1 '
           >
-            Back
-          </NavLink>
+            Logout
+          </button>
         </div>
       </div>
     </>
