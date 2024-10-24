@@ -19,12 +19,6 @@ export const navlinks = [
   { href: "/kids", label: "Kids" },
 ];
 
-export const adminLinks = [
-  { href: "/add-products", label: "Add" },
-  { href: "/remove-products", label: "Remove" },
-  { href: "/list-products", label: "List" },
-  { href: "/info-product", label: "Information" },
-];
 
 export {
   nike,

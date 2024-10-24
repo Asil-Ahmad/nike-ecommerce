@@ -20,7 +20,6 @@ import Checkout from "./pages/Checkout";
 
 import Orders from "./pages/Orders";
 import Protected from "./protectedRoutes/ProtectedRoutes";
-import AdminLogin from "./pages/AdminLogin";
 
 //React lazy
 const Collections = React.lazy(() => import("./components/Collections"));
@@ -59,7 +58,7 @@ const App = () => {
         <Route path='/collections' element={<Collections />} />
         <Route path='/register' element={<Register />} />
         <Route path='/login' element={<Login />} />
-        <Route path='/admin' element={<AdminLogin />} />
+
         <Route path='/cart' element={<Cart />} />
 
         <Route path='*' element={<NotFound />} />

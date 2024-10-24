@@ -1,3 +1,13 @@
-export default function App() {
-  return <h1 className='text-3xl font-bold underline'>Hello world!</h1>;
-}
+import React, { useState } from "react";
+import Home from "./components/Home";
+import AdminLogin from "./components/AdminLogin";
+
+export const backendURL = import.meta.env.VITE_BACKEND_URL;
+console.log(backendURL);
+
+const App = () => {
+  const [token, setToken] = useState("");
+  return <div>{token === "" ? <AdminLogin setToken={setToken} /> : <Home />}</div>;
+};
+
+export default App;
