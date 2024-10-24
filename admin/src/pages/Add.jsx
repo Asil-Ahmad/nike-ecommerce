@@ -44,7 +44,31 @@ const Add = () => {
           </div>
         </label>
         <h2 className='text-lg pt-5'>Price</h2>
-        <input type="number" name="number" id="number" placeholder="$" className='w-14 rounded-md py-2 px-2 outline-none' />
+        <input
+          type='number'
+          name='number'
+          id='number'
+          placeholder='$'
+          className='w-14 rounded-md py-2 px-2 outline-none'
+        />
+
+        <div className="pt-5">
+          <p>Product Category</p>
+          <select className="w-full rounded-md py-2 px-2 outline-none">
+            <option value='Men'>Men</option>
+            <option value='Women'>Women</option>
+            <option value='Kids'>Kids</option>
+          </select>
+        </div>
+
+        <div className="pt-5">
+          <p>Sub Category</p>
+          <select className="w-full rounded-md py-2 px-2 outline-none">
+            <option value='Topwear'>Top-wear</option>
+            <option value='Bottomwear'>Bottom-wear</option>
+            <option value='Winterwear'>Winter-wear</option>
+          </select>
+        </div>
       </form>
     </div>
   );

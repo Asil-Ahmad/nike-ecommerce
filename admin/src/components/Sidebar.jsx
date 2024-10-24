@@ -8,7 +8,7 @@ const Sidebar = () => {
 
   return (
     <>
-      <div className='sm:w-[20%]  sm:flex hidden  justify-between flex-col bg-black h-screen'>
+      <div className='sm:w-[20%]  sm:flex hidden sticky top-0 justify-between flex-col bg-black h-screen'>
         <div>
           <div className='flex justify-center gap-5 items-center invert'>
             <img src={nike} alt='' className='w-20' />
