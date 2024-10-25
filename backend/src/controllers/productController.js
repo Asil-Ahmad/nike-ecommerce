@@ -49,20 +49,20 @@ const addProducts = async (req, res) => {
 const listProducts = async (req, res) => {
   try {
     const listAllProducts = await productModel.find({});
-    res.status(200).json({ success: true, data: listAllProducts });
+    res.status(200).json({ success: true, products: listAllProducts });
   } catch (error) {
-    res.status(400).json({ success: false });
+    res.status(400).json({ success: false, message: "An error occured!" });
   }
 };
 
 //remove products
 const removeProducts = async (req, res) => {
-  const { id } = req.body;
   try {
-    await productModel.findByIdAndDelete(id);
-    res.status(200).json({ message: "successfully deleted the product" });
+   
+    await productModel.findByIdAndDelete(req.body.id);
+    res.status(200).json({ success: true, message: "Successfully removed the product" });
   } catch (error) {
-    res.status(400).json({ message: "Product not found" });
+    res.status(400).json({ success: false, message: "Product not found" });
   }
 };
 

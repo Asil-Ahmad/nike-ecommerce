@@ -12,7 +12,7 @@ const productRouter = express.Router();
 
 // productRouter.post("/products", upload.array("images", 5), addProducts);
 productRouter.post("/add-products", adminAuth, upload.array("images", 4), addProducts);
-productRouter.delete("/remove-products", adminAuth, upload.none(), removeProducts);
+productRouter.post("/remove", adminAuth, upload.none(), removeProducts);
 productRouter.get("/list-products", listProducts);
 productRouter.get("/info-product", singleProducts);
 

@@ -1,9 +1,101 @@
-import React from 'react'
+import React, { useState, useEffect } from "react";
+import { backendURL } from "../App";
+import axios from "axios";
+import { toast } from "react-toastify";
 
-const List = () => {
+const List = ({ token }) => {
+  const [list, setList] = useState([]);
+
+  const fetchProducts = async () => {
+    try {
+      const response = await axios.get(backendURL + "/api/product/list-products");
+      //   console.log(response.data);
+
+      const { products, message } = response.data; //extracted products
+
+      if (response.data.success) {
+        setList(products);
+      } else {
+        toast.error(message);
+      }
+    } catch (error) {
+      toast.error(error.message);
+    }
+  };
+
+  const removeProducts = async (id) => {
+    try {
+      const response = await axios.post(
+        backendURL + "/api/product/remove",
+        { id },
+        {
+          headers: { token },
+        }
+      );
+      console.log(response);
+
+      if (response.data) {
+        toast.success(response.data.message);
+        await fetchProducts();
+      } else {
+        toast.error("hi");
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  useEffect(() => {
+    fetchProducts();
+  }, []);
   return (
-    <div>List</div>
-  )
-}
+    <div className='relative overflow-x-auto shadow-md '>
+      <table className='w-full text-sm text-left rtl:text-right text-black'>
+        <thead className='text-xs  text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400'>
+          <tr>
+            <th scope='col' className='px-6 py-3'>
+              Image
+            </th>
+            <th scope='col' className='px-6 py-3'>
+              Name
+            </th>
+            <th scope='col' className='px-6 py-3'>
+              Category
+            </th>
+            <th scope='col' className='px-6 py-3'>
+              Price
+            </th>
+            <th scope='col' className='px-6 py-3'>
+              Action
+            </th>
+          </tr>
+        </thead>
+        {list.map((item, index) => (
+          <tbody key={index}>
+            <tr className=' bg-gray-100 border-b dark:border-gray-700'>
+              <th
+                scope='row'
+                className='px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white'
+              >
+                <img src={item.images[0]} alt='' className='w-10' />
+              </th>
+              <td className='px-6 py-4'>{item.name}</td>
+              <td className='px-6 py-4'>{item.category}</td>
+              <td className='px-6 py-4'>$ {item.price}</td>
+              <td className='px-6 py-4'>
+                <button
+                  onClick={() => removeProducts(item._id)}
+                  className='font-medium  cursor-pointer'
+                >
+                  X
+                </button>
+              </td>
+            </tr>
+          </tbody>
+        ))}
+      </table>
+    </div>
+  );
+};
 
-export default List
+export default List;
