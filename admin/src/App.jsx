@@ -18,7 +18,7 @@ const App = () => {
   return (
     <div>
       <ToastContainer />
-      {token === "" ? <AdminLogin setToken={setToken} /> : <Home />}
+      {token === "" ? <AdminLogin setToken={setToken} /> : <Home token={token} />}
     </div>
   );
 };

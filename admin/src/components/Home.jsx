@@ -5,14 +5,14 @@ import Add from "../pages/Add";
 import Remove from "../pages/Remove";
 import List from "../pages/List";
 
-const Home = () => {
+const Home = ({ token }) => {
   return (
     <div className='w-full flex'>
       <Sidebar />
       <div className='w-full bg-gray-300  '>
         <div className=' sm:pl-0 pl-10 pr-3'>
           <Routes>
-            <Route path='/add' element={<Add />} />
+            <Route path='/add' element={<Add token={token} />} />
             <Route path='/remove' element={<Remove />} />
             <Route path='/list' element={<List />} />
           </Routes>
