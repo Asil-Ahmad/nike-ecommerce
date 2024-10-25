@@ -21,6 +21,9 @@ import Checkout from "./pages/Checkout";
 import Orders from "./pages/Orders";
 import Protected from "./protectedRoutes/ProtectedRoutes";
 
+import { ToastContainer} from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
 //React lazy
 const Collections = React.lazy(() => import("./components/Collections"));
 
@@ -30,6 +33,7 @@ const App = () => {
 
   return (
     <div>
+      <ToastContainer />
       <Navbar />
       <SearchBar />
 

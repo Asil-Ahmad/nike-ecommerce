@@ -7,6 +7,7 @@ import "ldrs/square";
 import Transitions from "../components/Transitions";
 import Loader from "../constants/Loader";
 import { nikeit42 } from "../assets/images";
+import { toast } from "react-toastify";
 
 const Register = () => {
   const { url } = useContext(ShopContext);
@@ -48,19 +49,16 @@ const Register = () => {
         setName("");
         setPassword("");
         setImage(false); //!remember to set it to false
-        alert(res.data.message);
+        toast.success(res.data.message);
       } else {
         console.log("hello");
       }
     } catch (error) {
       //console.log(error);
       alert(error.response.data.message);
-    }
-    // Add a 3-second timer for the loader
-    //it takes 3 second for loader to get false
-    setTimeout(() => {
+    } finally {
       setLoading(false);
-    }, 100);
+    }
   };
 
   // useEffect(() => {

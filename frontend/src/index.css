@@ -2,6 +2,11 @@
 @tailwind components;
 @tailwind utilities;
 
+
+:root {
+  --toastify-color-success: #121212;
+}
+
 .container {
   padding-left: 10px;
   padding-right: 10px;
