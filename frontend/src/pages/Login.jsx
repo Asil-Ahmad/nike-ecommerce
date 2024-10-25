@@ -6,6 +6,7 @@ import { jwtDecode } from "jwt-decode";
 
 import Transitions from "../components/Transitions";
 import Loader from "../constants/Loader";
+import { toast } from "react-toastify";
 
 const Login = () => {
   const { url, user, setUser, setToken, navigate } = useContext(ShopContext);
@@ -29,26 +30,6 @@ const Login = () => {
   // };
   document.title = "Login";
 
-  //!not register form change this with promise
-  // const handleSubmit = async (e) => {
-  //   e.preventDefault();
-  //   // console.log(email, password);
-
-  //   const res = await axios
-  //     .post(`${url}/api/user/login`, {
-  //       email: email,
-  //       password: password,
-  //     })
-  //     .then((data) => {
-  //       // navigate("/profile");
-  //       console.log("this is token", data);
-  //       setUser(data);
-  //       setToken(data);
-  //       navigate("/");
-  //     })
-  //     .catch((err) => alert("User not exist or wrong input"));
-  // };
-
   //!this is with try catch
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -62,21 +43,20 @@ const Login = () => {
       const { data } = res; //!EXTRACT DATA FROM RES
 
       if (data && data.token) {
-        console.log("Token:", data.token);
+        // console.log("Token:", data.token);
         setToken(data.token);
         const decodedToken = jwtDecode(data.token); //!this convert the token into string using jwtDecode
         localStorage.setItem("token", data.token); //!we set token inside local storage
         localStorage.setItem("username", decodedToken.name); //!we get token name
-        decodedToken.isAdmin ? localStorage.setItem("isAdmin", decodedToken.isAdmin) : null;
+        // decodedToken.isAdmin ? localStorage.setItem("isAdmin", decodedToken.isAdmin) : null;
 
-        console.log("isAdmin:", decodedToken.isAdmin);
+        // console.log("isAdmin:", decodedToken.isAdmin);
         navigate("/");
       } else {
         throw new Error("Token not found in response");
       }
     } catch (err) {
-      console.error(err.message);
-      alert("User does not exist or wrong input");
+      toast.error("User does not exist or wrong input");
     }
   };
 
