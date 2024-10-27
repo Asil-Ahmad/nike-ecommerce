@@ -83,7 +83,7 @@ const SearchBar = () => {
                   className='flex flex-col border border-transparent min-w-[200px] hover:border-black transition duration-200 p-1'
                 >
                   <img
-                    src={item.image}
+                    src={item.images[0]}
                     alt={item.name}
                     className='searchItems w-[200px] h-[200px] object-cover object-center cursor-pointer'
                     key={index}

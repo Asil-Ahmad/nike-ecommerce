@@ -46,11 +46,16 @@ const LatestCollections = () => {
         }}
       >
         {products
-          .filter((item) => item.bestsellerinmen === true )
+          .filter((item) => item.bestseller === true)
+          .slice(0, 8)
           .map((item, index) => (
             <SwiperSlide key={index}>
               <Link to={`/products/${item._id}`}>
-                <img src={item.image} alt='' className='cursor-pointer object-cover object-center' />
+                <img
+                  src={item.images}
+                  alt=''
+                  className='cursor-pointer object-cover object-center'
+                />
                 <p className='pt-3'>{item.name}</p>
                 <p className='text-gray-400'>
                   {item.category}&nbsp;{item.subCategory}

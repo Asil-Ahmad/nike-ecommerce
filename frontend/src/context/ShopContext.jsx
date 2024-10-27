@@ -10,11 +10,13 @@ import {
 } from "../assets/images";
 import { menFeaturedProducts } from "../assets/menImages";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
 
 export const ShopContext = createContext();
 
 const ShopContextProvider = (props) => {
   const url = "http://localhost:4000";
+  const backendURL = import.meta.env.VITE_BACKEND_URL;
 
   const navigate = useNavigate();
   const delivery_fee = 10;
@@ -24,6 +26,7 @@ const ShopContextProvider = (props) => {
   const username = localStorage.getItem("username");
   const [token, setToken] = useState("");
   const [cartItems, setCartItems] = useState({}); //!this will be object
+  const [products, setProducts] = useState([]);
 
   //!Adding Add to cart,product count and cart total
   const addToCart = (itemId, size) => {
@@ -73,9 +76,7 @@ const ShopContextProvider = (props) => {
   const getCartAmount = () => {
     let totalAmount = 0;
     for (const items in cartItems) {
-      let itemInfo = products.find(
-        (product) => product._id.toString() === items
-      );
+      let itemInfo = products.find((product) => product._id.toString() === items);
       for (const item in cartItems[items]) {
         try {
           if (cartItems[items][item] > 0) {
@@ -87,9 +88,26 @@ const ShopContextProvider = (props) => {
     return totalAmount;
   };
 
-  // useEffect(() => {
-  //   console.log("This is cartitems", cartItems);
-  // }, [cartItems]);
+  //!Getting data from backend now
+  const getProductsData = async () => {
+    try {
+      const response = await axios.get(backendURL + "/api/product/list-products");
+      // console.log(response.data);
+      const { products } = response.data;
+      if (response.data.success) {
+        setProducts(products);
+        // console.log(products);
+      } else {
+        toast.error(response.data.message);
+      }
+    } catch (error) {
+      toast.error(error.message);
+    }
+  };
+
+  useEffect(() => {
+    getProductsData();
+  }, []);
   //!------------------------------------------------
 
   const value = {
@@ -118,10 +136,9 @@ const ShopContextProvider = (props) => {
     updateQuantity,
     getCartAmount,
     delivery_fee,
+    backendURL,
   };
 
-  return (
-    <ShopContext.Provider value={value}>{props.children}</ShopContext.Provider>
-  );
+  return <ShopContext.Provider value={value}>{props.children}</ShopContext.Provider>;
 };
 export default ShopContextProvider;

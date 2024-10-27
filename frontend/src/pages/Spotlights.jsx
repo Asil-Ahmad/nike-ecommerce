@@ -52,7 +52,7 @@ const Spotlights = () => {
             <SwiperSlide key={index}>
               <Link to={`/products/${item._id}`}>
                 <img
-                  src={item.image}
+                  src={item.images}
                   alt={item.name}
                   className='cursor-pointer'
                 />

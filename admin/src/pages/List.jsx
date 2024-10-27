@@ -52,7 +52,7 @@ const List = ({ token }) => {
     <div className='relative overflow-x-auto shadow-md '>
       <table className='w-full text-sm text-left rtl:text-right text-black'>
         <thead className='text-xs  text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400'>
-          <tr>
+          <tr className="text-center">
             <th scope='col' className='px-6 py-3'>
               Image
             </th>
@@ -72,10 +72,10 @@ const List = ({ token }) => {
         </thead>
         {list.map((item, index) => (
           <tbody key={index}>
-            <tr className=' bg-gray-100 border-b dark:border-gray-700'>
+            <tr className=' bg-gray-100 border-b text-center dark:border-gray-700'>
               <th
                 scope='row'
-                className='px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white'
+                className='px-6 py-4 flex justify-center'
               >
                 <img src={item.images[0]} alt='' className='w-10' />
               </th>
@@ -85,9 +85,9 @@ const List = ({ token }) => {
               <td className='px-6 py-4'>
                 <button
                   onClick={() => removeProducts(item._id)}
-                  className='font-medium  cursor-pointer'
+                  className='font-medium bg-red-500 hover:bg-red-600 px-2 py-1 rounded-md text-white cursor-pointer'
                 >
-                  X
+                  Delete
                 </button>
               </td>
             </tr>

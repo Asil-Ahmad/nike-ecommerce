@@ -27,7 +27,7 @@ const RelatedProducts = ({ category, subCategory }) => {
         >
           <img
             // src={item.image[0] ? item.image : noImageAvailable}
-            src={item.image[0]}
+            src={item.images[0]}
             alt={item.name}
             className='hover:scale-105 object-cover object-center  '
           />

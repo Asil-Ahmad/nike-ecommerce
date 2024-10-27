@@ -94,7 +94,7 @@ const Cart = () => {
                   <div className='flex justify-between mt-5 '>
                     <div className='flex gap-4'>
                       <img
-                        src={productData.image[0]}
+                        src={productData.images[0]}
                         alt=''
                         className='sm:size-[10rem] size-20'
                       />

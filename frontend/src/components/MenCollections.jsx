@@ -16,15 +16,19 @@ const MenCollections = () => {
   const navigate = useNavigate();
   const { menFeaturedProducts, products } = useContext(ShopContext);
   const [loading, setLoading] = useState(false);
-  const [menProduct, setMenProduct] = useState([]);
+  const [menProducts, setMenProducts] = useState([]);
 
   const menLatestCollections = () => {
-    let filterCopy = products.slice();
-    filterCopy = filterCopy.filter((item) => item.category === "Men");
-    setMenProduct(filterCopy);
+    let filterCopy = products
+    console.log(filterCopy);
+    
+    filterCopy = filterCopy.filter((item) => item.menBestSeller === true);
+    setMenProducts(filterCopy);
   };
 
- 
+  useEffect(() => {
+    menLatestCollections();
+  }, [products]);
 
   return loading ? (
     <Loader />
@@ -70,7 +74,23 @@ const MenCollections = () => {
           </div>
         </div>
       </div>
-      <LatestCollections />
+
+      {/* //!----------------------LASTEST PRODUCTS------------------- */}
+      <div className='container  py-10'>
+        <h1 className='text-left text-2xl'>Men BestSellers</h1>
+        <div className='grid grid-cols-3 py-5 overflow-x-scroll scrollbar-hide'>
+          <div className='flex gap-4'>
+            {menProducts.map((product, index) => (
+              <div
+                key={index}
+                className='sm:min-w-[415px] sm:max-w-[580px] min-w-[300px] max-w-[423px]'
+              >
+                <Featured image={product.imgURL} title={product.title} />
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
       <ShopBySports />
     </Transitions>
   );

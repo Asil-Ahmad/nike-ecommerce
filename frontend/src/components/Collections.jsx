@@ -75,7 +75,7 @@ const Collections = () => {
   useEffect(() => {
     //!scroll to top
     applyFilter();
-  }, [category, subCategory, sortType]);
+  }, [category, subCategory, sortType,products]);
 
   return (
     <div className='sm:container container-none'>
@@ -204,7 +204,7 @@ const Collections = () => {
                 >
                   <img
                     // src={item.image[0] ? item.image : noImageAvailable}
-                    src={item.image[0]}
+                    src={item.images}
                     alt={item.name}
                     className='hover:scale-105 object-cover object-center  duration-300'
                   />

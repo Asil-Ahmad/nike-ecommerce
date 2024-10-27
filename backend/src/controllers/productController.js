@@ -5,7 +5,18 @@ import productModel from "../models/productModel.js";
 //function for add products
 const addProducts = async (req, res) => {
   try {
-    const { name, description, price, category, subCategory, sizes, bestseller } = req.body;
+    const {
+      name,
+      description,
+      price,
+      category,
+      subCategory,
+      sizes,
+      bestseller,
+      classic,
+      menBestSeller,
+      womenBestSeller,
+    } = req.body;
     const images = req.files; //!to add multiple images
 
     // console.log(name, description, price, category, subCategory, sizes, bestseller);
@@ -31,6 +42,9 @@ const addProducts = async (req, res) => {
       subCategory,
       sizes: Array.isArray(sizes) ? sizes : [sizes], //!This convert them to array
       bestseller: bestseller === "true" ? true : false,
+      classic: classic === "true" ? true : false,
+      menBestSeller: menBestSeller === "true" ? true : false,
+      womenBestSeller: womenBestSeller === "true" ? true : false,
       images: imageUrls,
       date: Date.now(),
     };
@@ -58,7 +72,6 @@ const listProducts = async (req, res) => {
 //remove products
 const removeProducts = async (req, res) => {
   try {
-   
     await productModel.findByIdAndDelete(req.body.id);
     res.status(200).json({ success: true, message: "Successfully removed the product" });
   } catch (error) {

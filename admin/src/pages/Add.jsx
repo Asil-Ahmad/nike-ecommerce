@@ -11,10 +11,15 @@ const Add = ({ token }) => {
   const [images, setImages] = useState([]);
   const [price, setPrice] = useState("");
   const [category, setCategory] = useState("Men");
-  const [subCategory, setSubCategory] = useState("Topwear");
+  const [subCategory, setSubCategory] = useState("T-shirt");
   const [sizes, setSizes] = useState([]);
   const [bestseller, setBestseller] = useState(false);
+  const [classic, setClassic] = useState(false);
+  const [menBestSeller, setMenBestSeller] = useState(false);
+  const [womenBestSeller, setWomenBestSeller] = useState(false);
   const [loading, setLoading] = useState(false);
+
+  console.log(classic, menBestSeller, womenBestSeller);
 
   const onSubmitHandler = async (e) => {
     e.preventDefault();
@@ -32,6 +37,9 @@ const Add = ({ token }) => {
       formData.append("subCategory", subCategory);
       formData.append("sizes", JSON.stringify(sizes));
       formData.append("bestseller", bestseller);
+      formData.append("classic", classic);
+      formData.append("menBestSeller", menBestSeller);
+      formData.append("womenBestSeller", womenBestSeller);
       const response = await axios.post(backendURL + "/api/product/add-products", formData, {
         headers: { token },
       });
@@ -44,6 +52,9 @@ const Add = ({ token }) => {
         setPrice("");
         setSizes([]);
         setBestseller(false);
+        setClassic(false);
+        setMenBestSeller(false);
+        setWomenBestSeller(false);
       } else {
         toast.error("An error occured");
       }
@@ -132,94 +143,161 @@ const Add = ({ token }) => {
               onChange={(e) => setSubCategory(e.target.value)}
               className='w-full rounded-md py-2 px-2 outline-none'
             >
-              <option value='Topwear'>Top-wear</option>
-              <option value='Bottomwear'>Bottom-wear</option>
-              <option value='Winterwear'>Winter-wear</option>
+              <option value='T-shirt'>T-shirt</option>
+              <option value='Lower'>Lower</option>
+              <option value='Shoes'>Shoes</option>
             </select>
           </div>
         </div>
         {/* //!THIS SIZES WE CAN SELECT MULTIPLE SIZES ---------------------IMPORTANT PART */}
         <div className='pt-5'>
           <p className=''>Sizes</p>
-          <div className='flex gap-6 flex-wrap'>
-            <div
-              onClick={() =>
-                setSizes((prev) =>
-                  prev.includes("S") ? prev.filter((item) => item !== "S") : [...prev, "S"]
-                )
-              }
-            >
-              <p
-                className={` ${
-                  sizes.includes("S") ? "bg-black text-white" : "bg-slate-200"
-                } rounded-md px-3 py-1 cursor-pointer`}
+          {subCategory === "T-shirt" || subCategory === "Lower" ? (
+            <div className='flex gap-6 flex-wrap'>
+              <div
+                onClick={() =>
+                  setSizes((prev) =>
+                    prev.includes("S") ? prev.filter((item) => item !== "S") : [...prev, "S"]
+                  )
+                }
               >
-                S
-              </p>
-            </div>
-            <div
-              onClick={() =>
-                setSizes((prev) =>
-                  prev.includes("M") ? prev.filter((item) => item !== "M") : [...prev, "M"]
-                )
-              }
-            >
-              <p
-                className={` ${
-                  sizes.includes("M") ? "bg-black text-white" : "bg-slate-200"
-                } rounded-md px-3 py-1 cursor-pointer`}
+                <p
+                  className={` ${
+                    sizes.includes("S") ? "bg-black text-white" : "bg-slate-200"
+                  } rounded-md px-3 py-1 cursor-pointer`}
+                >
+                  S
+                </p>
+              </div>
+              <div
+                onClick={() =>
+                  setSizes((prev) =>
+                    prev.includes("M") ? prev.filter((item) => item !== "M") : [...prev, "M"]
+                  )
+                }
               >
-                M
-              </p>
-            </div>
-            <div
-              onClick={() =>
-                setSizes((prev) =>
-                  prev.includes("L") ? prev.filter((item) => item !== "L") : [...prev, "L"]
-                )
-              }
-            >
-              <p
-                className={` ${
-                  sizes.includes("L") ? "bg-black text-white" : "bg-slate-200"
-                } rounded-md px-3 py-1 cursor-pointer`}
+                <p
+                  className={` ${
+                    sizes.includes("M") ? "bg-black text-white" : "bg-slate-200"
+                  } rounded-md px-3 py-1 cursor-pointer`}
+                >
+                  M
+                </p>
+              </div>
+              <div
+                onClick={() =>
+                  setSizes((prev) =>
+                    prev.includes("L") ? prev.filter((item) => item !== "L") : [...prev, "L"]
+                  )
+                }
               >
-                L
-              </p>
-            </div>
-            <div
-              onClick={() =>
-                setSizes((prev) =>
-                  prev.includes("XL") ? prev.filter((item) => item !== "XL") : [...prev, "XL"]
-                )
-              }
-            >
-              <p
-                className={` ${
-                  sizes.includes("XL") ? "bg-black text-white" : "bg-slate-200"
-                } rounded-md px-3 py-1 cursor-pointer`}
+                <p
+                  className={` ${
+                    sizes.includes("L") ? "bg-black text-white" : "bg-slate-200"
+                  } rounded-md px-3 py-1 cursor-pointer`}
+                >
+                  L
+                </p>
+              </div>
+              <div
+                onClick={() =>
+                  setSizes((prev) =>
+                    prev.includes("XL") ? prev.filter((item) => item !== "XL") : [...prev, "XL"]
+                  )
+                }
               >
-                XL
-              </p>
-            </div>
-            <div
-              onClick={() =>
-                setSizes((prev) =>
-                  prev.includes("XXL") ? prev.filter((item) => item !== "XXL") : [...prev, "XXL"]
-                )
-              }
-            >
-              <p
-                className={` ${
-                  sizes.includes("XXL") ? "bg-black text-white" : "bg-slate-200"
-                } rounded-md px-3 py-1 cursor-pointer`}
+                <p
+                  className={` ${
+                    sizes.includes("XL") ? "bg-black text-white" : "bg-slate-200"
+                  } rounded-md px-3 py-1 cursor-pointer`}
+                >
+                  XL
+                </p>
+              </div>
+              <div
+                onClick={() =>
+                  setSizes((prev) =>
+                    prev.includes("XXL") ? prev.filter((item) => item !== "XXL") : [...prev, "XXL"]
+                  )
+                }
               >
-                XXL
-              </p>
+                <p
+                  className={` ${
+                    sizes.includes("XXL") ? "bg-black text-white" : "bg-slate-200"
+                  } rounded-md px-3 py-1 cursor-pointer`}
+                >
+                  XXL
+                </p>
+              </div>
             </div>
-          </div>
+          ) : (
+            <div className='flex gap-6 flex-wrap'>
+              <div
+                onClick={() =>
+                  setSizes((prev) =>
+                    prev.includes("8") ? prev.filter((item) => item !== "8") : [...prev, "8"]
+                  )
+                }
+              >
+                <p
+                  className={` ${
+                    sizes.includes("8") ? "bg-black text-white" : "bg-slate-200"
+                  } rounded-md px-3 py-1 cursor-pointer`}
+                >
+                  8
+                </p>
+              </div>
+              <div
+                onClick={() =>
+                  setSizes((prev) =>
+                    prev.includes("9") ? prev.filter((item) => item !== "9") : [...prev, "9"]
+                  )
+                }
+              >
+                <p
+                  className={` ${
+                    sizes.includes("9") ? "bg-black text-white" : "bg-slate-200"
+                  } rounded-md px-3 py-1 cursor-pointer`}
+                >
+                  9
+                </p>
+              </div>
+              <div
+                onClick={() =>
+                  setSizes((prev) =>
+                    prev.includes("10") ? prev.filter((item) => item !== "10") : [...prev, "10"]
+                  )
+                }
+              >
+                <p
+                  className={` ${
+                    sizes.includes("10") ? "bg-black text-white" : "bg-slate-200"
+                  } rounded-md px-3 py-1 cursor-pointer`}
+                >
+                  10
+                </p>
+              </div>
+              <div
+                onClick={() =>
+                  setSizes((prev) =>
+                    prev.includes("11") ? prev.filter((item) => item !== "11") : [...prev, "11"]
+                  )
+                }
+              >
+                <p
+                  className={` ${
+                    sizes.includes("11") ? "bg-black text-white" : "bg-slate-200"
+                  } rounded-md px-3 py-1 cursor-pointer`}
+                >
+                  11
+                </p>
+              </div>
+            </div>
+          )}
         </div>
-
+          {/* //!--------------------------Special category------------------------------ */}
+          
+        {/* //!BEST SELLER------------------------------ */}
         <div className='pt-5 flex gap-2 items-center'>
           <input
             onChange={() => setBestseller((prev) => !prev)}
@@ -229,7 +307,50 @@ const Add = ({ token }) => {
             className='accent-black '
           />
           <label className='cursor-pointer' htmlFor='bestseller'>
-            Add to bestseller
+            Add to BestSeller
+          </label>
+        </div>
+        {/* //!FEATURED PRODUCT SHOES */}
+
+        <div className='pt-5 flex gap-2 items-center'>
+          <input
+            onChange={() => setClassic(!classic)}
+            checked={classic}
+            type='checkbox'
+            id='classic'
+            className='accent-black '
+          />
+          <label className='cursor-pointer' htmlFor='classic'>
+            Add to Classic Shoes
+          </label>
+        </div>
+
+        {/* //!FEATURED MEN PRODUCTS */}
+
+        <div className='pt-5 flex gap-2 items-center'>
+          <input
+            onChange={() => setMenBestSeller(!menBestSeller)}
+            checked={menBestSeller}
+            type='checkbox'
+            id='Men'
+            className='accent-black '
+          />
+          <label className='cursor-pointer' htmlFor='Men'>
+            Add to Men BestSeller
+          </label>
+        </div>
+
+        {/* //!FEATURED WOMEN PRODUCTS */}
+        <div className='pt-5 flex gap-2 items-center'>
+          <input
+            onChange={() => setWomenBestSeller(!womenBestSeller)}
+            checked={womenBestSeller}
+            type='checkbox'
+            id='Women'
+            className='accent-black '
+          />
+          <label className='cursor-pointer' htmlFor='Women'>
+            Add to Women BestSeller
           </label>
         </div>
         <button
