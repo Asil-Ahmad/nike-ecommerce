@@ -40,7 +40,8 @@ const addProducts = async (req, res) => {
       price: Number(price),
       category,
       subCategory,
-      sizes: Array.isArray(sizes) ? sizes : [sizes], //!This convert them to array
+      // sizes: Array.isArray(sizes) ? sizes : [sizes], //!This convert them to array
+      sizes: JSON.parse(sizes),
       bestseller: bestseller === "true" ? true : false,
       classic: classic === "true" ? true : false,
       menBestSeller: menBestSeller === "true" ? true : false,
