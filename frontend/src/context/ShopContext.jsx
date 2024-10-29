@@ -48,6 +48,8 @@ const ShopContextProvider = (props) => {
       cartData[itemId][size] = 1;
     }
     setCartItems(cartData);
+    console.log("Love",cartItems);
+    
   };
 
   //!total counts in cart
@@ -132,6 +134,7 @@ const ShopContextProvider = (props) => {
     //!add to cart functionality
     addToCart,
     cartItems,
+    setCartItems,
     getCartCount,
     updateQuantity,
     getCartAmount,

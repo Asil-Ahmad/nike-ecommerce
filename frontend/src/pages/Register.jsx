@@ -10,7 +10,7 @@ import { nikeit42 } from "../assets/images";
 import { toast } from "react-toastify";
 
 const Register = () => {
-  const { url } = useContext(ShopContext);
+  const { url, backendURL } = useContext(ShopContext);
   // console.log(url);
 
   //   const [users, setUsers] = useState({ username: "", password: "" });
@@ -24,7 +24,7 @@ const Register = () => {
   //!Fetch All user data
   const fetchUsers = async () => {
     try {
-      const res = await axios.get(`${url}/api/user/list`);
+      const res = await axios.get(`${backendURL}/api/user/list`);
       // console.log(res.data.allUser);
     } catch (error) {}
   };
@@ -42,7 +42,7 @@ const Register = () => {
       formData.append("password", password);
       formData.append("image", image ? image : ""); //!better uprroach
 
-      const res = await axios.post(`${url}/api/user/register`, formData);
+      const res = await axios.post(`${backendURL}/api/user/register`, formData);
 
       if (res.data.message) {
         setEmail("");
@@ -55,7 +55,7 @@ const Register = () => {
       }
     } catch (error) {
       //console.log(error);
-      alert(error.response.data.message);
+      toast.error(error.response.data.message);
     } finally {
       setLoading(false);
     }

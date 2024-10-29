@@ -9,7 +9,7 @@ import Loader from "../constants/Loader";
 import { toast } from "react-toastify";
 
 const Login = () => {
-  const { url, user, setUser, setToken, navigate } = useContext(ShopContext);
+  const { url, user, setUser, setToken, navigate,backendURL } = useContext(ShopContext);
 
   useEffect(() => {
     console.log(user);
@@ -35,7 +35,7 @@ const Login = () => {
     e.preventDefault();
 
     try {
-      const res = await axios.post(`${url}/api/user/login`, {
+      const res = await axios.post(`${backendURL}/api/user/login`, {
         email: email,
         password: password,
       });
