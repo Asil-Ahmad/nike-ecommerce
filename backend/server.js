@@ -5,6 +5,7 @@ import connectDB from "./src/config/mongodb.js";
 import connectCloudinary from "./src/config/cloudinary.js";
 import "dotenv/config";
 import productRouter from "./src/routes/productRoute.js";
+import cartRouter from "./src/routes/cartRoute.js";
 
 const app = express();
 
@@ -20,6 +21,7 @@ connectCloudinary(); //for connect cloudinary from config
 app.get("/", (req, res) => res.json({ message: "Connected to API " }));
 app.use("/api/user", userRouter);
 app.use("/api/product", productRouter);
+app.use("/api/cart", cartRouter);
 
 const port = process.env.PORT || 4000;
 app.listen(port, () => console.log(`Server started on port ${port}`));

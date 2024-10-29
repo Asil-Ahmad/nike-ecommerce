@@ -3,6 +3,9 @@ import jwt from "jsonwebtoken";
 import { v2 as cloudinary } from "cloudinary"; //add image
 import upload from "../middleware/multer.js"; //middleware
 
+// const createToken = (id) => {
+//   return jwt.sign({ id }, process.env.JWT_SECRET);
+// };
 //!List all users in database
 const listUser = async (req, res) => {
   try {
@@ -50,31 +53,6 @@ const registerUser = async (req, res) => {
   }
 };
 
-//!Admin Login
-// const adminLogin = async (req, res) => {
-//   try {
-//     const { email, password } = req.body;
-//     const admin = await userModel.findOne({ email });
-//     console.log("This is admin", admin);
-
-//     if (!admin || admin.password != password) {
-//       return res.status(400).json({ message: "Invalid User" });
-//     }
-
-//     if (admin.password === password) {
-//       const { _id, email, name, isAdmin } = admin;
-//       // console.log(_id, email, name, isAdmin);
-//       const token = jwt.sign(
-//         { adminId: _id, email: email, name: name, isAdmin: isAdmin },
-//         process.env.JWT_SECRET
-//       );
-//       res.status(200).json({ message: "Your admin", token });
-//     }
-//   } catch (error) {
-//     res.status(400).json({ message: error });
-//   }
-// };
-
 //!Using Promise to Login User
 const adminLogin = async (req, res) => {
   try {
@@ -101,17 +79,14 @@ const loginUser = async (req, res) => {
     }
 
     if (user.password === password) {
-      const { _id, email, name, isAdmin } = user; //!here we also checking if isAdmin is there or not
-      const token = jwt.sign(
-        { userId: _id, email: email, name: name, isAdmin: isAdmin },
-        process.env.JWT_SECRET
-      );
+      const { _id, email, name } = user;
+      const token = jwt.sign({ userId: _id, email: email, name: name }, process.env.JWT_SECRET);
       res.status(200).json({ message: "User is login", token: token });
     } else {
       res.status(400).json({ message: "Incorrect password" });
     }
   } catch (error) {
-    res.status(400).json({ message: "An Error occured" });
+    res.status(400).json({ message: error.message });
   }
 };
 
