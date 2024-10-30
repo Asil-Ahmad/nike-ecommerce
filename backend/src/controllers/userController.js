@@ -34,6 +34,10 @@ const registerUser = async (req, res) => {
     if (isEmailExist) {
       return res.status(400).json({ success: false, message: "Email already exist" });
     }
+    //  //!Using validator to check is email format and bcrycpt for strong password
+    //  if (!validator.isEmail(email)) {
+    //   return res.status(400).json({ success: false, message: "Enter a valid email" });
+    // }
     if (password.length < 8) {
       return res.status(400).json({ success: false, message: "Use a strong password" });
     }
