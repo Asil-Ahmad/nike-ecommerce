@@ -9,16 +9,16 @@ import Loader from "../constants/Loader";
 import { toast } from "react-toastify";
 
 const Login = () => {
-  const { url, user, setUser, setToken, navigate,backendURL } = useContext(ShopContext);
+  const { url, user, setToken, navigate, backendURL } = useContext(ShopContext);
 
-  useEffect(() => {
-    console.log(user);
-  });
+  // useEffect(() => {
+  //   console.log(user);
+  // });
 
   //   const [users, setUsers] = useState({ username: "", password: "" });
   //   const { username, password } = users; //!destructure the above usestate
   const [email, setEmail] = useState("ask@ask.com");
-  const [password, setPassword] = useState("123456");
+  const [password, setPassword] = useState("12345678");
   const [loading, setLoading] = useState(false);
 
   //!Fetch All user data
@@ -43,14 +43,11 @@ const Login = () => {
       const { data } = res; //!EXTRACT DATA FROM RES
 
       if (data && data.token) {
-        // console.log("Token:", data.token);
         setToken(data.token);
-        const decodedToken = jwtDecode(data.token); //!this convert the token into string using jwtDecode
+        // const decodedToken = jwtDecode(data.token); //!this convert the token into string using jwtDecode
         localStorage.setItem("token", data.token); //!we set token inside local storage
-        localStorage.setItem("username", decodedToken.name); //!we get token name
-        // decodedToken.isAdmin ? localStorage.setItem("isAdmin", decodedToken.isAdmin) : null;
+        localStorage.setItem("username", data.name); //!we get token name
 
-        // console.log("isAdmin:", decodedToken.isAdmin);
         navigate("/");
       } else {
         throw new Error("Token not found in response");

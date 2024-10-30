@@ -10,6 +10,7 @@ import {
 } from "../assets/images";
 import { menFeaturedProducts } from "../assets/menImages";
 import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 import axios from "axios";
 
 export const ShopContext = createContext();
@@ -24,18 +25,18 @@ const ShopContextProvider = (props) => {
   const [search, setSearch] = useState("");
   const [showSearch, setShowSearch] = useState(false); //!toggle show search bar
   const username = localStorage.getItem("username");
+
   const [token, setToken] = useState("");
   const [cartItems, setCartItems] = useState({}); //!this will be object
   const [products, setProducts] = useState([]);
 
   //!Adding Add to cart,product count and cart total
-  const addToCart = (itemId, size) => {
+  const addToCart = async (itemId, size) => {
     // if (!size) {
     //   alert("Please Select the size!");
     //   return;
     // }
     let cartData = structuredClone(cartItems);
-    console.log(cartData);
 
     if (cartData[itemId]) {
       if (cartData[itemId][size]) {
@@ -48,8 +49,16 @@ const ShopContextProvider = (props) => {
       cartData[itemId][size] = 1;
     }
     setCartItems(cartData);
-    console.log("Love",cartItems);
-    
+
+    //calling backend to save cart data below
+    if (token) {
+      try {
+        await axios.post(backendURL + "/api/cart/add", { itemId, size }, { headers: { token } });
+      } catch (error) {
+        console.log(error);
+        toast.error(error.message);
+      }
+    }
   };
 
   //!total counts in cart
@@ -73,6 +82,18 @@ const ShopContextProvider = (props) => {
     let cartData = structuredClone(cartItems);
     cartData[itemId][size] = quantity;
     setCartItems(cartData);
+    if (token) {
+      try {
+        await axios.post(
+          backendURL + "/api/cart/update",
+          { itemId, size, quantity },
+          { headers: { token } }
+        );
+      } catch (error) {
+        console.log(error);
+        toast.error(error.message);
+      }
+    }
   };
 
   const getCartAmount = () => {
@@ -107,9 +128,26 @@ const ShopContextProvider = (props) => {
     }
   };
 
+  //!Now we want to fetch cart data for auth user
+  const getCartUser = async (token) => {
+    try {
+      const response = await axios.post(backendURL + "/api/cart/get", {}, { headers: { token } });
+      // console.log(response.data.cartData);
+
+      if (response.data.success) {
+        setCartItems(response.data.cartData);
+      }
+    } catch (error) {
+      console.log(error.response.data);
+      // toast.error(error.message);
+    }
+  };
+
   useEffect(() => {
     getProductsData();
-  }, []);
+    getCartUser(localStorage.getItem("token"));
+  }, [token]);
+  //as we login user we cant see cartItems so we added token dependency in useEffect so when it gets token we trigger cartItems
   //!------------------------------------------------
 
   const value = {

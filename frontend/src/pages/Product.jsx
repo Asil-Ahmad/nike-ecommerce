@@ -25,7 +25,7 @@ const Product = () => {
         setCurrentProduct(item);
         setImage(item.images[0]);
       }
-      console.log(item);
+      // console.log(item);
     });
   };
 

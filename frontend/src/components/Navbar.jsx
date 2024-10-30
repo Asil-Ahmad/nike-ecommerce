@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import {
   cart,
   hamburger,
@@ -34,6 +34,7 @@ const Navbar = () => {
       height: 0,
     });
   }, [openProfileMenu]);
+
   return (
     <header className='relative'>
       <div className='w-full bg-black py-3 '>

@@ -9,42 +9,30 @@ import CartSummary from "./CartSummary";
 import Transitions from "./Transitions";
 
 const Cart = () => {
-  const {
-    products,
-    cartItems,
-    updateQuantity,
-    getCartAmount,
-    delivery_fee,
-    navigate,
-  } = useContext(ShopContext);
+  const { products, cartItems, updateQuantity, getCartAmount, delivery_fee, navigate } =
+    useContext(ShopContext);
 
   const [cartData, setCartData] = useState([]); //!empty array
   const [removeItem, setRemoveItem] = useState(delete_icon);
   //   const [quantityValue, setQuantityValue] = useState("");
 
-  const submitRef = useRef();
-
-  //   let { disabled } = submitRef.current;
-
-  //   const test = () => {
-  //     console.log("test");
-  //   };
-
   useEffect(() => {
-    const tempData = [];
-    for (const items in cartItems) {
-      for (const item in cartItems[items]) {
-        if (cartItems[items][item] > 0) {
-          tempData.push({
-            _id: items,
-            size: item,
-            quantity: cartItems[items][item],
-          });
+    if (products.length > 0) {
+      const tempData = [];
+      for (const items in cartItems) {
+        for (const item in cartItems[items]) {
+          if (cartItems[items][item] > 0) {
+            tempData.push({
+              _id: items,
+              size: item,
+              quantity: cartItems[items][item],
+            });
+          }
         }
       }
+      setCartData(tempData);
     }
-    setCartData(tempData);
-  }, [cartItems]);
+  }, [cartItems, products]);
   //   console.log("getCartAmount:-", getCartAmount());
 
   useEffect(() => {
@@ -93,20 +81,12 @@ const Cart = () => {
                 <div key={index}>
                   <div className='flex justify-between mt-5 '>
                     <div className='flex gap-4'>
-                      <img
-                        src={productData.images[0]}
-                        alt=''
-                        className='sm:size-[10rem] size-20'
-                      />
+                      <img src={productData.images[0]} alt='' className='sm:size-[10rem] size-20' />
                       <div className='flex flex-col'>
-                        <p className='font-medium truncate'>
-                          {productData.name}
-                        </p>
+                        <p className='font-medium truncate'>{productData.name}</p>
                         {/* <p className='text-gray-400'>{productData.description}</p> */}
                         <p className='text-gray-400'>{productData.category}</p>
-                        <p className='text-gray-400'>
-                          {productData.subCategory}
-                        </p>
+                        <p className='text-gray-400'>{productData.subCategory}</p>
                         <p className='text-gray-400'>Size: {item.size}</p>
                         <div className='flex'>
                           <label className='text-gray-400' htmlFor='quantity'>
@@ -117,11 +97,7 @@ const Cart = () => {
                             onChange={(e) =>
                               e.target.value === "" || e.target.value === "0"
                                 ? null
-                                : updateQuantity(
-                                    item._id,
-                                    item.size,
-                                    Number(e.target.value)
-                                  )
+                                : updateQuantity(item._id, item.size, Number(e.target.value))
                             }
                             type='number'
                             id='quantity'

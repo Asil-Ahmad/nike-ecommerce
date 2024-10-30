@@ -3,9 +3,10 @@ import jwt from "jsonwebtoken";
 import { v2 as cloudinary } from "cloudinary"; //add image
 import upload from "../middleware/multer.js"; //middleware
 
-// const createToken = (id) => {
-//   return jwt.sign({ id }, process.env.JWT_SECRET);
-// };
+const createToken = (id, name) => {
+  return jwt.sign({ id, name }, process.env.JWT_SECRET);
+};
+
 //!List all users in database
 const listUser = async (req, res) => {
   try {
@@ -79,9 +80,9 @@ const loginUser = async (req, res) => {
     }
 
     if (user.password === password) {
-      const { _id, email, name } = user;
-      const token = jwt.sign({ userId: _id, email: email, name: name }, process.env.JWT_SECRET);
-      res.status(200).json({ message: "User is login", token: token });
+      const { _id, name } = user;
+      const token = createToken(_id);
+      res.status(200).json({ message: "User is login", token, name });
     } else {
       res.status(400).json({ message: "Incorrect password" });
     }
