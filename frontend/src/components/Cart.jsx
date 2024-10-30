@@ -7,6 +7,7 @@ import Loader from "../constants/Loader";
 import { delete_icon, delete_icon_solid } from "../assets/icons";
 import CartSummary from "./CartSummary";
 import Transitions from "./Transitions";
+import axios from "axios";
 
 const Cart = () => {
   const { products, cartItems, updateQuantity, getCartAmount, delivery_fee, navigate } =
