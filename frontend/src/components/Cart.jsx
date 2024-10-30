@@ -35,6 +35,7 @@ const Cart = () => {
     }
   }, [cartItems, products]);
   //   console.log("getCartAmount:-", getCartAmount());
+  document.title = "Cart" + `${cartData?.length > 0 ? `(${cartData.length})` : ""}`;
 
   useEffect(() => {
     window.scroll(0, 0); //!Rememmber to not using any dependancy like cartitems otherwise it will trigger always if we change quantity

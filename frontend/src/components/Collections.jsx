@@ -14,6 +14,7 @@ const Collections = () => {
   const [category, setCategory] = useState([]);
   const [subCategory, setSubCategory] = useState([]);
   const [sortType, setSortType] = useState("revelant");
+  document.title = "Collections";
 
   // const noImageAvailable = "https://via.placeholder.com/300x300?text=No+Image";
 
@@ -60,9 +61,7 @@ const Collections = () => {
     }
 
     if (subCategory.length > 0) {
-      filtered = filtered.filter((item) =>
-        subCategory.includes(item.subCategory)
-      );
+      filtered = filtered.filter((item) => subCategory.includes(item.subCategory));
     }
     if (sortType === "low-high") {
       filtered.sort((a, b) => a.price - b.price); // Ascending order
@@ -75,20 +74,15 @@ const Collections = () => {
   useEffect(() => {
     //!scroll to top
     applyFilter();
-  }, [category, subCategory, sortType,products]);
+  }, [category, subCategory, sortType, products]);
 
   return (
     <div className='sm:container container-none'>
       {/* -----------//!Main Sticky bar------------ */}
       <div className=' py-5  px-2  flex sm:justify-between max-sm:flex-col items-center sticky z-20 bg-white top-0'>
-        <h1 className='text-2xl font-medium'>
-          All Collections {filteredProducts.length}
-        </h1>
+        <h1 className='text-2xl font-medium'>All Collections {filteredProducts.length}</h1>
         <div className='pr-5'>
-          <select
-            onChange={(e) => setSortType(e.target.value)}
-            className=' border border-black'
-          >
+          <select onChange={(e) => setSortType(e.target.value)} className=' border border-black'>
             <option value='revelent'>Revelant</option>
             <option value='low-high'>Low to High</option>
             <option value='high-low'>High to Low</option>
@@ -210,15 +204,11 @@ const Collections = () => {
                   />
 
                   <div className='px-2'>
-                    <p className=' font-medium text-md mt-5 truncate'>
-                      {item.name}
-                    </p>
+                    <p className=' font-medium text-md mt-5 truncate'>{item.name}</p>
                     <p className='text-gray-500 font-light'>
                       {item.category}&nbsp;{item.subCategory}
                     </p>
-                    <p className='text-md font-semibold mt-4 '>
-                      MRP ${item.price}
-                    </p>
+                    <p className='text-md font-semibold mt-4 '>MRP ${item.price}</p>
                   </div>
                 </Link>
               ))

@@ -1,6 +1,7 @@
 import React, { useContext, useEffect, useState } from "react";
 import {
   cart,
+  cross,
   hamburger,
   navlinks,
   nike,
@@ -158,16 +159,22 @@ const Navbar = () => {
           />
           <div
             className={`fixed z-40 top-0 right-0 bottom-0 overflow-hidden
-            transition-all duration-500
+            transition-all duration-200
            flex flex-col gap-5 justify-center 
-            items-center ${open ? "w-[100%] h-screen  bg-black dark:bg-white" : "w-0 h-screen"}`}
+            items-center ${open ? "w-[80%] bg-white" : "w-0 "}`}
           >
+            <NavLink
+              className=' w-full text-black text-center absolute top-[10%] left-[86%]'
+              onClick={() => setOpen(!open)}
+            >
+              <img src={cross} alt="" className="w-7" />
+            </NavLink>
             {navlinks.map((navlink, index) => (
               <NavLink
                 key={index}
                 className={({ isActive }) =>
-                  `px-0.5 hover:bg-black w-full text-center hover:text-white   ${
-                    isActive ? "bg-black text-white py-2 font-bold" : " text-black"
+                  `px-5 hover:bg-black w-full text-start hover:text-white text-2xl   ${
+                    isActive ? "bg-black text-white py-2 " : " text-black"
                   }`
                 }
                 onClick={() => setOpen(false)}
@@ -176,12 +183,7 @@ const Navbar = () => {
                 {navlink.label}
               </NavLink>
             ))}
-            <NavLink
-              className='bg-black w-full text-white text-center p-1'
-              onClick={() => setOpen(!open)}
-            >
-              Back
-            </NavLink>
+            
           </div>
         </div>
       </nav>
