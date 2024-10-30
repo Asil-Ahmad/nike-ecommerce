@@ -19,11 +19,12 @@ const MenCollections = () => {
   const [menProducts, setMenProducts] = useState([]);
 
   const menLatestCollections = () => {
-    let filterCopy = products
+    let filterCopy = products;
     console.log(filterCopy);
-    
+
     filterCopy = filterCopy.filter((item) => item.menBestSeller === true);
     setMenProducts(filterCopy);
+    console.log(menProducts);
   };
 
   useEffect(() => {
@@ -85,7 +86,8 @@ const MenCollections = () => {
                 key={index}
                 className='sm:min-w-[415px] sm:max-w-[580px] min-w-[300px] max-w-[423px]'
               >
-                <Featured image={product.imgURL} title={product.title} />
+              
+                <Featured image={product.images[0]} title={product.name} id={product._id} />
               </div>
             ))}
           </div>
