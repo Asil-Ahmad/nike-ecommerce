@@ -2,6 +2,8 @@ import userModel from "../models/userModel.js";
 import jwt from "jsonwebtoken";
 import { v2 as cloudinary } from "cloudinary"; //add image
 import upload from "../middleware/multer.js"; //middleware
+import validator from "validator";
+import bcrypt from "bcrypt";
 
 const createToken = (id, name) => {
   return jwt.sign({ id, name }, process.env.JWT_SECRET);
@@ -35,13 +37,17 @@ const registerUser = async (req, res) => {
     if (password.length < 8) {
       return res.status(400).json({ success: false, message: "Use a strong password" });
     }
+    //!if above conditions are correct then we go here
+    //!todo Hashing user password
+    const salt = await bcrypt.genSalt(10); //!this will create a random 10 letter password to save in database
+    const hashedPassword = await bcrypt.hash(password, salt);
 
     //  console.log(email, name, password,imageUpload);
     // //!here we send data to mongodb
     const userData = {
       email,
       name,
-      password,
+      password: hashedPassword,
       image: imageUrl,
     };
 
@@ -78,8 +84,8 @@ const loginUser = async (req, res) => {
     if (!user) {
       return res.status(400).json({ success: false, message: "User doesnt exist" });
     }
-
-    if (user.password === password) {
+    const isPasswordMatch = await bcrypt.compare(password, user.password);
+    if (isPasswordMatch) {
       const { _id, name } = user;
       const token = createToken(_id);
       res.status(200).json({ message: "User is login", token, name });
