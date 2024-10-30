@@ -14,6 +14,7 @@ import { ShopContext } from "../context/ShopContext";
 import { gsap } from "gsap";
 import { useGSAP } from "@gsap/react";
 
+
 const Navbar = () => {
   const [visible, setVisible] = useState(true);
   const [openProfileMenu, setOpenProfileMenu] = useState(false);
