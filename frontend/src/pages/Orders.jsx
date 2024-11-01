@@ -7,7 +7,7 @@ const Orders = () => {
   const [change, setChange] = useState("Order in progress");
   const [loading, setLoading] = useState(false);
 
-  console.log("Orders.jsx",cartItems);
+  // console.log("Orders.jsx",cartItems);
   
   const trackOrder = () => {
     setLoading(true);
