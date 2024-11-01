@@ -34,7 +34,15 @@ const Navbar = () => {
     gsap.from(".profile-bg", {
       height: 0,
     });
-  }, [openProfileMenu]);
+    gsap.from(
+      ".popsearch",
+      {
+        opacity: 1,
+        delay: 0.1,
+        stagger: 0.1,
+      }
+    );
+  }, [openProfileMenu, open]);
 
   return (
     <header className='relative'>
@@ -167,14 +175,14 @@ const Navbar = () => {
               className=' w-full text-black text-center absolute top-[10%] left-[86%]'
               onClick={() => setOpen(!open)}
             >
-              <img src={cross} alt="" className="w-7" />
+              <img src={cross} alt='' className='w-7' />
             </NavLink>
             {navlinks.map((navlink, index) => (
               <NavLink
                 key={index}
                 className={({ isActive }) =>
-                  `px-5 hover:bg-black w-full text-start hover:text-white text-2xl   ${
-                    isActive ? "bg-black text-white py-2 " : " text-black"
+                  `px-5 popsearch hover:bg-black w-full text-start hover:text-white text-2xl   ${
+                    isActive ? "bg-black text-white py-2 " : " text-black "
                   }`
                 }
                 onClick={() => setOpen(false)}
@@ -183,7 +191,6 @@ const Navbar = () => {
                 {navlink.label}
               </NavLink>
             ))}
-            
           </div>
         </div>
       </nav>

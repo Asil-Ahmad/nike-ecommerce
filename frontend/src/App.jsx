@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useContext, useState } from "react";
 import { Suspense } from "react";
 import Navbar from "./components/Navbar";
 import { Routes, Route, useLocation } from "react-router-dom";
@@ -21,8 +21,11 @@ import Checkout from "./pages/Checkout";
 import Orders from "./pages/Orders";
 import Protected from "./protectedRoutes/ProtectedRoutes";
 
-import { ToastContainer} from "react-toastify";
+import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import Preloader from "./constants/Preloader";
+import { ShopContext } from "./context/ShopContext";
+
 
 //React lazy
 const Collections = React.lazy(() => import("./components/Collections"));
@@ -30,8 +33,14 @@ const Collections = React.lazy(() => import("./components/Collections"));
 const App = () => {
   const { pathname } = useLocation();
   const footerHidden = ["/login", "/register", "/admin"].includes(pathname);
+  const [loading, setLoading] = useState(false);
+  const { products } = useContext(ShopContext);
+  // console.log(products);
+  
 
-  return (
+  return products.length == 0 ? (
+    <Preloader />
+  ) : (
     <div>
       <ToastContainer />
       <Navbar />
