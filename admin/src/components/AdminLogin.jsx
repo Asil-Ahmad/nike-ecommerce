@@ -10,7 +10,6 @@ const AdminLogin = ({ setToken }) => {
 
   const [email, setEmail] = useState("ask@ask.com");
   const [password, setPassword] = useState("12345678");
-  const [loading, setLoading] = useState(false);
 
   document.title = "Admin Login";
 
@@ -24,6 +23,7 @@ const AdminLogin = ({ setToken }) => {
       if (response.data.message) {
         const { token } = response.data;
         setToken(token);
+        navigate("/add");
       } else {
         toast.error(response.data.message);
       }
@@ -60,8 +60,8 @@ const AdminLogin = ({ setToken }) => {
         />
         <input
           type='submit'
-          value='Yes'
-          className='text-black mt-5 cursor-pointer  bg-white px-4 py-2 rounded-full'
+          value='Login'
+          className='text-white mt-5 cursor-pointer  bg-black px-4 py-2 rounded-full'
         />
 
         {/* <input
