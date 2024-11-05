@@ -45,7 +45,7 @@ const App = () => {
     <Transitions>
 
   
-    <div>
+    <div className="bg-white">
       <ToastContainer />
       <Navbar />
       <SearchBar />

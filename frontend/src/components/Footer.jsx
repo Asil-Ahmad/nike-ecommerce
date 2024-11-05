@@ -2,7 +2,7 @@ import React from "react";
 
 const Footer = () => {
   return (
-    <div className='container py-10'>
+    <div className='container py-10 '>
       <hr className='mb-10' />
       <div className='sm:grid sm:grid-cols-4 sm:grid-rows-1 flex flex-col gap-4'>
         <div>

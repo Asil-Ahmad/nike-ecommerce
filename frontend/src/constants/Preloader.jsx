@@ -2,11 +2,9 @@ import React, { useState, useEffect, useContext } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { nike } from "../assets/icons";
 
-
 const Preloader = () => {
   const words = ["NIKE", 1];
   const [index, setIndex] = useState(0);
-
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -18,7 +16,7 @@ const Preloader = () => {
   }, []);
 
   return (
-    <div className='h-screen text-center content-center bg-black'>
+    <div className='h-screen text-center content-center bg-[#282828]'>
       <AnimatePresence mode='wait'>
         {typeof words[index] === "string" ? (
           <motion.h1
@@ -27,7 +25,7 @@ const Preloader = () => {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.5 }}
-            className='text-center font-anton font-display text-4xl text-gray-200  tracking-widest drop-shadow-sm'
+            className='text-center italic font-anton font-display text-4xl text-gray-200  tracking-widest drop-shadow-sm'
           >
             {words[index]}
           </motion.h1>

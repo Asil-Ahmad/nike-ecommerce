@@ -11,7 +11,7 @@ const Product = () => {
   const { products, addToCart, getCartCount } = useContext(ShopContext);
 
   const { productId } = useParams();
-  const [currentProduct, setCurrentProduct] = useState("");
+  const [currentProduct, setCurrentProduct] = useState(false);
   const [image, setImage] = useState("");
   const [size, setSize] = useState("");
   const [open, setOpen] = useState(false);
@@ -25,7 +25,8 @@ const Product = () => {
         setCurrentProduct(item);
         setImage(item.images[0]);
       }
-      // console.log(item);
+      console.log(item);
+      return null;
     });
   };
 
@@ -44,6 +45,26 @@ const Product = () => {
     });
   }, [open, setOpen]);
 
+  const sizeError = () => {
+    if (size) {
+      addToCart(currentProduct._id, size), setOpen(true);
+      document.getElementById("size").innerHTML = "Select Size";
+      document.getElementById("size").style.color = "";
+      document.getElementById("shakeError").style.border = "";
+    } else {
+      document.getElementById("size").innerHTML = "Please Select the Size.";
+      document.getElementById("size").style.color = "red";
+      document.getElementById("shakeError").style.border = "1px solid red";
+      gsap.to("#shakeError", {
+        x: -10,
+        duration: 0.1,
+        ease: "power1.inOut",
+        yoyo: true,
+        repeat: 5,
+      });
+    }
+  };
+
   return (
     <Transitions>
       <div className='container py-10 relative  '>
@@ -51,12 +72,16 @@ const Product = () => {
           <div className='flex gap-5 justify-center sm:flex-row flex-col-reverse'>
             {/* //!side Small images */}
             <div className='flex sm:flex-col flex-row gap-2 overflow-x-auto '>
-              <img
-                src={image}
-                alt={currentProduct.name}
-                onMouseEnter={() => setImage(image)}
-                className='rounded-xl w-[100px] h-[100px] object-cover object-center'
-              />
+              {currentProduct.images &&
+                currentProduct.images.map((item, index) => (
+                  <img
+                    key={index} // Add a unique key for each image
+                    src={item}
+                    alt={currentProduct.name}
+                    onMouseEnter={() => setImage(item)}
+                    className='rounded-xl w-[100px] h-[100px] hover:bg-gray-200 object-cover object-center'
+                  />
+                ))}
             </div>
 
             {/* //!Main Product image  */}
@@ -78,15 +103,19 @@ const Product = () => {
             <p className='text-gray-400'>(Also includes all applicable duties)</p>
 
             {/* //!SELECT SIZE OF THE PRODUCTS------------------------------------- */}
-            <div className='pt-5'>
-              <p className='font-medium'>Select Size</p>
+            <div id='shakeError' className='p-2 border-transparent border-[1px] mt-2'>
+              <p id='size' className='font-medium'>
+                Select Size
+              </p>
               <div className='grid grid-cols-4 grid-rows-1 gap-2 pt-5'>
                 {currentProduct?.sizes?.map((item, index) => (
                   <button
                     onClick={() => setSize(item)}
                     key={index}
+                    id='test'
                     className={`border p-2 text-center hover:border-black cursor-pointer 
-                      ${item === size ? "border-black bg-gray-100" : ""} `}
+                      ${item === size ? "border-black bg-gray-100" : ""} 
+                     `}
                   >
                     {item}
                   </button>
@@ -95,13 +124,7 @@ const Product = () => {
             </div>
             {/* //! Add to cart button */}
             <button
-              onClick={() => {
-                if (size) {
-                  addToCart(currentProduct._id, size), setOpen(true);
-                } else {
-                  alert("Select the size");
-                }
-              }}
+              onClick={sizeError}
               className='bg-black hover:bg-black/50   mt-10 sticky bottom-2 text-white w-full text-center py-5 rounded-full'
               popovertarget='box'
             >
@@ -136,7 +159,7 @@ const Product = () => {
             id='box'
             //  popover='auto'
             className='bg-white overflow-hidden shadow-[rgba(0,_0,_0,_0.24)_0px_3px_8px] z-20 w-[300px] h-[300px] 
-            rounded-3xl p-4 absolute top-[10%] right-[6%] max-sm:right-0 '
+            rounded-3xl p-4 absolute top-[10%] right-[6%] max-sm:right-[5%]'
           >
             <div className='flex justify-between items-center'>
               <p className='flex gap-2'>
@@ -153,14 +176,15 @@ const Product = () => {
             <div className='py-4 flex gap-4'>
               <img src={image} alt='' className='w-20 h-20' />
               <div className='flex flex-col'>
-                <p className='font-medium truncate'>{currentProduct.name}</p>
+                <p className='font-medium truncate'>{currentProduct.name.slice(0,16)}...</p>
                 <p className='text-gray-400  text-sm'> {currentProduct.category}</p>
                 <p className='text-gray-400  text-sm'>{currentProduct.subCategory}</p>
                 <p className='text-gray-400  text-sm'>Size: {size}</p>
                 <p className='text-gray-400  text-sm'>MRP: $ {currentProduct.price}.00</p>
-                <p className='text-gray-400 text-sm'>
-                  Inclusive of all taxes <br /> (Also includes all applicable duties)
-                </p>
+                <p className='text-gray-400 text-sm'>Inclusive of all taxes</p>
+                <small className='text-gray-400'>
+                 (Also includes all applicable duties)
+                </small>
               </div>
             </div>
             <div className='flex justify-between items-center'>

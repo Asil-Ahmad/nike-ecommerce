@@ -18,21 +18,21 @@ const Collections = () => {
 
   // const noImageAvailable = "https://via.placeholder.com/300x300?text=No+Image";
 
-  //!Turned off grid animation causing issue in mobile view select categories
-  // useGSAP(() => {
-  //   gsap.fromTo(
-  //     ".gridItems",
-  //     {
-  //       opacity: 0,
-  //       x: -20,
-  //     },
-  //     {
-  //       opacity: 1,
-  //       stagger: 0.2,
-  //       x: 0,
-  //     }
-  //   );
-  // }, [category,filteredProducts, subCategory, sortType]);
+  // !Turned off grid animation causing issue in mobile view select categories
+  useGSAP(() => {
+    gsap.fromTo(
+      ".gridItems",
+      {
+        opacity: 0,
+        scale:0.8
+      },
+      {
+        opacity: 1,
+        stagger: 0.2,
+        scale:1
+      }
+    );
+  }, [category,filteredProducts, subCategory, sortType]);
 
   //!--------------ALL CATEGORIES TOGGLE---------------------
   const toggleCategory = (e) => {
@@ -198,7 +198,7 @@ const Collections = () => {
                 >
                   <img
                     // src={item.image[0] ? item.image : noImageAvailable}
-                    src={item.images}
+                    src={item.images[0]}
                     alt={item.name}
                     className='hover:scale-105 object-cover object-center  duration-300'
                   />

@@ -2,9 +2,12 @@
 @tailwind components;
 @tailwind utilities;
 
-
 :root {
   --toastify-color-success: #121212;
+}
+
+body {
+  background: #282828;
 }
 
 .container {
@@ -27,6 +30,7 @@
   border-radius: 999px;
   padding: 22px;
   z-index: 10;
+  /* top: var(--swiper-navigation-top-offset, 40%); */
 }
 .swiper-button-prev:after {
   font-size: 12px;
@@ -38,6 +42,7 @@
   border-radius: 999px;
   padding: 22px;
   z-index: 10;
+  /* top: var(--swiper-navigation-top-offset, 40%); */
 }
 .swiper-button-next:after {
   font-size: 12px;
@@ -47,7 +52,6 @@
   border: 2px solid;
   border-color:red black black red
 } */
-
 
 /* !Below i added class name num for checkout address pincode so it wont show arrow up down */
 .num::-webkit-outer-spin-button,
