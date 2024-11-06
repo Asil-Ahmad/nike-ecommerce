@@ -1,18 +1,15 @@
 import mongoose from "mongoose";
 
 const orderSchema = new mongoose.Schema({
-  name: { type: String, required: true },
-  description: { type: String, required: true },
-  price: { type: Number, required: true },
-  images: { type: Array, required: true }, //!We adding multiple array of images thats why we added type Array
-  category: { type: String, required: true },
-  subCategory: { type: String, required: true },
-  sizes: { type: Array, required: true }, //!We adding multiple array of sizes thats why we added type Array
-  bestseller: { type: Boolean }, //!We adding it for true false
-  classic: { type: Boolean }, //!We adding it for true false
-  menBestSeller: { type: Boolean }, //!We adding it for true false
-  womenBestSeller: { type: Boolean }, //!We adding it for true false
-  date: { type: Number, required: true },
+  userId: { type: String, required: true },
+  items: { type: Array, required: true }, //show products data we have ordered
+  amount: { type: Number, required: true },
+  address: { type: Object, required: true },
+  status: { type: String, required: true, default: "Order Placed" },//When new order the status will be Order Placed
+  paymentMethod: { type: String, required: true },
+  payment: { type: Boolean, required: true, default: false }, //when new order is placed then by default payment will false,but when go gateway
+  //we make default true
+  date: { type: Number, required: true },//here we will use Date.now()
 });
 
 const orderModel = mongoose.models.order || mongoose.model("order", orderSchema);
