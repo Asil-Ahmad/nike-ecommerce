@@ -64,7 +64,7 @@ const Login = () => {
     <Loader />
   ) : (
     <Transitions>
-      <div className='container m-auto py-10 content-center xl:w-[30%] lg:w-[35%] md:w-[50%] sm:w-full'>
+      <div className='container m-auto h-full py-10 content-center xl:w-[30%] lg:w-[35%] md:w-[50%] sm:w-full'>
         <h1 className='  text-3xl tracking-wide'>Enter your name to join us or sign in.</h1>
 
         <form onSubmit={handleSubmit} className='flex flex-col m-auto  items-end py-10 gap-5'>
