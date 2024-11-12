@@ -41,7 +41,7 @@ const App = () => {
     <Preloader />
   ) : (
     <Transitions>
-      <div className='bg-white'>
+      <div className='bg-white h-full'>
         <ToastContainer />
         <Navbar />
         <SearchBar />
@@ -76,7 +76,8 @@ const App = () => {
 
           <Route path='*' element={<NotFound />} />
         </Routes>
-        {!footerHidden && <Footer />}
+        {/* {!footerHidden && <Footer />} */}
+        <Footer />
       </div>
     </Transitions>
   );
