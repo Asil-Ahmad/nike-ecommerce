@@ -55,7 +55,7 @@ const ShopContextProvider = (props) => {
       try {
         await axios.post(backendURL + "/api/cart/add", { itemId, size }, { headers: { token } });
       } catch (error) {
-        console.log(error);
+        error;
         toast.error(error.message);
       }
     }
@@ -90,7 +90,7 @@ const ShopContextProvider = (props) => {
           { headers: { token } }
         );
       } catch (error) {
-        console.log(error);
+        error;
         toast.error(error.message);
       }
     }
@@ -115,11 +115,11 @@ const ShopContextProvider = (props) => {
   const getProductsData = async () => {
     try {
       const response = await axios.get(backendURL + "/api/product/list-products");
-      // console.log(response.data);
+      // (response.data);
       const { products } = response.data;
       if (response.data.success) {
         setProducts(products);
-        // console.log(products);
+        // (products);
       } else {
         toast.error(response.data.message);
       }
@@ -137,7 +137,7 @@ const ShopContextProvider = (props) => {
         setCartItems(response.data.cartData);
       }
     } catch (error) {
-      console.log(error.response.data);
+      error.response.data;
       // toast.error(error.message);
     }
   };
@@ -153,7 +153,7 @@ const ShopContextProvider = (props) => {
     getProductsData();
     getCartUser(localStorage.getItem("token"));
     setToken(localStorage.getItem("token"));
-    // console.log(token);
+    // (token);
   }, [token]);
   //as we login user we cant see cartItems so we added token dependency in useEffect so when it gets token we trigger cartItems
   //!fixed the bug on add to cart wont work after refresh the page in ShopContext.jsx >use Effect we forgot to add token to whole context of the app

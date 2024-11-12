@@ -8,7 +8,7 @@ const Orders = () => {
   const [loading, setLoading] = useState(false);
   const [orderData, setOrderData] = useState([]);
 
-  // console.log("Orders.jsx",cartItems);
+  // ("Orders.jsx",cartItems);
   const userOrders = async () => {
     try {
       if (!token) return null;
@@ -20,11 +20,11 @@ const Orders = () => {
         }
       );
       const { orders } = response.data; //destructure the res
-      console.log(orders);
+      orders;
       let allOrdersItems = [];
       orders.map((order) => {
         order.items.map((item) => {
-          console.log(order.status);
+          order.status;
           //This way, you have the payment information on each item, making it easier to handle the items individually,
           // but still know the status of the entire order in terms of payment.
           item["status"] = order.status;
@@ -36,7 +36,7 @@ const Orders = () => {
       });
       setOrderData(allOrdersItems.reverse());
     } catch (error) {
-      console.log(error);
+      error;
     }
   };
 

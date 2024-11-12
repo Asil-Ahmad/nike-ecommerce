@@ -25,7 +25,7 @@ const Product = () => {
         setCurrentProduct(item);
         setImage(item.images[0]);
       }
-      console.log(item);
+      item;
       return null;
     });
   };
@@ -34,7 +34,7 @@ const Product = () => {
     window.scroll(0, 0);
     fetchProduct();
 
-    // console.log(currentProduct.category);
+    // (currentProduct.category);
   }, [productId, products]); //!We have to add [productId] this otherwise it wont refresh the page as id changes
 
   useGSAP(() => {
@@ -176,15 +176,13 @@ const Product = () => {
             <div className='py-4 flex gap-4'>
               <img src={image} alt='' className='w-20 h-20' />
               <div className='flex flex-col'>
-                <p className='font-medium truncate'>{currentProduct.name.slice(0,16)}...</p>
+                <p className='font-medium truncate'>{currentProduct.name.slice(0, 16)}...</p>
                 <p className='text-gray-400  text-sm'> {currentProduct.category}</p>
                 <p className='text-gray-400  text-sm'>{currentProduct.subCategory}</p>
                 <p className='text-gray-400  text-sm'>Size: {size}</p>
                 <p className='text-gray-400  text-sm'>MRP: $ {currentProduct.price}.00</p>
                 <p className='text-gray-400 text-sm'>Inclusive of all taxes</p>
-                <small className='text-gray-400'>
-                 (Also includes all applicable duties)
-                </small>
+                <small className='text-gray-400'>(Also includes all applicable duties)</small>
               </div>
             </div>
             <div className='flex justify-between items-center'>

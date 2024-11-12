@@ -12,7 +12,7 @@ const Login = () => {
   const { url, user, setToken, navigate, backendURL } = useContext(ShopContext);
 
   // useEffect(() => {
-  //   console.log(user);
+  //   (user);
   // });
 
   //   const [users, setUsers] = useState({ username: "", password: "" });
@@ -25,7 +25,7 @@ const Login = () => {
   // const fetchUsers = async () => {
   //   try {
   //     const res = await axios.get(`${url}/api/user/login`);
-  //     console.log("Fetch users", res.data);
+  //     ("Fetch users", res.data);
   //   } catch (error) {}
   // };
   document.title = "Login";

@@ -34,7 +34,7 @@ const Cart = () => {
       setCartData(tempData);
     }
   }, [cartItems, products]);
-  //   console.log("getCartAmount:-", getCartAmount());
+  //   ("getCartAmount:-", getCartAmount());
   document.title = "Cart" + `${cartData?.length > 0 ? `(${cartData.length})` : ""}`;
 
   useEffect(() => {

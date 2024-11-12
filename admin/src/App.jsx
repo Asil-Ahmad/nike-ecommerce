@@ -6,7 +6,7 @@ import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 export const backendURL = import.meta.env.VITE_BACKEND_URL;
-console.log(backendURL);
+backendURL;
 
 const App = () => {
   const [token, setToken] = useState(

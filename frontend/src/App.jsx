@@ -27,7 +27,6 @@ import Preloader from "./constants/Preloader";
 import { ShopContext } from "./context/ShopContext";
 import Transitions from "./components/Transitions";
 
-
 //React lazy
 const Collections = React.lazy(() => import("./components/Collections"));
 
@@ -36,52 +35,49 @@ const App = () => {
   const footerHidden = ["/login", "/register", "/admin"].includes(pathname);
   const [loading, setLoading] = useState(false);
   const { products } = useContext(ShopContext);
-  // console.log(products);
-  
+  // (products);
 
   return products.length == 0 ? (
     <Preloader />
   ) : (
     <Transitions>
+      <div className='bg-white'>
+        <ToastContainer />
+        <Navbar />
+        <SearchBar />
 
-  
-    <div className="bg-white">
-      <ToastContainer />
-      <Navbar />
-      <SearchBar />
+        <Routes>
+          {/* //!This is protected routes only profile page visible when user is auth */}
+          <Route element={<Protected />}>
+            <Route path='/profile' element={<Profile />} />
+            <Route path='/checkout' element={<Checkout />} />
+            <Route path='/orders' element={<Orders />} />
+          </Route>
 
-      <Routes>
-        {/* //!This is protected routes only profile page visible when user is auth */}
-        <Route element={<Protected />}>
-          <Route path='/profile' element={<Profile />} />
-          <Route path='/checkout' element={<Checkout />} />
-          <Route path='/orders' element={<Orders />} />
-        </Route>
+          <Route path='/' element={<Home />} />
+          <Route path='/products/:productId' element={<Product />} />
+          <Route path='/men' element={<MenCollections />} />
+          <Route path='/women' element={<WomenCollections />} />
+          <Route path='/kids' element={<KidCollections />} />
+          <Route
+            path='/collections'
+            element={
+              <Suspense fallback={<Loader />}>
+                <Collections />
+              </Suspense>
+            }
+          />
+          <Route path='/women/collections' element={<Collections />} />
+          <Route path='/collections' element={<Collections />} />
+          <Route path='/register' element={<Register />} />
+          <Route path='/login' element={<Login />} />
 
-        <Route path='/' element={<Home />} />
-        <Route path='/products/:productId' element={<Product />} />
-        <Route path='/men' element={<MenCollections />} />
-        <Route path='/women' element={<WomenCollections />} />
-        <Route path='/kids' element={<KidCollections />} />
-        <Route
-          path='/collections'
-          element={
-            <Suspense fallback={<Loader />}>
-              <Collections />
-            </Suspense>
-          }
-        />
-        <Route path='/women/collections' element={<Collections />} />
-        <Route path='/collections' element={<Collections />} />
-        <Route path='/register' element={<Register />} />
-        <Route path='/login' element={<Login />} />
+          <Route path='/cart' element={<Cart />} />
 
-        <Route path='/cart' element={<Cart />} />
-
-        <Route path='*' element={<NotFound />} />
-      </Routes>
-      {!footerHidden && <Footer />}
-    </div>
+          <Route path='*' element={<NotFound />} />
+        </Routes>
+        {!footerHidden && <Footer />}
+      </div>
     </Transitions>
   );
 };

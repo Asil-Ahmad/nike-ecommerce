@@ -9,7 +9,7 @@ const List = ({ token }) => {
   const fetchProducts = async () => {
     try {
       const response = await axios.get(backendURL + "/api/product/list-products");
-      //   console.log(response.data);
+      //   (response.data);
 
       const { products, message } = response.data; //extracted products
 
@@ -32,7 +32,7 @@ const List = ({ token }) => {
           headers: { token },
         }
       );
-      console.log(response);
+      response;
 
       if (response.data) {
         toast.success(response.data.message);
@@ -41,7 +41,7 @@ const List = ({ token }) => {
         toast.error("hi");
       }
     } catch (error) {
-      console.log(error);
+      error;
     }
   };
 
@@ -52,7 +52,7 @@ const List = ({ token }) => {
     <div className='relative overflow-x-auto shadow-md '>
       <table className='w-full text-sm text-left rtl:text-right text-black'>
         <thead className='text-xs  text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400'>
-          <tr className="text-center">
+          <tr className='text-center'>
             <th scope='col' className='px-6 py-3'>
               Image
             </th>
@@ -73,10 +73,7 @@ const List = ({ token }) => {
         {list.map((item, index) => (
           <tbody key={index}>
             <tr className=' bg-gray-100 border-b text-center dark:border-gray-700'>
-              <th
-                scope='row'
-                className='px-6 py-4 flex justify-center'
-              >
+              <th scope='row' className='px-6 py-4 flex justify-center'>
                 <img src={item.images[0]} alt='' className='w-10' />
               </th>
               <td className='px-6 py-4'>{item.name}</td>

@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 
 const NotFound = () => {
   const navigate = useNavigate();
-  console.log(navigate);
+  navigate;
   return (
     <div className='text-center content-center h-[50vh]'>
       <h1 className='font-anton text-4xl'>Page Not Found!</h1>

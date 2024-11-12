@@ -20,7 +20,7 @@ const placeOrderCash = async (req, res) => {
     await userModel.findByIdAndUpdate(userId, { cartData: {} });
     res.status(200).json({ success: true, message: "Order Placed" });
   } catch (error) {
-    console.log(error);
+    error;
     res.status(400).json({ success: false, message: error.message });
   }
 };
@@ -48,7 +48,7 @@ const userOrders = async (req, res) => {
     const orders = await orderModel.find({ userId });
     res.status(200).json({ success: true, orders });
   } catch (error) {
-    console.log(error);
+    error;
     res.status(400).json({ success: false, message: error.message });
   }
 };
@@ -61,7 +61,7 @@ const updateStatus = async (req, res) => {
     await orderModel.findByIdAndUpdate(orderId, { status });
     res.status(200).json({ success: true, message: "Status updated" });
   } catch (error) {
-    console.log(error);
+    error;
     res.status(400).json({ success: false, message: error.message });
   }
 };

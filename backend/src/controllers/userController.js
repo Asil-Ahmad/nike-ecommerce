@@ -46,7 +46,7 @@ const registerUser = async (req, res) => {
     const salt = await bcrypt.genSalt(10); //!this will create a random 10 letter password to save in database
     const hashedPassword = await bcrypt.hash(password, salt);
 
-    //  console.log(email, name, password,imageUpload);
+    //  (email, name, password,imageUpload);
     // //!here we send data to mongodb
     const userData = {
       email,
@@ -60,7 +60,7 @@ const registerUser = async (req, res) => {
 
     res.status(200).json({ message: "User Added Succesfully" });
   } catch (error) {
-    console.log(error);
+    error;
   }
 };
 
@@ -83,7 +83,7 @@ const loginUser = async (req, res) => {
   try {
     const { email, password } = req.body;
     const user = await userModel.findOne({ email });
-    // console.log(email,password,user);
+    // (email,password,user);
 
     if (!user) {
       return res.status(400).json({ success: false, message: "User doesnt exist" });
@@ -103,7 +103,7 @@ const loginUser = async (req, res) => {
 
 const deleteUser = async (req, res) => {
   const userID = req.body.id;
-  console.log(userID);
+  userID;
 
   try {
     await userModel.findByIdAndDelete(userID);

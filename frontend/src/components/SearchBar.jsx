@@ -8,8 +8,7 @@ import { useGSAP } from "@gsap/react";
 import { useNavigate } from "react-router-dom";
 
 const SearchBar = () => {
-  const { search, setSearch, showSearch, setShowSearch, products } =
-    useContext(ShopContext);
+  const { search, setSearch, showSearch, setShowSearch, products } = useContext(ShopContext);
   const navigate = useNavigate();
 
   const [filterProducts, setFilterProducts] = useState([]);
@@ -31,7 +30,7 @@ const SearchBar = () => {
     applyFilter();
   }, [search, showSearch]);
 
-  // console.log(filterProducts);
+  // (filterProducts);
 
   useGSAP(() => {
     gsap.from(".popsearch,.searchItems,.logo,#cancel", {

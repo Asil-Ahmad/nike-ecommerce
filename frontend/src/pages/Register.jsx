@@ -11,7 +11,7 @@ import { toast } from "react-toastify";
 
 const Register = () => {
   const { url, backendURL } = useContext(ShopContext);
-  // console.log(url);
+  // (url);
 
   //   const [users, setUsers] = useState({ username: "", password: "" });
   //   const { username, password } = users; //!destructure the above usestate
@@ -25,7 +25,7 @@ const Register = () => {
   const fetchUsers = async () => {
     try {
       const res = await axios.get(`${backendURL}/api/user/list`);
-      // console.log(res.data.allUser);
+      // (res.data.allUser);
     } catch (error) {}
   };
 
@@ -51,10 +51,10 @@ const Register = () => {
         setImage(false); //!remember to set it to false
         toast.success(res.data.message);
       } else {
-        console.log("hello");
+        ("hello");
       }
     } catch (error) {
-      //console.log(error);
+      //(error);
       toast.error(error.response.data.message);
     } finally {
       setLoading(false);

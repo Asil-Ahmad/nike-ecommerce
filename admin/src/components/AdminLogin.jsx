@@ -19,7 +19,7 @@ const AdminLogin = ({ setToken }) => {
 
     try {
       const response = await axios.post(backendURL + "/api/user/admin", { email, password });
-      console.log(response.data);
+      response.data;
       if (response.data.message) {
         const { token } = response.data;
         setToken(token);
@@ -28,7 +28,7 @@ const AdminLogin = ({ setToken }) => {
         toast.error(response.data.message);
       }
     } catch (error) {
-      console.log(error);
+      error;
       toast.error(error.message);
     }
   };

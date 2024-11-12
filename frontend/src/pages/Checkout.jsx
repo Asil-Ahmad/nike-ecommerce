@@ -34,7 +34,7 @@ const Checkout = () => {
     const name = e.target.name;
     const value = e.target.value;
     setFormData((prev) => ({ ...prev, [name]: value }));
-    console.log(formData);
+    formData;
   };
 
   const onSubmitHandler = async (e) => {
@@ -54,7 +54,7 @@ const Checkout = () => {
           }
         }
       }
-      console.log(orderItems);
+      orderItems;
 
       let orderData = {
         address: formData,
@@ -73,7 +73,7 @@ const Checkout = () => {
             setCartItems({});
             navigate("/orders");
           } else {
-            console.log("An Error Occured");
+            ("An Error Occured");
           }
           break;
 
@@ -81,7 +81,7 @@ const Checkout = () => {
           break;
       }
     } catch (error) {
-      console.log(error);
+      error;
     }
   };
 

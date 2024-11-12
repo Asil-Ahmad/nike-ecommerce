@@ -14,13 +14,13 @@ const Orders = ({ token }) => {
     }
     try {
       const response = await axios.post(backendURL + "/api/order/list", {}, { headers: { token } });
-      console.log(response.data);
+      response.data;
 
       const { orders, success } = response.data; //extracted orders
 
       if (response.data.success) {
         setOrderList(orders);
-        console.log(orderList);
+        orderList;
       } else {
         toast.error(success);
       }
@@ -56,9 +56,8 @@ const Orders = ({ token }) => {
             key={index}
             className='grid grid-cols-4 grid-rows-1 mt-5 gap-10 py-3 px-5 border-2 border-gray-400 items-center'
           >
-            <div className="flex items-center w-full justify-center">
-
-            <img src={parcel} alt='orders' className='w-10 h-10' />
+            <div className='flex items-center w-full justify-center'>
+              <img src={parcel} alt='orders' className='w-10 h-10' />
             </div>
             <div>
               {order.items.map((item, index) => {

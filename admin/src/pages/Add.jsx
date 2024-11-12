@@ -19,7 +19,7 @@ const Add = ({ token }) => {
   const [womenBestSeller, setWomenBestSeller] = useState(false);
   const [loading, setLoading] = useState(false);
 
-  console.log(classic, menBestSeller, womenBestSeller);
+  classic, menBestSeller, womenBestSeller;
 
   const onSubmitHandler = async (e) => {
     e.preventDefault();
@@ -58,7 +58,7 @@ const Add = ({ token }) => {
       } else {
         toast.error("An error occured");
       }
-      console.log(response.data);
+      response.data;
     } catch (error) {
       toast.error("Invalid Admin");
     } finally {
@@ -295,8 +295,8 @@ const Add = ({ token }) => {
             </div>
           )}
         </div>
-          {/* //!--------------------------Special category------------------------------ */}
-          
+        {/* //!--------------------------Special category------------------------------ */}
+
         {/* //!BEST SELLER------------------------------ */}
         <div className='pt-5 flex gap-2 items-center'>
           <input

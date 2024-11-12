@@ -19,9 +19,9 @@ const addProducts = async (req, res) => {
     } = req.body;
     const images = req.files; //!to add multiple images
 
-    // console.log(name, description, price, category, subCategory, sizes, bestseller);
-    // console.log("images", images);
-    // console.log("Files", req.files);
+    // (name, description, price, category, subCategory, sizes, bestseller);
+    // ("images", images);
+    // ("Files", req.files);
 
     //!---------------------Sending multiple images to cloundinary----------------
     const imageUrls = [];
@@ -32,7 +32,7 @@ const addProducts = async (req, res) => {
       });
       imageUrls.push(imageUpload.secure_url);
     }
-    // console.log("Uploaded image URLs", imageUrls);
+    // ("Uploaded image URLs", imageUrls);
 
     const productData = {
       name,
@@ -49,7 +49,7 @@ const addProducts = async (req, res) => {
       images: imageUrls,
       date: Date.now(),
     };
-    // console.log(productData);
+    // (productData);
 
     const products = new productModel(productData);
     await products.save();
