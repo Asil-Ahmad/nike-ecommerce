@@ -32,7 +32,12 @@ const placeOrderStripe = async (req, res) => {};
 const placeOrderRazorpay = async (req, res) => {};
 
 //Show all orders on admin Panel
-const allOrders = async (req, res) => {};
+const allOrders = async (req, res) => {
+  try {
+    const orders = await orderModel.find({});
+    res.status(200).json({ success: true, orders });
+  } catch (error) {}
+};
 
 //Show User Order data for frontend
 //!this is to show what users has order in "/orders" in frontend
@@ -44,7 +49,7 @@ const userOrders = async (req, res) => {
     res.status(200).json({ success: true, orders });
   } catch (error) {
     console.log(error);
-    res.status(400).json({ success: false, message: error.message }); 
+    res.status(400).json({ success: false, message: error.message });
   }
 };
 
