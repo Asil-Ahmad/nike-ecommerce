@@ -35,7 +35,18 @@ const placeOrderRazorpay = async (req, res) => {};
 const allOrders = async (req, res) => {};
 
 //Show User Order data for frontend
-const userOrders = async (req, res) => {};
+//!this is to show what users has order in "/orders" in frontend
+const userOrders = async (req, res) => {
+  try {
+    const { userId } = req.body;
+    //we getting userID from auth.js middleware
+    const orders = await orderModel.find({ userId });
+    res.status(200).json({ success: true, orders });
+  } catch (error) {
+    console.log(error);
+    res.status(400).json({ success: false, message: error.message }); 
+  }
+};
 
 //update order status on click on admin Panel
 const updateStatus = async (req, res) => {};

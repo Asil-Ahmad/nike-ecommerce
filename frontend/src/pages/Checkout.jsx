@@ -5,7 +5,7 @@ import Transitions from "../components/Transitions";
 import { ShopContext } from "../context/ShopContext";
 import { toast } from "react-toastify";
 import axios from "axios";
-import { products } from "../assets/images";
+// import { products } from "../assets/images";
 
 const Checkout = () => {
   const {
