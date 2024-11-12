@@ -46,37 +46,26 @@ const Orders = () => {
 
   const trackOrder = () => {
     setLoading(true);
-    if (change) {
-      setChange("Arriving Soon");
-    }
+    userOrders();
     setTimeout(() => {
       setLoading(false);
     }, 2000);
   };
-  // const trackOrder = () => {
-  //   setLoading(true);
-  //   if (change) {
-  //     setChange("Arriving Soon");
-  //   }
-  //   setTimeout(() => {
-  //     setLoading(false);
-  //   }, 2000);
-  // };
   return (
-    <div className='container'>
+    <div className='container sm:w-3/4 w-full '>
       <h1 className='text-[1.75rem] font-medium py-10'>Orders</h1>
       <h2 className='text-[1.25rem] font-medium pb-5'>Esitmated Time of Arrival</h2>
 
-      <div className='flex gap-4 flex-col text-sm  w-full m-auto'>
+      <div className='flex gap-4 flex-col  w-full m-auto'>
         {orderData.map((item, index) => (
-          <div key={index} className='flex justify-between items-center'>
+          <div key={index} className='flex flex-wrap justify-between items-center'>
             {/* Render item image */}
             <div className='flex gap-2'>
               <img src={item.images[0]} alt={item.name} className='size-24' />
-              <div className='flex flex-col justify-center'>
-                <p>{item.name}</p>
-                <div className='flex gap-5 '>
-                  <p>${item.price}</p>
+              <div className='flex flex-col item-center justify-center '>
+                <p className=''>{item.name.slice(0, 15)}</p>
+                <div className='flex gap-2 '>
+                  <p className='min-w-[38px]'>${item.price}</p>
                   <p>Quantity: {item.quantity}</p>
                   <p>Size: {item.size}</p>
                 </div>
@@ -90,12 +79,13 @@ const Orders = () => {
             </div>
 
             {/* Loading state or item change */}
-            {loading ? <SmallLoader /> : <p className='text-center min-w-24'>{item.status}</p>}
+            {/* {loading ? <SmallLoader /> : <p className='text-center min-w-24'>{item.status}</p>} */}
+            <p className='text-center min-w-24 max-sm:mt-5 '>{item.status}</p>
 
             {/* Track Order Button */}
             <button
               onClick={trackOrder} // Pass orderId for tracking
-              className='border border-gray-300 sm:px-2 sm:py-2 max-sm:text-sm rounded-md'
+              className='border border-gray-300 sm:px-2 sm:py-2 p-1 max-sm:text-sm max-sm:mt-5 rounded-md'
             >
               Track order
             </button>

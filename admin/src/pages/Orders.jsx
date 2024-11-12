@@ -29,6 +29,21 @@ const Orders = ({ token }) => {
     }
   };
 
+  const orderUpdateStatus = async (e, orderId) => {
+    try {
+      const response = await axios.post(
+        backendURL + "/api/order/status",
+        { orderId, status: e.target.value },
+        { headers: { token } }
+      );
+      if (response.data.success) {
+        await fetchOrders();
+      }
+    } catch (error) {
+      toast.error(error.message);
+    }
+  };
+
   useEffect(() => {
     fetchOrders();
   }, [token]);
@@ -39,9 +54,12 @@ const Orders = ({ token }) => {
         {orderList.map((order, index) => (
           <div
             key={index}
-            className='grid grid-cols-4 grid-rows-1 mt-5 py-3 border-2 border-gray-400 justify-center items-center'
+            className='grid grid-cols-4 grid-rows-1 mt-5 gap-10 py-3 px-5 border-2 border-gray-400 items-center'
           >
+            <div className="flex items-center w-full justify-center">
+
             <img src={parcel} alt='orders' className='w-10 h-10' />
+            </div>
             <div>
               {order.items.map((item, index) => {
                 if (order.items.length > 0) {
@@ -49,7 +67,6 @@ const Orders = ({ token }) => {
                     <p key={index}>
                       {item.name} x {item.quantity}
                     </p>
-                    
                   );
                 }
               })}
@@ -64,7 +81,7 @@ const Orders = ({ token }) => {
 
               <p>{new Date(order.date).toLocaleDateString()}</p>
             </div>
-            <select value={order.status}>
+            <select onChange={(e) => orderUpdateStatus(e, order._id)} value={order.status}>
               <option value='Order Placed'>Order Placed</option>
               <option value='Packing'>Packing</option>
               <option value='Shipping'>Shipping</option>
